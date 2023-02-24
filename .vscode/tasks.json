@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"problemMatcher": [],
+			"group": "build",
+			"label": "npm: build - tabler-template-svelte---",
+			"detail": "vite build",
+		}
+	]
+}

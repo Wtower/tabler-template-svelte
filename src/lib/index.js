@@ -1,2 +1,2 @@
 // Reexport your entry components here
-// export { default as default } from './Test.svelte';
+// export {default as Label} from './form/label.svelte';
