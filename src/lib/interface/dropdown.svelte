@@ -1,5 +1,4 @@
 <script>
-    import { link } from 'svelte-routing';
     import Badge from "./badge.svelte";
 
     export let path = '';
@@ -30,8 +29,7 @@
                                 data-bs-auto-close="outside"
                                 role="button"
                                 aria-expanded="false"
-                                href={column_item.href ?? '#navbar-base'}
-                                use:link>
+                                href={column_item.href ?? '#navbar-base'}>
                                 {#if column_item.icon}
                                     {@html column_item.icon}
                                 {/if}
@@ -54,8 +52,7 @@
                         <a class="dropdown-item" 
                             class:active={path === column_item.href}
                             class:disabled={column_item.disabled}
-                            href={column_item.href ?? '#navbar-base'}
-                            use:link>
+                            href={column_item.href ?? '#navbar-base'}>
                             {#if column_item.icon}
                                 {@html column_item.icon}&nbsp;
                             {/if}
