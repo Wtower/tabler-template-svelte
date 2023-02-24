@@ -1,5 +1,4 @@
 <script>
-    import { link } from 'svelte-routing';
     import Dropdown from './dropdown.svelte';
 
     export let path;
@@ -21,7 +20,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-            <a href="/" class="no-text-decoration" use:link>
+            <a href="/" class="no-text-decoration">
                 <!-- <img src={logo} height="32" alt="Tabler" class="navbar-brand-image"> -->
                 <slot name="h1">{@html brand}</slot>
             </a>
@@ -170,8 +169,7 @@
                             <li class="nav-item" 
                                 class:active={path === menu_item.href}>
                                 <a class="nav-link" 
-                                    href={menu_item.href ?? '#navbar-base'}
-                                    use:link>
+                                    href={menu_item.href ?? '#navbar-base'}>
                                     {#if menu_item.icon}
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             {@html menu_item.icon}
