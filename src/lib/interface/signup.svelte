@@ -1,35 +1,65 @@
+<script>
+    import Text from '../form/text.svelte';
+    import Password from '../form/password.svelte';
+    import Checkboxes from '../form/checkboxes.svelte';
+
+    /**
+     * Html to display as brand on header.
+	 * @type {string}
+	 */
+    export let brand;
+
+    /**
+     * Username
+	 * @type {string}
+	 */
+    export let username;
+
+    /**
+     * Email
+	 * @type {string}
+	 */
+    export let email;
+
+    /**
+     * Password
+     * @type {string}
+     */
+    export let password;
+</script>
+
+<!-- 
+@component
+Signup interface component.
+-->
 <div class="container container-tight py-4">
         <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logo.svg" height="36" alt=""></a>
+            <a href="." class="navbar-brand navbar-brand-autodark">
+                <slot name="h1">{@html brand}</slot>
+            </a>
         </div>
         <form class="card card-md" action="./" method="get" autocomplete="off" novalidate>
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">Create new account</h2>
-                <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter name">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Email address</label>
-                    <input type="email" class="form-control" placeholder="Enter email">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <div class="input-group input-group-flat">
-                        <input type="password" class="form-control"    placeholder="Password"    autocomplete="off">
-                        <span class="input-group-text">
-                            <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" /></svg>
-                            </a>
-                        </span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-check">
-                        <input type="checkbox" class="form-check-input"/>
-                        <span class="form-check-label">Agree the <a href="./terms-of-service.html" tabindex="-1">terms and policy</a>.</span>
-                    </label>
-                </div>
+                <Text id="username" placeholder="Enter name" bind:value={username}>Name</Text>
+                <Text id="email" type="email" placeholder="Enter email" bind:value={email}>
+                    Email address
+                </Text>
+                <Password id="password"
+                    placeholder="Password" 
+                    bind:value={password}>
+                    Password
+                    <svelte:fragment slot="description">
+                        <a href="#forgot-password">Forgot your password?</a>
+                    </svelte:fragment>
+                </Password>
+                <Checkboxes name="terms" 
+                    checkboxes={[{
+                        v: false,
+                        t: '',
+                        html: `Agree with <a href="./terms-of-service.html" tabindex="-1">terms and policy</a>`
+                    }]} 
+                    value={[]} />
                 <div class="form-footer">
                     <button type="submit" class="btn btn-primary w-100">Create new account</button>
                 </div>
