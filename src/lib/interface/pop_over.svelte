@@ -1,12 +1,30 @@
 <script>
-    // https://betterprogramming.pub/create-a-popover-in-svelte-fe7dd2eeebb1
     import { fade } from 'svelte/transition';
 
+    /**
+     * Control if visible.
+     * @type {boolean}
+     */
     let visible = false;
+
+    /**
+     * Extra styling.
+     * @type{string}
+     */
     let extra_style = '';
     export { extra_style as style };
 </script>
 
+<!-- 
+@component
+Popover component.
+https://betterprogramming.pub/create-a-popover-in-svelte-fe7dd2eeebb1
+
+Slots
+- default
+- content
+- close_text
+-->
 <div class="popover-wrapper">
     <span class="popover-trigger form-help" 
         on:click|stopPropagation={() => (visible = !visible)}

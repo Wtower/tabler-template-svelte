@@ -1,12 +1,51 @@
 <script>
     import Badge from "./badge.svelte";
 
+    /**
+     * The current path.
+     * @type {string}
+     */
     export let path = '';
+
+    /**
+     * The menu item.
+	 * @type {{ 
+     *  menu: Array.<Array.<{
+     *      header?: string,
+     *      disabled?: boolean,
+     *      href?: string, 
+     *      title?: string, 
+     *      icon?: string, 
+     *      badge?: {color?: 'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text: string},
+     *      divider?: boolean,
+     *      menu?: Array.<{
+     *          href?: string, 
+     *          title?: string, 
+     *          icon?: string, 
+     *          badge?: {color?: 'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text: string},
+     *          divider?: boolean,
+     *      }>
+     * }>>}}
+	 */
     export let menu_item;
-    export let arrow = ''; // Draws an arrow pointing up at `start` or `end` corner.
-    export let invert = false; // Inverted colors.
+
+    /**
+     * Draws an arrow pointing up at `start` or `end` corner.
+     * @type {string}
+     */
+    export let arrow = '';
+
+    /**
+     * Inverted colors.
+     * @type {boolean}
+     */
+    export let invert = false;
 </script>
 
+<!-- 
+@component
+Dropdown menu component.
+-->
 <div class="dropdown-menu"
     class:dropdown-menu-arrow={arrow}
     class:dropdown-menu-end={arrow === 'end'}

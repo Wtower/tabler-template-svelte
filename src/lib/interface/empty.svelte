@@ -1,15 +1,78 @@
 <script>
     import Dropdown from './dropdown.svelte';
 
+    /**
+     * The current path.
+     * @type {string}
+     */
     export let path;
+
+    /**
+     * Html to render as branding at header.
+     * @type {string}
+     */
     export let brand;
+    
+    /**
+     * Current user.
+	 * @type {{ username: any; email: any; }}
+	 */
     export let user;
+    
+    /**
+     * Notifications.
+	 * @type {string | any[]}
+	 */
     export let notifications;
+    
+    /**
+	 * Main menu configuration.
+	 * @type {any|Array.<{
+	 *  href?: string, 
+	 *  title?: string, 
+	 *  icon?: string, 
+	 *  badge?: {color?: string, text: string},
+	 *  divider?: boolean,
+	 *  menu?: Array.<Array.<{
+	 *      href?: string, 
+	 *      title?: string, 
+	 *      icon?: string, 
+	 *      badge?: {color?: string, text: string},
+	 *      divider?: boolean,
+	 *      menu?: Array.<{
+	 *          href?: string, 
+	 *          title?: string, 
+	 *          icon?: string, 
+	 *          badge?: {color?: string, text: string},
+	 *          divider?: boolean,
+	 *      }>
+	 *  }>>
+	 * }>}
+	 */
     export let menu;
+    
+    /**
+     * Footer menu.
+	 * @type {Array.<{
+	 *  href?: string, 
+	 *  title?: string, 
+	 *  icon?: string, 
+     *  target?: string,
+     * }>}
+	 */
     export let footer_menu;
+    
+    /**
+     * The footer notice.
+	 * @type {Array.<string>}
+	 */
     export let footer_notice;
 </script>
 
+<!-- 
+@component
+Empty page layout.
+-->
 <header class="navbar navbar-expand-md navbar-light d-print-none">
     <div class="container-xl">
         <button 
@@ -148,7 +211,7 @@
                             <!-- https://stackoverflow.com/questions/10865025/merge-flatten-an-array-of-arrays -->
                             <!-- {menu_item.menu.flat().map(a => a.href)} -->
                             <li class="nav-item dropdown" 
-                                class:active={menu_item.menu.flat().map(a => a.href).includes(path)}>
+                                class:active={menu_item.menu.flat().map((/** @type {{ href: any; }} */ a) => a.href).includes(path)}>
                                 <a class="nav-link dropdown-toggle" 
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside"

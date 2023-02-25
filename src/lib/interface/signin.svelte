@@ -3,8 +3,22 @@
     import Password from '../form/password.svelte';
     import Checkboxes from '../form/checkboxes.svelte';
 
+    /**
+     * Html to display as brand on header.
+	 * @type {string}
+	 */
     export let brand;
+
+    /**
+     * Username
+	 * @type {string}
+	 */
     export let username;
+
+    /**
+     * Password
+     * @type {string}
+     */
     export let password;
 </script>
 

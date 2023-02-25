@@ -2,32 +2,128 @@
     import Wrapper from "../interface/wrapper.svelte";
     import Label from "./label.svelte";
 
-    // For parameter definition see `input_group.svelte`
+    /** 
+     * Extra classes for the wrapper element, or `mb-3`.
+     * @type {string?} 
+     */
     let extra_class = null;
     export { extra_class as class };
-    export let id;
+
+    /**
+     * The wrapper element or null.
+     * @type {string?}
+     */
     export let wrapper = 'div';
-    
+
+    /** 
+     * The input id and the associated label.
+     * @type {string} 
+     */
+    export let id;
+
+    /**
+     * The number of rows.
+     * If auto-resize, the starting rows.
+     * @type {number}
+     */
     export let rows = 2;
+
+    /**
+     * The input placeholder.
+     * @type {string}
+     */
     export let placeholder = '';
+
+    /**
+     * Disable the autocomplete.
+	 * @type {'off'|'on'|null}
+	 */
     export let autocomplete = null;
+
+    /**
+     * Whether the select box is disabled.
+     * @type {boolean}
+     */
     export let disabled = false;
+
+    /**
+     * Whether the select box is read-only.
+     * @type {boolean}
+     */
     export let readonly = false;
+
+    /**
+     * Whether a value is required. It outputs a * on label and initiates validation.
+     * @type {boolean}
+     */
     export let required = false;
+
+    /** 
+     * The input border. If non provided then it uses default.
+     * @type {'rounded'|'none'|null} 
+     */
     export let border = null; // 'rounded'|'none'
 
+    /**
+     * The maximum text length.
+     * @type {number?}
+     */
     export let maxlength = null;
-    export let maxlength_counter = null; // If provided it shows a counter
+
+    /**
+     * The maximum soft-limit text length.
+     * If provided it shows a counter.
+     * @type {number?}
+     */
+    export let maxlength_counter = null;
     
+    /**
+     * The maximum number of rows for auto-resize.
+     * @type {number}
+     */
     export let max_rows = 20;
-    export let line_height = 20; // px
+
+    /**
+     * The line height in px to calculate the auto-resize.
+     * @type {number}
+     */
+    export let line_height = 20;
+
+    /**
+     * Whether to enable auto-resize.
+     * @type {boolean}
+     */
     export let auto_resize = false;
     
+    /**
+     * The bound value.
+	 * @type {string}
+	 */
     export let value;
 
+    /**
+	 * A regular expression for validation.
+	 * @type {RegExp?}
+	 */
     export let validation_regex = null;
+
+    /**
+     * Whether to display a red/green border if valid/invalid.
+     * @type {boolean}
+     */
     export let validation_lite = false;
+
+    /**
+     * Whether the user has changed the field.
+     * Exported in case the parent wants to check upon.
+     * @type {boolean}
+     */
     export let is_touched = false;
+
+    /**
+     * Check that the field is valid, only if touched and required.
+	 * @type {boolean?}
+	 */
     export let is_valid = null;
     $: is_valid = !is_touched? null: [
         required? !!value.length: null,
@@ -37,6 +133,15 @@
         current === null? previous: previous === null? current: previous && current);
 </script>
 
+<!-- 
+@component
+Textarea field component with regex validation, auto-resize and a counter.
+
+Slots:
+- default: The field label.
+- description: Extra right-aligned label description.
+- feedback: Text to display if validation error.
+-->
 <Wrapper element={wrapper} class={extra_class ?? 'mb-3'}>
     <Label {id} {required}>
         <slot />

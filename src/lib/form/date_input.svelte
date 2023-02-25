@@ -4,22 +4,97 @@
     import Wrapper from "../interface/wrapper.svelte";
     import Label from "./label.svelte";
 
+    /** 
+     * Extra classes for the wrapper element, or `mb-3`.
+     * @type {string?} 
+     */
     let extra_class = null;
     export { extra_class as class };
+
+    /**
+     * The wrapper element or null.
+     * @type {string?}
+     */
     export let wrapper = 'div';
+
+    /**
+     * Whether to display the datepicker without pop-up.
+     * @type {boolean}
+     */
     export let inline = false;
+
+    /**
+     * Whether a value is required. It outputs a * on label and executes validation.
+     * @type {boolean}
+     */
     export let required = false;
+
+    /**
+     * The input placeholder.
+     * @type {string}
+     */
     export let placeholder = '';
+
+    /**
+     * The input date format.
+     * @type {string}
+     */
     export let format = 'dd/MM/yyyy';
+
+    /**
+     * Whether the input box is disabled.
+     * @type {boolean}
+     */
     export let disabled = false;
+
+    /**
+     * Whether to close the pop-up when date is selected.
+     * @type {boolean}
+     */
     export let closeOnSelection = false;
+
+    /**
+     * When changing the month/year, if the value is changed too or needs selecting.
+     * @type {boolean}
+     */
     export let browseWithoutSelecting = false;
+
+    /**
+     * Where to display a date icon, if any.
+	 * @type {'left'|'right'|boolean|null}
+	 */
     export let icon = null;
+
+    /**
+     * The minimum date value allowed for validation.
+	 * @type {Date?}
+	 */
     export let min = null;
+
+    /**
+     * The maximum date value allowed for validation.
+	 * @type {Date?}
+	 */
     export let max = null;
+
+    /**
+     * Bound value.
+	 * @type {Date}
+	 */
     export let value;
 
+    /**
+     * Whether the user has changed the field.
+     * Exported in case the parent wants to check upon.
+     * @type {boolean}
+     */
     export let is_touched = false;
+
+    /**
+     * Check that the field is valid, only if touched and required.
+     * Validation classes not added to control because it changes all text to green/red.
+	 * @type {boolean?}
+	 */
     export let is_valid = null;
     $: is_valid = !is_touched? null: [
         required? !!value: null,
@@ -30,6 +105,15 @@
         current === null? previous: previous === null? current: previous && current);
 </script>
 
+<!-- 
+@component
+Date Input with date picker component.
+
+Slots:
+- default: The field label.
+- description: Extra right-aligned label description.
+- feedback: Text to display if validation error.
+-->
 <Wrapper element={wrapper} class="{extra_class ?? 'mb-3'}">
     <Label {required}>
         <slot /><slot name="description" />

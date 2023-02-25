@@ -2,14 +2,40 @@
     import Wrapper from "../interface/wrapper.svelte";
     import Label from "./label.svelte";
 
-    // For parameter definition see `input_group.svelte`
+    /** 
+     * Extra classes for the wrapper element, or `mb-3`.
+     * @type {string?} 
+     */
     let extra_class = null;
     export { extra_class as class };
+
+    /**
+     * The wrapper element or null.
+     * @type {string?}
+     */
     export let wrapper = 'div';
+
+    /**
+     * The color of the progress bar.
+	 * @type {string?}
+	 */
     export let color = null;
-    export let value = null;
+
+    /**
+     * The bound value.
+	 * @type {number}
+	 */
+    export let value;
 </script>
 
+<!-- 
+@component
+Progress bar component.
+
+Slots:
+- default: The field label.
+- description: Extra right-aligned label description.
+-->
 <Wrapper element={wrapper} class={extra_class ?? 'mb-3'}>
     <Label>
         <slot /><slot name="description" />

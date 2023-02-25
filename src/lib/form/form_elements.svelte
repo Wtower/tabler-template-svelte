@@ -440,8 +440,8 @@
                                                 name="form-imagecheck"
                                                 images={
                                                     [...Array(6).fill('https://via.placeholder.com/107x71').map((image, i) => ({
-                                                        value: i, 
-                                                        image: image
+                                                        v: i, 
+                                                        img: image
                                                     }))]
                                                 }
                                                 value={[1, 3]}>
@@ -452,8 +452,8 @@
                                                 type="radio"
                                                 images={
                                                     [...Array(6).fill('https://via.placeholder.com/107x71').map((image, i) => ({
-                                                        value: i, 
-                                                        image: image
+                                                        v: i, 
+                                                        img: image
                                                     }))]
                                                 }
                                                 value={3}>
@@ -467,8 +467,8 @@
                                                         'purple', 'pink', 'red', 'orange', 'yellow',
                                                          'lime'
                                                     ].map((color) => ({
-                                                        value: color, 
-                                                        color: color,
+                                                        v: color, 
+                                                        img: color,
                                                     }))
                                                 }
                                                 value="white">
@@ -482,8 +482,8 @@
                                                         'purple', 'pink', 'red', 'orange', 'yellow',
                                                          'lime'
                                                     ].map((color) => ({
-                                                        value: color, 
-                                                        color: color,
+                                                        v: color, 
+                                                        img: color,
                                                     }))
                                                 }
                                                 value="blue">
@@ -826,13 +826,13 @@
                                             </div>
                                             <Buttons name="btn-radio-toolbar-2"
                                                 buttons={[
-                                                    {i: 0, v: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 5h6a3.5 3.5 0 0 1 0 7h-6z" /><path d="M13 12h1a3.5 3.5 0 0 1 0 7h-7v-7" /></svg>'},
-                                                    {i: 1, v: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 5l6 0" /><path d="M7 19l6 0" /><path d="M14 5l-4 14" /></svg>'},
-                                                    {i: 2, v: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 5v5a5 5 0 0 0 10 0v-5" /><path d="M5 19h14" /></svg>'},
-                                                    {i: 3, v: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" /><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" /></svg>'},
-                                                    {i: 4, v: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M8.6 8.6l10.4 10.4" /><path d="M8.6 15.4l10.4 -10.4" /></svg>'},
-                                                    {i: 5, v: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M12 11l0 6" /><path d="M9 14l6 0" /></svg>'},
-                                                    {i: 6, v: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>'},
+                                                    {v: 0, t: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 5h6a3.5 3.5 0 0 1 0 7h-6z" /><path d="M13 12h1a3.5 3.5 0 0 1 0 7h-7v-7" /></svg>'},
+                                                    {v: 1, t: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 5l6 0" /><path d="M7 19l6 0" /><path d="M14 5l-4 14" /></svg>'},
+                                                    {v: 2, t: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 5v5a5 5 0 0 0 10 0v-5" /><path d="M5 19h14" /></svg>'},
+                                                    {v: 3, t: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" /><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" /></svg>'},
+                                                    {v: 4, t: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M8.6 8.6l10.4 10.4" /><path d="M8.6 15.4l10.4 -10.4" /></svg>'},
+                                                    {v: 5, t: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M12 11l0 6" /><path d="M9 14l6 0" /></svg>'},
+                                                    {v: 6, t: '', on: () => {alert('ok')}, html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>'},
                                                 ]}
                                                 value="">
                                                 Toolbar
@@ -991,32 +991,35 @@
                                                 value={40} />
                                             <Range id="range-2" 
                                                 class="mb-2"
-                                                slider={{
+                                                slider
+                                                settings={{
                                                     start: 20,
                                                     connect: [true, false],
                                                     step: 10,
                                                     range: {min: 0, max: 100},
                                                 }}
-                                                value="" />
+                                                value={20} />
                                             <Range id="range-3" 
                                                 class="mb-2"
-                                                slider={{
+                                                slider
+                                                settings={{
                                                     start: [60, 90],
                                                     connect: [false, true, false],
                                                     step: 10,
                                                     range: {min: 0, max: 100},
                                                 }}
-                                                value="" />
+                                                value={60} />
                                             <Range id="range-4" 
                                                 class="mb-3"
                                                 color="green"
-                                                slider={{
+                                                slider
+                                                settings={{
                                                     start: 40,
                                                     connect: [true, false],
                                                     step: 10,
                                                     range: {min: 0, max: 100},
                                                 }}
-                                                value="" />
+                                                value={40} />
                                             <DateInput class="mb-2" value={new Date()}>
                                                 Datepicker
                                             </DateInput>
@@ -1026,7 +1029,7 @@
                                                 Inline datepicker
                                             </DateInput>
                                             <Progress class="mb-2" value={0.38}>Progress</Progress>
-                                            <Progress color="green" />
+                                            <Progress color="green" value={0.38} />
                                             <div class="mb-3">
                                                 <span class="form-label">Form buttons</span>
                                                 <div class="row">
@@ -1090,7 +1093,11 @@
                                                     valueField: 'url',
                                                     labelField: 'name',
                                                     searchField: 'name',
-                                                    // fetch remote data
+                                                    /**
+                                                     * Fetch remote data.
+                                                     * @param {string|number|boolean} query
+                                                     * @param {(arg0?: any) => void} callback
+                                                     */
                                                     load: function(query, callback) {
                                                         var url = 'https://api.github.com/search/repositories?q=' + encodeURIComponent(query);
                                                         fetch(url)
@@ -1101,8 +1108,13 @@
                                                                 callback();
                                                             });
                                                     },
-                                                    // custom rendering functions for options and items
                                                     render: {
+                                                        /**
+                                                         * Custom rendering functions for options 
+                                                         * and items.
+                                                         * @param {{owner: { avatar_url: any; login: any; }; name: any; description: any; }} item
+                                                         * @param {(arg0: any) => any} escape
+                                                         */
                                                         option: function(item, escape) {
                                                             return `<div class="py-2 d-flex">
                                                                         <div class="icon me-3">
@@ -1119,7 +1131,11 @@
                                                                         </div>
                                                                     </div>`;
                                                         },
-                                                        item: function(item, escape) {
+                                                        /**
+                                                         * @param {{owner: { avatar_url: any; login: any; }; name: any; description: any; }} item
+                                                         * @param {(arg0: any) => any} escape
+                                                         */
+                                                         item: function(item, escape) {
                                                             return `<div class="py-2 d-flex">
                                                                         <div class="icon me-3">
                                                                             <img class="img-fluid" src="${item.owner.avatar_url}" />
@@ -1148,8 +1164,13 @@
                                                     valueField: 'label',
                                                     labelField: 'label',
                                                     searchField: ['label','type'],
-                                                    // fetch remote data
-                                                    load: function(query, callback) {
+                                                    /**
+                                                     * Fetch remote data.
+                                                     * @param {any} _
+                                                     * @param {(arg0?: any) => void} callback
+                                                     */
+                                                    load: function(_, callback) {
+                                                        /** @type {any} */
                                                         var self = this;
                                                         if( self.loading > 1 ){
                                                             callback();
@@ -1165,8 +1186,13 @@
                                                                 callback();
                                                             });
                                                     },
-                                                    // custom rendering function for options
                                                     render: {
+                                                        /**
+                                                         * Custom rendering functions for options 
+                                                         * and items.
+                                                         * @param {{label: any; type: any[]; }} item
+                                                         * @param {(arg0: any) => any} escape
+                                                         */
                                                         option: function(item, escape) {
                                                             return `<div class="py-2 d-flex">
                                                                         <div class="mb-1">
@@ -1192,12 +1218,20 @@
                                                     optionClass:'dropdown-item',
                                                     controlInput: '<input>',
                                                     render:{
+                                                        /**
+                                                         * @param {{ customProperties: string; text: any; }} data
+                                                         * @param {(arg0: any) => string} escape
+                                                         */
                                                         item: function(data, escape) {
                                                             if( data.customProperties ){
                                                                 return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
                                                             }
                                                             return '<div>' + escape(data.text) + '</div>';
                                                         },
+                                                        /**
+                                                         * @param {{ customProperties: string; text: any; }} data
+                                                         * @param {(arg0: any) => string} escape
+                                                         */
                                                         option: function(data, escape){
                                                             if( data.customProperties ){
                                                                 return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
@@ -1225,13 +1259,21 @@
                                                     optionClass:'dropdown-item',
                                                     controlInput: '<input>',
                                                     render:{
-                                                        item: function(data,escape) {
+                                                        /**
+                                                         * @param {{customProperties: string; text: any; }} data
+                                                         * @param {(arg0: any) => string} escape
+                                                         */
+                                                        item: function(data, escape) {
                                                             if( data.customProperties ){
                                                                 return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
                                                             }
                                                             return '<div>' + escape(data.text) + '</div>';
                                                         },
-                                                        option: function(data,escape){
+                                                        /**
+                                                         * @param {{customProperties: string; text: any; }} data
+                                                         * @param {(arg0: any) => string} escape
+                                                         */
+                                                        option: function(data, escape){
                                                             if( data.customProperties ){
                                                                 return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
                                                             }
@@ -1257,13 +1299,21 @@
                                                     optionClass:'dropdown-item',
                                                     controlInput: '<input>',
                                                     render:{
-                                                        item: function(data,escape) {
+                                                        /**
+                                                         * @param {{customProperties: string; text: any; }} data
+                                                         * @param {(arg0: any) => string} escape
+                                                         */
+                                                        item: function(data, escape) {
                                                             if( data.customProperties ){
                                                                 return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
                                                             }
                                                             return '<div>' + escape(data.text) + '</div>';
                                                         },
-                                                        option: function(data,escape){
+                                                        /**
+                                                         * @param {{customProperties: string; text: any; }} data
+                                                         * @param {(arg0: any) => string} escape
+                                                         */
+                                                        option: function(data, escape){
                                                             if( data.customProperties ){
                                                                 return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
                                                             }
@@ -1289,12 +1339,20 @@
                                                     optionClass:'dropdown-item',
                                                     controlInput: '<input>',
                                                     render:{
+                                                        /**
+                                                         * @param {{customProperties: string; text: any; }} data
+                                                         * @param {(arg0: any) => string} escape
+                                                         */
                                                         item: function(data, escape) {
                                                             if( data.customProperties ){
                                                                 return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
                                                             }
                                                             return '<div>' + escape(data.text) + '</div>';
                                                         },
+                                                        /**
+                                                         * @param {{customProperties: string; text: any; }} data
+                                                         * @param {(arg0: any) => string} escape
+                                                         */
                                                         option: function(data, escape){
                                                             if( data.customProperties ){
                                                                 return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
@@ -1776,7 +1834,7 @@
                                                         <td>
                                                             <Text id={`http-col4-${i}`} 
                                                                 value={[
-                                                                    200, 'string', 500,
+                                                                    '200', 'string', '500',
                                                                     'application/json; charset=UTF-8'
                                                                 ][i]} />
                                                         </td>

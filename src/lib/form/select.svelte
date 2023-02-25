@@ -1,54 +1,146 @@
 <script>
     import { onMount } from "svelte";
-    import { element } from "svelte/internal";
     import TomSelect from 'tom-select';
     import Wrapper from "../interface/wrapper.svelte";
     import Label from "./label.svelte";
 
-    // Select field
-    // https://svelte.dev/tutorial/select-bindings
-    // 
-    // Options:
-    // Expects an array of objects, where the first key is always the value and the second the text
-    // https://stackoverflow.com/questions/983267/how-to-access-the-first-property-of-a-javascript-object
-    //
-    // Multiple options cannot be dynamic
-    // https://github.com/sveltejs/svelte/issues/1270
-    //
-    // For parameter definition see `input_group.svelte`
-    //
-    // Placeholder:
-    // https://svelte.dev/repl/e1c7d9b804414f2d888b96b3e812a5c7?version=3.43.0
-
+    /** 
+     * Extra classes for the wrapper element, or `mb-3`.
+     * @type {string?} 
+     */
     let extra_class = null;
     export { extra_class as class };
+
+    /**
+     * The wrapper element or null.
+     * @type {string?}
+     */
     export let wrapper = 'div';
+
+    /** 
+     * The select id and the associated label.
+     * @type {string} 
+     */
     export let id;
+
+    /**
+     * The placeholder option.
+     * https://svelte.dev/repl/e1c7d9b804414f2d888b96b3e812a5c7?version=3.43.0
+     * @type {string}
+     */
     export let placeholder = '';
+
+    /**
+     * Disable the autocomplete.
+	 * @type {'off'|'on'|null}
+	 */
     export let autocomplete = null;
+
+    /**
+     * Whether the select box is disabled.
+     * @type {boolean}
+     */
     export let disabled = false;
+
+    /**
+     * Whether a value is required. It outputs a * on label.
+     * @type {boolean}
+     */
     export let required = false;
-    export let border = null; // 'rounded'|'none'
+
+    /** 
+     * The input border. If non provided then it uses default.
+     * @type {'rounded'|'none'|null} 
+     */
+    export let border = null;
+
+    /**
+     * Whether the label is floating.
+     * @type {boolean}
+     */
     export let floating_label = false;
+
+    /**
+     * The bound value.
+	 * @type {string|number|Array.<string|number>}
+	 */
     export let value;
+    
+    /**
+     * Specify the select box options and groups.
+     * Expects an array of objects, where the first key is always the value and the second the text
+     * https://stackoverflow.com/questions/983267/how-to-access-the-first-property-of-a-javascript-object
+	 * @type {Array.<{v: any, t: any, disabled?: boolean, group?: string, data?: string}> | 
+     *  {[group: string]: Array.<{v: any, t: any, disabled?: boolean}>}}
+	 */
     export let options = [] || {};
+
+    /**
+     * Whether it allows a multiple selection.
+     * Multiple options cannot be dynamic.
+     * https://github.com/sveltejs/svelte/issues/1270
+     * @type {boolean}
+     */
     export let multiple = false;
 
+    /**
+     * Whether to display a red/green border if valid/invalid.
+     * @type {boolean}
+     */
     export let validation_lite = false;
+
+    /**
+     * Whether the user has changed the field.
+     * Exported in case the parent wants to check upon.
+     * @type {boolean}
+     */
     export let is_touched = false;
+
+    /**
+     * Check that the field is valid, only if touched and required.
+     * Validation classes not added to control because it changes all text to green/red.
+	 * @type {boolean?}
+	 */
     export let is_valid = null;
     $: is_valid = !is_touched || !required? null: !!value;
 
     // https://github.com/orchidjs/tom-select/discussions/161
     // https://tom-select.js.org/examples/remote/
+
+    /**
+     * Whether to construct a tom select box.
+     * @type {boolean}
+     */
     export let tom = false;
+
+    /**
+     * The tom select settings.
+     * @type {{}}
+     */
     export let settings = {};
-    let select_element;    
+
+    /**
+     * The select element on which to construct the to select box.
+	 * @type {import("tom-select/dist/types/types").TomInput | HTMLSelectElement}
+	 */
+    let select_element;
+
     onMount(async () => {
         if (tom) new TomSelect(select_element, settings);
     });
 </script>
 
+<!-- 
+@component
+Select box component.
+
+https://svelte.dev/tutorial/select-bindings
+
+Slots:
+- default: The field label.
+- description: Extra right-aligned label description.
+- feedback: Text to display if validation error.
+-->
 <Wrapper element={wrapper} class={extra_class ?? 'mb-3'}{floating_label? ' form-floating': ''}>
     {#if ($$slots.default || $$slots.description) && !floating_label}
         <Label {required}>
@@ -79,8 +171,8 @@
             <!-- https://stackoverflow.com/questions/40774697/how-can-i-group-an-array-of-objects-by-key -->
             <!-- https://stackoverflow.com/questions/64909382/how-to-print-both-object-key-and-value-with-each-block-in-svelte -->
             {#each Object.entries(!Array.isArray(options)? options: options.reduce((r, a) => {
-                    r[a.group] = r[a.group] || [];
-                    r[a.group].push(a);
+                    r[a.group ?? ''] = r[a.group ?? ''] || [];
+                    r[a.group ?? ''].push(a);
                     return r;
                 }, Object.create(null))) as [group, group_options]}
 

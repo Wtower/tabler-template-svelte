@@ -1,26 +1,77 @@
 <script>
     import InputGroup from "./input_group.svelte";
 
-    // Toggle the input box type to text/password
-    // Warning: a change in HTML markup order will break this:
-    // https://github.com/sveltejs/svelte/issues/3921
+    /** 
+     * Toggle the input box type to text/password.
+     * Warning: a change in HTML markup order will break this:
+     * https://github.com/sveltejs/svelte/issues/3921
+     * @param {{ currentTarget: { parentNode: any; }; }} event
+     */
     const show_password = (event) => {
         let input_element = event.currentTarget.parentNode.previousElementSibling;
         input_element.type = input_element.type == 'password'? 'text': 'password';
     };
-    
-    // For parameter definition see `input_group.svelte`
+
+    /** 
+     * Extra classes for the wrapper element, or `mb-3`.
+     * @type {string?} 
+     */
     let extra_class = null;
     export { extra_class as class };
+    
+    /**
+     * The wrapper element or null.
+     * @type {string?}
+     */
     export let wrapper = 'div';
+
+    /** 
+     * The input id and the associated label.
+     * @type {string} 
+     */
     export let id;
+
+    /**
+     * The input placeholder.
+     * @type {string}
+     */
     export let placeholder = '';
+
+    /**
+     * Whether a value is required. It outputs a * on label.
+     * @type {boolean}
+     */
     export let required = false;
-    export let border = null; // 'rounded'|'none'
+
+    /** 
+     * The input border. If non provided then it uses default.
+     * @type {'rounded'|'none'|null} 
+     */
+    export let border = null;
+
+    /**
+     * Whether the label is floating.
+     * @type {boolean}
+     */
     export let floating_label = false;
-    export let value;
+
+    /**
+     * The bound value.
+	 * @type {string}
+	 */
+     export let value;
 </script>
 
+<!-- 
+@component
+Password form component.
+
+Slots:
+- default: The field label.
+- description: Extra right-aligned label description.
+- appended: The icon or text to get appended to the right side for showing the password.
+- hint: An extra description below the field.
+ -->
 {#if !floating_label}
     <InputGroup for={id} {wrapper} {required} class={extra_class} flat>
         <slot />
