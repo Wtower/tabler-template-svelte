@@ -2,7 +2,6 @@
     import Text from '../form/text.svelte';
     import Password from '../form/password.svelte';
     import Checkboxes from '../form/checkboxes.svelte';
-    import { link } from 'svelte-routing';
 
     export let brand;
     export let username;
@@ -65,9 +64,4 @@
     <div class="text-center text-muted mt-3">
         Don't have account yet? <a href="./sign-up.html" tabindex="-1">Sign up</a>
     </div>
-    {#if import.meta.env.MODE === 'development'}
-        <div class="text-center text-muted mt-3">
-            [DEV: <a href="/form-elements" use:link>Form elements</a>]
-        </div>
-    {/if}
 </div>
