@@ -95,9 +95,12 @@
 
     /**
 	 * A regular expression for validation.
+     * If type is email, the default regex checks for a valid email.
 	 * @type {RegExp?}
 	 */
-    export let validationRegex = null;
+    export let validationRegex = type === 'email'? 
+        /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i:
+         null;
 
     /**
      * Whether to display a red/green border if valid/invalid.
@@ -116,11 +119,12 @@
      * Check that the field is valid, only if touched and required.
      * If not touched, always get null, or get array of conditions.
      * Then get each element and if all is null, then null, else AND conditions.
+     * When checking for length, check first that it is string to avoid exception.
 	 * @type {boolean?}
 	 */
     export let isValid = null;
     $: isValid = !isTouched? null: [
-        required? !!value.length: null,
+        required && typeof value === 'string'? !!value.length: null,
         validationRegex instanceof RegExp? validationRegex.test(value): null,
     ].reduce((previous, current) => 
         current === null? previous: previous === null? current: previous && current);
@@ -178,7 +182,7 @@ Slots:
             {disabled}
             {readonly}
             {list}
-            on:input|once={() => {isTouched = true}}
+            on:blur|once={() => isTouched = true}
             bind:value>
     {:else}
         <input 
@@ -201,7 +205,7 @@ Slots:
             {readonly}
             {maxlength}
             {list}
-            on:input|once={() => {isTouched = true}}
+            on:blur|once={() => isTouched = true}
             bind:value>
     {/if}
     {#if !$$slots.default && !$$slots.description && $$slots.iconAfter}

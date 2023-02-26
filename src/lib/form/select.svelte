@@ -160,7 +160,7 @@ Slots:
             class:is-invalid-lite={isValid === false && validationLite}
             {autocomplete}
             {disabled}
-            on:input|once={() => {isTouched = true}}
+            on:blur|once={() => isTouched = true}
             bind:this={selectElement}
             bind:value>
             {#if placeholder}
@@ -201,7 +201,7 @@ Slots:
             {autocomplete}
             {disabled}
             multiple
-            on:input|once={() => {isTouched = true}}
+            on:blur|once={() => isTouched = true}
             bind:this={selectElement}
             bind:value>
             {#if placeholder}

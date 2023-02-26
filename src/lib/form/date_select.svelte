@@ -164,7 +164,7 @@ Slots:
                     {border}
                     validationLite={validationLite}
                     options={options[item]}
-                    on:input|once={() => {isTouched = true}}
+                    on:blur|once={() => isTouched = true}
                     bind:value={values[item]} />
             {/each}
         </div>

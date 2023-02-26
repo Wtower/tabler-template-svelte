@@ -94,7 +94,7 @@ Slots:
                 class="btn-check"
                 {name}
                 autocomplete="off"
-                on:input|once={() => {isTouched = true}}
+                on:blur|once={() => isTouched = true}
                 bind:group={value}
                 value={Object.values(button)[0]}
                 checked={value == Object.values(button)[0]}

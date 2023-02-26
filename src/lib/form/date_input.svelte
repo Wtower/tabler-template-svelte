@@ -135,7 +135,7 @@ Slots:
             {disabled} 
             {closeOnSelection} 
             {browseWithoutSelecting} 
-            on:input|once={() => {isTouched = true}}
+            on:blur|once={() => isTouched = true}
             bind:value />
         {#if icon && icon !== 'left'}
             <span class="input-icon-addon">

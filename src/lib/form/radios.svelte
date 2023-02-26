@@ -95,7 +95,7 @@ Slots:
                     class:form-check-input={!selectGroup}
                     class:form-selectgroup-input={!!selectGroup}
                     {name}
-                    on:input|once={() => {isTouched = true}}
+                    on:blur|once={() => isTouched = true}
                     bind:group={value}
                     value={Object.values(radio)[0]}
                     checked={value == Object.values(radio)[0]}

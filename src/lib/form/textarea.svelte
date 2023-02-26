@@ -126,7 +126,7 @@
 	 */
     export let isValid = null;
     $: isValid = !isTouched? null: [
-        required? !!value.length: null,
+        required && typeof value === 'string'? !!value.length: null,
         validationRegex instanceof RegExp? validationRegex.test(value): null,
         // maxlength_counter? value.length <= maxlength_counter: null,
     ].reduce((previous, current) => 
@@ -185,7 +185,7 @@ Slots:
             {disabled}
             {readonly}
             {maxlength}
-            on:input|once={() => {isTouched = true}}
+            on:blur|once={() => isTouched = true}
             bind:value />
     </Wrapper>
     {#if $$slots.feedback && isValid === false}

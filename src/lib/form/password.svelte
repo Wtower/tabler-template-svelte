@@ -60,6 +60,30 @@
 	 * @type {string}
 	 */
      export let value;
+
+    /**
+     * Whether to display a red/green border if valid/invalid.
+     * Set to true by default because it messes with the icon.
+     * @type {boolean}
+     */
+    export let validationLite = true;
+
+    /**
+     * Whether the user has changed the field.
+     * Exported in case the parent wants to check upon.
+     * @type {boolean}
+     */
+    export let isTouched = false;
+
+    /**
+     * Check that the field is valid, only if touched and required.
+	 * @type {boolean?}
+	 */
+    export let isValid = null;
+    $: isValid = !isTouched? null: [
+        required && typeof value === 'string'? !!value.length: null,
+    ].reduce((previous, current) => 
+        current === null? previous: previous === null? current: previous && current);
 </script>
 
 <!-- 
@@ -83,8 +107,13 @@ Slots:
                 class="form-control"
                 class:form-control-rounded={border === 'rounded'}
                 class:form-control-flush={border === 'none'}
+                class:is-valid={isValid}
+                class:is-valid-lite={isValid && validationLite}
+                class:is-invalid={isValid === false}
+                class:is-invalid-lite={isValid === false && validationLite}
                 name={id}
                 {placeholder}
+                on:blur|once={() => isTouched = true}
                 bind:value>
             <!-- Show an icon to toggle input box type: -->
             <span class="input-group-text">
