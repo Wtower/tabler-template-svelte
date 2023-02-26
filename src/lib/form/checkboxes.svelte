@@ -89,7 +89,7 @@ Slots:
 - feedback: Text to display if validation error.
 -->
 <Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
-    <Label {required}>
+    <Label required={$$slots.default && required}>
         <slot /><slot name="description" />
     </Label>
     <div class:divide-y={rightAlign}
@@ -116,7 +116,7 @@ Slots:
                                 class:form-check-input={!selectGroup}
                                 class:form-selectgroup-input={!!selectGroup}
                                 {name}
-                                on:blur|once={() => isTouched = true}
+                                on:input|once={() => isTouched = true}
                                 bind:group={value}
                                 value={Object.values(checkbox)[0]}
                                 checked={value.includes(Object.values(checkbox)[0])}
@@ -150,3 +150,10 @@ Slots:
         <div class="invalid-feedback"><slot name="feedback" /></div>
     {/if}
 </Wrapper>
+
+<style>
+    /* Enforce display as original tabler requires `.is-valid` class immediately before */
+    .invalid-feedback {
+        display: block;
+    }
+</style>
