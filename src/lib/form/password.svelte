@@ -95,6 +95,7 @@ Slots:
 - description: Extra right-aligned label description.
 - appended: The icon or text to get appended to the right side for showing the password.
 - hint: An extra description below the field.
+- feedback: Text to display if validation error.
  -->
 {#if !floatingLabel}
     <InputGroup for={id} {wrapper} {required} class={extraClass} flat>
@@ -155,10 +156,17 @@ Slots:
         <label for={id}><slot /></label>
     </div>
 {/if}
+{#if $$slots.feedback && isValid === false}
+    <div class="invalid-feedback {extraClass ?? 'mb-3'}"><slot name="feedback" /></div>
+{/if}
 
 <style>
     /* Fix missing margin for hint, because of icon */
     .input-group-text + .form-hint {
         margin-top: .5rem;
+    }
+    /* Enforce display as original tabler requires `.is-valid` class immediately before */
+    .invalid-feedback {
+        display: block;
     }
 </style>
