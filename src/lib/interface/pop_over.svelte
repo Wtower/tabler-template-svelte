@@ -11,8 +11,8 @@
      * Extra styling.
      * @type{string}
      */
-    let extra_style = '';
-    export { extra_style as style };
+    let extraStyle = '';
+    export { extraStyle as style };
 </script>
 
 <!-- 
@@ -23,7 +23,7 @@ https://betterprogramming.pub/create-a-popover-in-svelte-fe7dd2eeebb1
 Slots
 - default
 - content
-- close_text
+- closeText
 -->
 <div class="popover-wrapper">
     <span class="popover-trigger form-help" 
@@ -31,14 +31,14 @@ Slots
         on:keypress={() => (visible = !visible)}>
         {#if !visible}
             <slot />
-        {:else if $$slots.close_text}
-            <slot name="close_text" />
+        {:else if $$slots.closeText}
+            <slot name="closeText" />
         {/if}
     </span>
 
     {#if visible}
         <div class="popover bs-popover-auto fade show"
-            style={extra_style}
+            style={extraStyle}
             role="tooltip"
             transition:fade>
             <div class="popover-arrow"></div>

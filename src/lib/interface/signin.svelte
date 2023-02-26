@@ -25,6 +25,10 @@
 <!-- 
 @component
 Signin interface component.
+
+Slots
+- h1
+- description
 -->
 <div class="container container-tight py-4">
     <div class="text-center mb-4">

@@ -6,8 +6,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -37,7 +37,7 @@
      * Whether the image is a solid color.
      * @type {boolean|null|'rounded'}
      */
-    export let color_check = null;
+    export let colorCheck = null;
 
     /**
      * The bound value.
@@ -60,21 +60,21 @@ Slots:
 - default: The field label.
 - description: Extra right-aligned label description.
 -->
-<Wrapper element={wrapper} class={extra_class ?? 'mb-3'}>
+<Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
     <Label {required}>
         <slot /><slot name="description" />
     </Label>
     <div class="row g-2">
         {#each images as image}
-            <div class:col-6={!color_check}
-                class:col-sm-4={!color_check}
-                class:col-auto={!!color_check}>
-                <label class:form-imagecheck={!color_check} 
-                    class:mb-2={!color_check} 
-                    class:form-colorinput={!!color_check}
-                    class:form-colorinput-light={!!color_check && 
+            <div class:col-6={!colorCheck}
+                class:col-sm-4={!colorCheck}
+                class:col-auto={!!colorCheck}>
+                <label class:form-imagecheck={!colorCheck} 
+                    class:mb-2={!colorCheck} 
+                    class:form-colorinput={!!colorCheck}
+                    class:form-colorinput-light={!!colorCheck && 
                         Object.values(image)[1] === 'white'}>
-                    {#if type === 'checkbox' && !color_check}
+                    {#if type === 'checkbox' && !colorCheck}
                         <input type="checkbox" 
                             class="form-imagecheck-input" 
                             {name}
@@ -86,19 +86,19 @@ Slots:
                             disabled={image.disabled}>
                     {:else}
                         <input type="radio" 
-                            class:form-imagecheck-input={!color_check}
-                            class:form-colorinput-input={!!color_check}
+                            class:form-imagecheck-input={!colorCheck}
+                            class:form-colorinput-input={!!colorCheck}
                             {name}
                             bind:group={value}
                             value={Object.values(image)[0]}
                             checked={value == Object.values(image)[0]}
                             disabled={image.disabled}>
                     {/if}
-                    <span class={!!color_check? `bg-${Object.values(image)[1]}`: ''}
-                        class:form-imagecheck-figure={!color_check}
-                        class:form-colorinput-color={!!color_check}
-                        class:rounded-circle={color_check === 'rounded'}>
-                        {#if !color_check}
+                    <span class={!!colorCheck? `bg-${Object.values(image)[1]}`: ''}
+                        class:form-imagecheck-figure={!colorCheck}
+                        class:form-colorinput-color={!!colorCheck}
+                        class:rounded-circle={colorCheck === 'rounded'}>
+                        {#if !colorCheck}
                             <img src={Object.values(image)[1]} 
                                 alt={image.alt} 
                                 class="form-imagecheck-image" />

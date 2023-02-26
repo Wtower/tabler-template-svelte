@@ -8,8 +8,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -89,19 +89,19 @@
     /**
 	 * @type {any}
 	 */
-    let slider_element;
+    let sliderElement;
 
     // If slider then use noUiSlider module:
     if (slider) {
         onMount(() => {
-            noUiSlider.create(slider_element, settings === null? {
+            noUiSlider.create(sliderElement, settings === null? {
                 start: value,
                 connect: true,
                 step: step,
                 range: {min: min, max: max}
             }: settings);
             // https://refreshless.com/nouislider/events-callbacks/
-            slider_element.noUiSlider.on('change', (/** @type {number} */ values) => {
+            sliderElement.noUiSlider.on('change', (/** @type {number} */ values) => {
                 value = values;
             });
         });
@@ -116,7 +116,7 @@ Slots:
 - default: The field label.
 - description: Extra right-aligned label description.
 -->
-<Wrapper element={wrapper} class={extra_class ?? 'mb-3'}>
+<Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
     <Label {id} {required} show={describe}>
         <slot />
         {#if $$slots.description || describe}
@@ -132,6 +132,6 @@ Slots:
     {#if !slider}
         <input type="range" class="form-range" {min} {max} {step} bind:value {disabled}>
     {:else}
-        <div class="form-range {color? `text-${color}`: ''}" bind:this={slider_element}></div>
+        <div class="form-range {color? `text-${color}`: ''}" bind:this={sliderElement}></div>
     {/if}
 </Wrapper>

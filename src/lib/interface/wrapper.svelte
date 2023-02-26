@@ -3,8 +3,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string|null} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The optional element to wrap.
@@ -27,7 +27,7 @@ Optional element wrapper.
     <!-- Requires special check because Svelte compains about label attribute in `:element` -->
     <optgroup {label}><slot /></optgroup>
 {:else if element}
-    <svelte:element this={element} class={extra_class}><slot /></svelte:element>
+    <svelte:element this={element} class={extraClass}><slot /></svelte:element>
 {:else}
     <slot />
 {/if}

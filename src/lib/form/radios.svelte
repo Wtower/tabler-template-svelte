@@ -6,8 +6,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -37,7 +37,7 @@
      * Whether to present as selectgroup.
 	 * @type {null|boolean|'pills'|'boxes'}
 	 */
-    export let selectgroup = null;
+    export let selectGroup = null;
 
     /**
      * The bound value.
@@ -56,15 +56,15 @@
      * Exported in case the parent wants to check upon.
      * @type {boolean}
      */
-    export let is_touched = false;
+    export let isTouched = false;
 
     /**
      * Check that the field is valid, only if touched and required.
      * Validation classes not added to control because it changes all text to green/red.
 	 * @type {boolean?}
 	 */
-    export let is_valid = null;
-    $: is_valid = !is_touched || !required? null: !!value;
+    export let isValid = null;
+    $: isValid = !isTouched || !required? null: !!value;
 </script>
 
 <!-- 
@@ -76,36 +76,36 @@ Slots:
 - description: Extra right-aligned label description.
 - feedback: Text to display if validation error.
 -->
-<Wrapper element={wrapper} class={extra_class ?? 'mb-3'}>
+<Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
     <Label {required}>
         <slot /><slot name="description" />
     </Label>
-    <div class:form-selectgroup={!!selectgroup} 
-        class:form-selectgroup-pills={selectgroup === 'pills'}
-        class:form-selectgroup-boxes={selectgroup === 'boxes'}
-        class:d-flex={selectgroup === 'boxes'}
-        class:flex-column={selectgroup === 'boxes'}>
+    <div class:form-selectgroup={!!selectGroup} 
+        class:form-selectgroup-pills={selectGroup === 'pills'}
+        class:form-selectgroup-boxes={selectGroup === 'boxes'}
+        class:d-flex={selectGroup === 'boxes'}
+        class:flex-column={selectGroup === 'boxes'}>
         {#each radios as radio}
             <label 
-                class:form-check={!selectgroup}
+                class:form-check={!selectGroup}
                 class:form-check-inline={inline}
-                class:form-selectgroup-item={!!selectgroup}
-                class:flex-fill={selectgroup === 'boxes'}>
+                class:form-selectgroup-item={!!selectGroup}
+                class:flex-fill={selectGroup === 'boxes'}>
                 <input type="radio" 
-                    class:form-check-input={!selectgroup}
-                    class:form-selectgroup-input={!!selectgroup}
+                    class:form-check-input={!selectGroup}
+                    class:form-selectgroup-input={!!selectGroup}
                     {name}
-                    on:input|once={() => {is_touched = true}}
+                    on:input|once={() => {isTouched = true}}
                     bind:group={value}
                     value={Object.values(radio)[0]}
                     checked={value == Object.values(radio)[0]}
                     disabled={radio.disabled}>
                 <span
-                    class:form-check-label={!selectgroup}
-                    class:form-selectgroup-label={!!selectgroup}
-                    class:d-flex={selectgroup === 'boxes'}
-                    class:align-items-center={selectgroup === 'boxes'}
-                    class:p-3={selectgroup === 'boxes'}>
+                    class:form-check-label={!selectGroup}
+                    class:form-selectgroup-label={!!selectGroup}
+                    class:d-flex={selectGroup === 'boxes'}
+                    class:align-items-center={selectGroup === 'boxes'}
+                    class:p-3={selectGroup === 'boxes'}>
                     {#if radio.html}
                         {@html radio.html}
                     {/if}
@@ -114,7 +114,7 @@ Slots:
             </label>
         {/each}
     </div>
-    {#if $$slots.feedback && is_valid === false}
+    {#if $$slots.feedback && isValid === false}
         <div class="invalid-feedback"><slot name="feedback" /></div>
     {/if}
 </Wrapper>

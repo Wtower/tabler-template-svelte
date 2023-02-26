@@ -27,7 +27,7 @@
      *      }>
      * }>>}}
 	 */
-    export let menu_item;
+    export let menuItem;
 
     /**
      * Draws an arrow pointing up at `start` or `end` corner.
@@ -52,59 +52,59 @@ Dropdown menu component.
     class:bg-dark={invert}
     class:text-white={invert}>
     <div class="dropdown-menu-columns">
-        {#each menu_item.menu as column}
+        {#each menuItem.menu as column}
             <div class="dropdown-menu-column">
-                {#each column as column_item}
-                    {#if column_item.header}
-                        <h6 class="dropdown-header">{column_item.title}</h6>
-                    {:else if column_item.divider}
+                {#each column as columnItem}
+                    {#if columnItem.header}
+                        <h6 class="dropdown-header">{columnItem.title}</h6>
+                    {:else if columnItem.divider}
                        <div class="dropdown-divider"></div>
-                    {:else if column_item.menu}
+                    {:else if columnItem.menu}
                         <div class="dropend">
                             <a class="dropdown-item dropdown-toggle" 
-                                class:active={path === column_item.href}
-                                class:disabled={column_item.disabled}
+                                class:active={path === columnItem.href}
+                                class:disabled={columnItem.disabled}
                                 data-bs-toggle="dropdown"
                                 data-bs-auto-close="outside"
                                 role="button"
                                 aria-expanded="false"
-                                href={column_item.href ?? '#navbar-base'}>
-                                {#if column_item.icon}
-                                    {@html column_item.icon}
+                                href={columnItem.href ?? '#navbar-base'}>
+                                {#if columnItem.icon}
+                                    {@html columnItem.icon}
                                 {/if}
-                                {#if column_item.title}
-                                    {column_item.title}
+                                {#if columnItem.title}
+                                    {columnItem.title}
                                 {/if}
-                                {#if column_item.badge}
+                                {#if columnItem.badge}
                                     <Badge 
-                                        bg_color={column_item.badge.color}
-                                        margin_left_class="2"
-                                        text_uppercase
+                                        bgColor={columnItem.badge.color}
+                                        marginLeftClass="2"
+                                        textUppercase
                                         small>
-                                        {column_item.badge.text}
+                                        {columnItem.badge.text}
                                     </Badge>
                                 {/if}
                             </a>
-                            <svelte:self menu_item={column_item} {path} />
+                            <svelte:self menuItem={columnItem} {path} />
                         </div>
                     {:else}
                         <a class="dropdown-item" 
-                            class:active={path === column_item.href}
-                            class:disabled={column_item.disabled}
-                            href={column_item.href ?? '#navbar-base'}>
-                            {#if column_item.icon}
-                                {@html column_item.icon}&nbsp;
+                            class:active={path === columnItem.href}
+                            class:disabled={columnItem.disabled}
+                            href={columnItem.href ?? '#navbar-base'}>
+                            {#if columnItem.icon}
+                                {@html columnItem.icon}&nbsp;
                             {/if}
-                            {#if column_item.title}
-                                {column_item.title}
+                            {#if columnItem.title}
+                                {columnItem.title}
                             {/if}
-                            {#if column_item.badge}
+                            {#if columnItem.badge}
                                 <Badge 
-                                    bg_color={column_item.badge.color}
-                                    margin_left_class="2"
-                                    text_uppercase
+                                    bgColor={columnItem.badge.color}
+                                    marginLeftClass="2"
+                                    textUppercase
                                     small>
-                                    {column_item.badge.text}
+                                    {columnItem.badge.text}
                                 </Badge>
                             {/if}
                         </a>

@@ -7,17 +7,17 @@
      * https://github.com/sveltejs/svelte/issues/3921
      * @param {{ currentTarget: { parentNode: any; }; }} event
      */
-    const show_password = (event) => {
-        let input_element = event.currentTarget.parentNode.previousElementSibling;
-        input_element.type = input_element.type == 'password'? 'text': 'password';
+    const showPassword = (event) => {
+        const inputElement = event.currentTarget.parentNode.previousElementSibling;
+        inputElement.type = inputElement.type == 'password'? 'text': 'password';
     };
 
     /** 
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
     
     /**
      * The wrapper element or null.
@@ -53,7 +53,7 @@
      * Whether the label is floating.
      * @type {boolean}
      */
-    export let floating_label = false;
+    export let floatingLabel = false;
 
     /**
      * The bound value.
@@ -72,8 +72,8 @@ Slots:
 - appended: The icon or text to get appended to the right side for showing the password.
 - hint: An extra description below the field.
  -->
-{#if !floating_label}
-    <InputGroup for={id} {wrapper} {required} class={extra_class} flat>
+{#if !floatingLabel}
+    <InputGroup for={id} {wrapper} {required} class={extraClass} flat>
         <slot />
         <!-- Pass the slot: https://github.com/sveltejs/svelte/issues/2079 -->
         <slot name="description" slot="description" />
@@ -93,7 +93,7 @@ Slots:
                     class:input-group-link={$$slots.appended}
                     title="Show password"
                     data-bs-toggle="tooltip"
-                    on:click={show_password}>
+                    on:click={showPassword}>
                     <slot name="appended">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" /></svg>
                     </slot>
@@ -111,11 +111,11 @@ Slots:
             class="input-group-link"
             title="Show password"
             data-bs-toggle="tooltip"
-            on:click={show_password}>
+            on:click={showPassword}>
             <slot name="appended" />
         </a>
     </div>
-    <div class="form-floating {extra_class ?? 'mb-3'}">
+    <div class="form-floating {extraClass ?? 'mb-3'}">
         <input {id} 
             type="password" 
             class="form-control" 

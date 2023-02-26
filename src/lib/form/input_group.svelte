@@ -5,8 +5,8 @@
      * Extra classes for the wrapper element, or margin bottom `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -18,8 +18,8 @@
      * The id for the associated label.
      * @type {string?} 
      */
-    let for_id = null;
-    export { for_id as for };
+    let forId = null;
+    export { forId as for };
 
     /**
      * Whether a value is required. It outputs a * on label.
@@ -45,10 +45,10 @@ Slots:
 - controls: Display additonal grouped controls.
 -->
 <!-- Field wrapper with `extra_class` -->
-<Wrapper element={wrapper} class={extra_class ?? 'mb-3'}>
+<Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
     <!-- If a default slot or a description slot is defined (right-align), output a label -->
     {#if $$slots.default || $$slots.description}
-        <label for={for_id} 
+        <label for={forId} 
             class="form-label"
             class:required={required && !$$slots.static}>
             <!-- Main label text -->

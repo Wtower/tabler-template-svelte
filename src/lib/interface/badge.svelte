@@ -6,20 +6,20 @@
      *         'blue-lt'|'azure-lt'|'indigo-lt'|'purple-lt'|'pink-lt'|'red-lt'|
      *         'orange-lt'|'yellow-lt'|'lime-lt'|'green-lt'|'teal-lt'|'cyan-lt'}
      */
-    export let bg_color = '';
+    export let bgColor = '';
 
     /**
      * Specify text color with same outline and white bg.
      * @type {''|'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|
      *         'orange'|'yellow'|'lime'|'green'|'teal'|'cyan'}
      */
-    export let text_color = '';
+    export let textColor = '';
 
     /**
      * Specify left margin class.
      * @type {'1'|'2'|'3'|'4'|'5'|'auto'|''}
      */
-    export let margin_left_class = '';
+    export let marginLeftClass = '';
 
     /**
      * If true then badge hovers on top right corner.
@@ -49,19 +49,19 @@
      * If text is uppercase.
      * @type {boolean}
      */
-    export let text_uppercase = false;
+    export let textUppercase = false;
 </script>
 
 <!-- 
 @component
 Badge component.
 -->
-<span class="badge {bg_color? 'bg-' + bg_color: ''} {text_color? 'text-' + text_color: ''} {margin_left_class? 'ms-' + margin_left_class: ''}"
-    class:badge-outline={text_color}
+<span class="badge {bgColor? 'bg-' + bgColor: ''} {textColor? 'text-' + textColor: ''} {marginLeftClass? 'ms-' + marginLeftClass: ''}"
+    class:badge-outline={textColor}
     class:badge-notification={notification}
     class:badge-pill={pill}
     class:badge-blink={blink}
     class:badge-sm={small}
-    class:text-uppercase={text_uppercase}>
+    class:text-uppercase={textUppercase}>
     <slot />
 </span>

@@ -6,8 +6,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -50,14 +50,14 @@
      * Exported in case the parent wants to check upon.
      * @type {boolean}
      */
-    export let is_touched = false;
+    export let isTouched = false;
 
     /**
      * Check that the field is valid, only if touched and required.
 	 * @type {boolean?}
 	 */
-     export let is_valid = null;
-    $: is_valid = !is_touched || !required? null: !!value;
+     export let isValid = null;
+    $: isValid = !isTouched || !required? null: !!value;
 
     /**
      * Handle button click.
@@ -80,7 +80,7 @@ Slots:
 - append: Extra html after the buttons.
 - feedback: Text to display if validation error.
 -->
-<Wrapper element={wrapper} class={extra_class ?? 'mb-3'}>
+<Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
     <Label {required}>
         <slot /><slot name="description" />
     </Label>
@@ -94,7 +94,7 @@ Slots:
                 class="btn-check"
                 {name}
                 autocomplete="off"
-                on:input|once={() => {is_touched = true}}
+                on:input|once={() => {isTouched = true}}
                 bind:group={value}
                 value={Object.values(button)[0]}
                 checked={value == Object.values(button)[0]}
@@ -111,7 +111,7 @@ Slots:
         {/each}
         <div class="btn-group" role="group"><slot name="append" /></div>
     </div>
-    {#if $$slots.feedback && is_valid === false}
+    {#if $$slots.feedback && isValid === false}
         <div class="invalid-feedback"><slot name="feedback" /></div>
     {/if}
 </Wrapper>

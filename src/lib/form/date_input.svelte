@@ -8,8 +8,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -88,15 +88,15 @@
      * Exported in case the parent wants to check upon.
      * @type {boolean}
      */
-    export let is_touched = false;
+    export let isTouched = false;
 
     /**
      * Check that the field is valid, only if touched and required.
      * Validation classes not added to control because it changes all text to green/red.
 	 * @type {boolean?}
 	 */
-    export let is_valid = null;
-    $: is_valid = !is_touched? null: [
+    export let isValid = null;
+    $: isValid = !isTouched? null: [
         required? !!value: null,
         min && max? min < value && value < max: null,
         min? min < value: null,
@@ -114,7 +114,7 @@ Slots:
 - description: Extra right-aligned label description.
 - feedback: Text to display if validation error.
 -->
-<Wrapper element={wrapper} class="{extra_class ?? 'mb-3'}">
+<Wrapper element={wrapper} class="{extraClass ?? 'mb-3'}">
     <Label {required}>
         <slot /><slot name="description" />
     </Label>
@@ -135,7 +135,7 @@ Slots:
             {disabled} 
             {closeOnSelection} 
             {browseWithoutSelecting} 
-            on:input|once={() => {is_touched = true}}
+            on:input|once={() => {isTouched = true}}
             bind:value />
         {#if icon && icon !== 'left'}
             <span class="input-icon-addon">
@@ -143,7 +143,7 @@ Slots:
             </span>
         {/if}
     </div>
-    {#if $$slots.feedback && is_valid === false}
+    {#if $$slots.feedback && isValid === false}
         <div class="invalid-feedback"><slot name="feedback" /></div>
     {/if}
 </Wrapper>

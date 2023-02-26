@@ -6,8 +6,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -36,7 +36,7 @@ Slots:
 - default: The field label.
 - description: Extra right-aligned label description.
 -->
-<Wrapper element={wrapper} class={extra_class ?? 'mb-3'}>
+<Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
     <Label>
         <slot /><slot name="description" />
     </Label>

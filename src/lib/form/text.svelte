@@ -6,8 +6,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -73,7 +73,7 @@
      * Whether the label is floating.
      * @type {boolean}
      */
-    export let floating_label = false;
+    export let floatingLabel = false;
 
     /**
      * Specify a datalist element id.
@@ -97,20 +97,20 @@
 	 * A regular expression for validation.
 	 * @type {RegExp?}
 	 */
-    export let validation_regex = null;
+    export let validationRegex = null;
 
     /**
      * Whether to display a red/green border if valid/invalid.
      * @type {boolean}
      */
-    export let validation_lite = false;
+    export let validationLite = false;
 
     /**
      * Whether the user has changed the field.
      * Exported in case the parent wants to check upon.
      * @type {boolean}
      */
-    export let is_touched = false;
+    export let isTouched = false;
 
     /**
      * Check that the field is valid, only if touched and required.
@@ -118,10 +118,10 @@
      * Then get each element and if all is null, then null, else AND conditions.
 	 * @type {boolean?}
 	 */
-    export let is_valid = null;
-    $: is_valid = !is_touched? null: [
+    export let isValid = null;
+    $: isValid = !isTouched? null: [
         required? !!value.length: null,
-        validation_regex instanceof RegExp? validation_regex.test(value): null,
+        validationRegex instanceof RegExp? validationRegex.test(value): null,
     ].reduce((previous, current) => 
         current === null? previous: previous === null? current: previous && current);
 </script>
@@ -130,32 +130,32 @@
 @component
 Input text/email field component with regex validation.
 
-If icon_before or icon_after slot is provided, and no label is defined, output an icon.
+If iconBefore or icon_after slot is provided, and no label is defined, output an icon.
 Otherwise a label and icon at the same time breaks the layout.
 
 Slots:
 - default: The field label.
 - description: Extra right-aligned label description.
-- icon_before: Present an icon before the input box.
-- icon_after: Present an icon after the input box.
+- iconBefore: Present an icon before the input box.
+- iconAfter: Present an icon after the input box.
 - hint: An extra description below the field.
 - feedback: Text to display if validation error.
 -->
 <Wrapper
     element={wrapper}
     class={
-        extra_class ?? 'mb-3'}{
-        !$$slots.default && !$$slots.description && ($$slots.icon_before || $$slots.icon_after)? ' input-icon': ''}{
-        floating_label? ' form-floating': ''
+        extraClass ?? 'mb-3'}{
+        !$$slots.default && !$$slots.description && ($$slots.iconBefore || $$slots.iconAfter)? ' input-icon': ''}{
+        floatingLabel? ' form-floating': ''
     }>
-    {#if ($$slots.default || $$slots.description) && !floating_label}
+    {#if ($$slots.default || $$slots.description) && !floatingLabel}
         <Label {id} {required}>
             <slot /><slot name="description" />
         </Label>
     {/if}
-    {#if !$$slots.default && !$$slots.description && $$slots.icon_before}
+    {#if !$$slots.default && !$$slots.description && $$slots.iconBefore}
         <span class="input-icon-addon">
-            <slot name="icon_before" />
+            <slot name="iconBefore" />
         </span>
     {/if}
     {#if type === 'email'}
@@ -168,17 +168,17 @@ Slots:
             class:ps-0={padding.includes('none')}
             class:pe-0={padding.includes('none')}
             class:text-end={padding.includes('text-end')}
-            class:is-valid={is_valid}
-            class:is-valid-lite={is_valid && validation_lite}
-            class:is-invalid={is_valid === false}
-            class:is-invalid-lite={is_valid === false && validation_lite}
+            class:is-valid={isValid}
+            class:is-valid-lite={isValid && validationLite}
+            class:is-invalid={isValid === false}
+            class:is-invalid-lite={isValid === false && validationLite}
             name={id}
-            placeholder={floating_label? null: placeholder}
+            placeholder={floatingLabel? null: placeholder}
             {autocomplete}
             {disabled}
             {readonly}
             {list}
-            on:input|once={() => {is_touched = true}}
+            on:input|once={() => {isTouched = true}}
             bind:value>
     {:else}
         <input 
@@ -190,32 +190,32 @@ Slots:
             class:ps-0={padding.includes('none')}
             class:pe-0={padding.includes('none')}
             class:text-end={padding.includes('text-end')}
-            class:is-valid={is_valid}
-            class:is-valid-lite={is_valid && validation_lite}
-            class:is-invalid={is_valid === false}
-            class:is-invalid-lite={is_valid === false && validation_lite}
+            class:is-valid={isValid}
+            class:is-valid-lite={isValid && validationLite}
+            class:is-invalid={isValid === false}
+            class:is-invalid-lite={isValid === false && validationLite}
             name={id}
-            placeholder={floating_label? null: placeholder}
+            placeholder={floatingLabel? null: placeholder}
             {autocomplete}
             {disabled}
             {readonly}
             {maxlength}
             {list}
-            on:input|once={() => {is_touched = true}}
+            on:input|once={() => {isTouched = true}}
             bind:value>
     {/if}
-    {#if !$$slots.default && !$$slots.description && $$slots.icon_after}
+    {#if !$$slots.default && !$$slots.description && $$slots.iconAfter}
         <span class="input-icon-addon">
-            <slot name="icon_after" />
+            <slot name="iconAfter" />
         </span>
     {/if}
-    {#if $$slots.default && floating_label}
+    {#if $$slots.default && floatingLabel}
         <label for={id} class="form-label"><slot /></label>
     {/if}
     {#if $$slots.hint}
         <small class="form-hint"><slot name="hint" /></small>
     {/if}
-    {#if $$slots.feedback && is_valid === false}
+    {#if $$slots.feedback && isValid === false}
         <div class="invalid-feedback"><slot name="feedback" /></div>
     {/if}
 </Wrapper>

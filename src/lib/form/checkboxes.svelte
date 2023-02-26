@@ -6,8 +6,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -37,19 +37,19 @@
      * Whether to display as toggle switches.
      * @type {boolean}
      */
-    export let toggle_switch = false;
+    export let toggleSwitch = false;
 
     /**
      * Whether to right align the boxes.
      * @type {boolean}
      */
-    export let right_align = false;
+    export let rightAlign = false;
 
     /**
      * Whether to present as selectgroup.
 	 * @type {null|boolean|'pills'|'boxes'}
 	 */
-    export let selectgroup = null; // true|'pills'|'boxes'
+    export let selectGroup = null; // true|'pills'|'boxes'
 
     /**
      * The bound value.
@@ -68,15 +68,15 @@
      * Exported in case the parent wants to check upon.
      * @type {boolean}
      */
-    export let is_touched = false;
+    export let isTouched = false;
 
     /**
      * Check that the field is valid, only if touched and required.
      * Validation classes not added to control because it changes all text to green/red.
 	 * @type {boolean?}
 	 */
-    export let is_valid = null;
-    $: is_valid = !is_touched || !required? null: !!value.length;
+    export let isValid = null;
+    $: isValid = !isTouched || !required? null: !!value.length;
 </script>
 
 <!-- 
@@ -88,46 +88,46 @@ Slots:
 - description: Extra right-aligned label description.
 - feedback: Text to display if validation error.
 -->
-<Wrapper element={wrapper} class={extra_class ?? 'mb-3'}>
+<Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
     <Label {required}>
         <slot /><slot name="description" />
     </Label>
-    <div class:divide-y={right_align}
-        class:form-selectgroup={!!selectgroup}
-        class:form-selectgroup-pills={selectgroup === 'pills'}
-        class:form-selectgroup-boxes={selectgroup === 'boxes'}
-        class:d-flex={selectgroup === 'boxes'}
-        class:flex-column={selectgroup === 'boxes'}>
+    <div class:divide-y={rightAlign}
+        class:form-selectgroup={!!selectGroup}
+        class:form-selectgroup-pills={selectGroup === 'pills'}
+        class:form-selectgroup-boxes={selectGroup === 'boxes'}
+        class:d-flex={selectGroup === 'boxes'}
+        class:flex-column={selectGroup === 'boxes'}>
         {#each checkboxes as checkbox}
-            <Wrapper element={right_align? 'div': ''}>
-                <Wrapper element={right_align? 'label': ''} class="row">
-                    {#if right_align}
+            <Wrapper element={rightAlign? 'div': ''}>
+                <Wrapper element={rightAlign? 'label': ''} class="row">
+                    {#if rightAlign}
                         <span class="col">{Object.values(checkbox)[1]}</span>
                     {/if}
-                    <Wrapper element={right_align? 'span': ''} class="col-auto">
+                    <Wrapper element={rightAlign? 'span': ''} class="col-auto">
                         <label 
-                            class:form-check={!selectgroup}
+                            class:form-check={!selectGroup}
                             class:form-check-inline={inline}
-                            class:form-check-single={right_align}
-                            class:form-switch={toggle_switch}
-                            class:form-selectgroup-item={!!selectgroup}
-                            class:flex-fill={selectgroup === 'boxes'}>
+                            class:form-check-single={rightAlign}
+                            class:form-switch={toggleSwitch}
+                            class:form-selectgroup-item={!!selectGroup}
+                            class:flex-fill={selectGroup === 'boxes'}>
                             <input type="checkbox" 
-                                class:form-check-input={!selectgroup}
-                                class:form-selectgroup-input={!!selectgroup}
+                                class:form-check-input={!selectGroup}
+                                class:form-selectgroup-input={!!selectGroup}
                                 {name}
-                                on:input|once={() => {is_touched = true}}
+                                on:input|once={() => {isTouched = true}}
                                 bind:group={value}
                                 value={Object.values(checkbox)[0]}
                                 checked={value.includes(Object.values(checkbox)[0])}
                                 disabled={checkbox.disabled}>
-                            {#if !right_align}
+                            {#if !rightAlign}
                                 <span 
-                                    class:form-check-label={!selectgroup}
-                                    class:form-selectgroup-label={!!selectgroup}
-                                    class:d-flex={selectgroup === 'boxes'}
-                                    class:align-items-center={selectgroup === 'boxes'}
-                                    class:p-3={selectgroup === 'boxes'}
+                                    class:form-check-label={!selectGroup}
+                                    class:form-selectgroup-label={!!selectGroup}
+                                    class:d-flex={selectGroup === 'boxes'}
+                                    class:align-items-center={selectGroup === 'boxes'}
+                                    class:p-3={selectGroup === 'boxes'}
                                     class:required>
                                     {#if checkbox.html}
                                         {@html checkbox.html}
@@ -146,7 +146,7 @@ Slots:
             </Wrapper>
         {/each}
     </div>
-    {#if $$slots.feedback && is_valid === false}
+    {#if $$slots.feedback && isValid === false}
         <div class="invalid-feedback"><slot name="feedback" /></div>
     {/if}
 </Wrapper>

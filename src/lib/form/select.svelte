@@ -8,8 +8,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -58,7 +58,7 @@
      * Whether the label is floating.
      * @type {boolean}
      */
-    export let floating_label = false;
+    export let floatingLabel = false;
 
     /**
      * The bound value.
@@ -87,22 +87,22 @@
      * Whether to display a red/green border if valid/invalid.
      * @type {boolean}
      */
-    export let validation_lite = false;
+    export let validationLite = false;
 
     /**
      * Whether the user has changed the field.
      * Exported in case the parent wants to check upon.
      * @type {boolean}
      */
-    export let is_touched = false;
+    export let isTouched = false;
 
     /**
      * Check that the field is valid, only if touched and required.
      * Validation classes not added to control because it changes all text to green/red.
 	 * @type {boolean?}
 	 */
-    export let is_valid = null;
-    $: is_valid = !is_touched || !required? null: !!value;
+    export let isValid = null;
+    $: isValid = !isTouched || !required? null: !!value;
 
     // https://github.com/orchidjs/tom-select/discussions/161
     // https://tom-select.js.org/examples/remote/
@@ -123,10 +123,10 @@
      * The select element on which to construct the to select box.
 	 * @type {import("tom-select/dist/types/types").TomInput | HTMLSelectElement}
 	 */
-    let select_element;
+    let selectElement;
 
     onMount(async () => {
-        if (tom) new TomSelect(select_element, settings);
+        if (tom) new TomSelect(selectElement, settings);
     });
 </script>
 
@@ -141,8 +141,8 @@ Slots:
 - description: Extra right-aligned label description.
 - feedback: Text to display if validation error.
 -->
-<Wrapper element={wrapper} class={extra_class ?? 'mb-3'}{floating_label? ' form-floating': ''}>
-    {#if ($$slots.default || $$slots.description) && !floating_label}
+<Wrapper element={wrapper} class={extraClass ?? 'mb-3'}{floatingLabel? ' form-floating': ''}>
+    {#if ($$slots.default || $$slots.description) && !floatingLabel}
         <Label {required}>
             <slot /><slot name="description" />
         </Label>
@@ -154,14 +154,14 @@ Slots:
             class="form-select"
             class:form-control-rounded={border === 'rounded'}
             class:form-control-flush={border === 'none'}
-            class:is-valid={is_valid}
-            class:is-valid-lite={is_valid && validation_lite}
-            class:is-invalid={is_valid === false}
-            class:is-invalid-lite={is_valid === false && validation_lite}
+            class:is-valid={isValid}
+            class:is-valid-lite={isValid && validationLite}
+            class:is-invalid={isValid === false}
+            class:is-invalid-lite={isValid === false && validationLite}
             {autocomplete}
             {disabled}
-            on:input|once={() => {is_touched = true}}
-            bind:this={select_element}
+            on:input|once={() => {isTouched = true}}
+            bind:this={selectElement}
             bind:value>
             {#if placeholder}
                 <option value disabled selected>{placeholder}</option>
@@ -174,11 +174,11 @@ Slots:
                     r[a.group ?? ''] = r[a.group ?? ''] || [];
                     r[a.group ?? ''].push(a);
                     return r;
-                }, Object.create(null))) as [group, group_options]}
+                }, Object.create(null))) as [group, groupOptions]}
 
                 <!-- Display an optgroup if a group is defined -->
                 <Wrapper element={group == 'undefined'? null: 'optgroup'} label={group}>
-                    {#each group_options as option}
+                    {#each groupOptions as option}
                         <option value={Object.values(option)[0]}
                             data-custom-properties={option.data}>
                             {Object.values(option)[1]}
@@ -194,15 +194,15 @@ Slots:
             class="form-select"
             class:form-control-rounded={border === 'rounded'}
             class:form-control-flush={border === 'none'}
-            class:is-valid={is_valid}
-            class:is-valid-lite={is_valid && validation_lite}
-            class:is-invalid={is_valid === false}
-            class:is-invalid-lite={is_valid === false && validation_lite}
+            class:is-valid={isValid}
+            class:is-valid-lite={isValid && validationLite}
+            class:is-invalid={isValid === false}
+            class:is-invalid-lite={isValid === false && validationLite}
             {autocomplete}
             {disabled}
             multiple
-            on:input|once={() => {is_touched = true}}
-            bind:this={select_element}
+            on:input|once={() => {isTouched = true}}
+            bind:this={selectElement}
             bind:value>
             {#if placeholder}
                 <option value disabled selected>{placeholder}</option>
@@ -213,10 +213,10 @@ Slots:
             {/each}
         </select>
     {/if}
-    {#if $$slots.default && floating_label}
+    {#if $$slots.default && floatingLabel}
         <label for={id} class="form-label"><slot /></label>
     {/if}
-    {#if $$slots.feedback && is_valid === false}
+    {#if $$slots.feedback && isValid === false}
         <div class="invalid-feedback"><slot name="feedback" /></div>
     {/if}
 </Wrapper>

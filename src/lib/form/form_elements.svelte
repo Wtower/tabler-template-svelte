@@ -78,7 +78,7 @@
                                             <Textarea id="textarea" 
                                                 rows={6}
                                                 placeholder="Content..."
-                                                maxlength_counter={100}
+                                                maxlengthCounter={100}
                                                 value="Oh! Come and see the violence inherent in the system! Help, help, I'm being repressed! We shall say 'Ni' again to you, if you do not appease us. I'm not a witch. I'm not a witch. Camelot!">
                                                 Textarea
                                             </Textarea>
@@ -121,7 +121,7 @@
                                                         aria-expanded="false">
                                                         Action
                                                     </button>
-                                                    <Dropdown menu_item={{
+                                                    <Dropdown menuItem={{
                                                         menu: [[{
                                                             title: 'Action',
                                                         }, {
@@ -144,7 +144,7 @@
                                                         type="button" 
                                                         class="btn dropdown-toggle dropdown-toggle-split">
                                                     </button>
-                                                    <Dropdown menu_item={{
+                                                    <Dropdown menuItem={{
                                                         menu: [[{
                                                             title: 'Action',
                                                         }, {
@@ -160,7 +160,7 @@
                                                         wrapper=""
                                                         placeholder="Search..."
                                                         value="">
-                                                        <span slot="icon_after">
+                                                        <span slot="iconAfter">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
                                                         </span>
                                                     </Text>
@@ -169,7 +169,7 @@
                                             <Text id="icon-input-2"
                                                 placeholder="Username"
                                                 value="">
-                                                <span slot="icon_before">
+                                                <span slot="iconBefore">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
                                                 </span>
                                             </Text>
@@ -180,7 +180,7 @@
                                                         wrapper=""
                                                         placeholder="Loading..."
                                                         value="">
-                                                        <span slot="icon_after">
+                                                        <span slot="iconAfter">
                                                             <span class="input-icon-addon">
                                                                 <div class="spinner-border spinner-border-sm text-muted" 
                                                                     role="status">
@@ -193,7 +193,7 @@
                                             <Text id="loader-input-2"
                                                 placeholder="Loading..."
                                                 value="">
-                                                <span slot="icon_before">
+                                                <span slot="iconBefore">
                                                     <span class="input-icon-addon">
                                                         <div class="spinner-border spinner-border-sm text-muted" 
                                                             role="status">
@@ -234,7 +234,7 @@
                                                         <div class="col-auto align-self-center">
                                                             <PopOver 
                                                                 style="width: 200px; right: 0;">?
-                                                                <span slot="close_text">x</span>
+                                                                <span slot="closeText">x</span>
                                                                 <div slot="content">
                                                                     <p>ZIP Code must be US or CDN 
                                                                         format. You can use an 
@@ -265,7 +265,7 @@
                                                 border="rounded"
                                                 placeholder="Search..."
                                                 value="">
-                                                <span slot="icon_after">
+                                                <span slot="iconAfter">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
                                                 </span>
                                             </Text>
@@ -409,18 +409,18 @@
                                             <Text id="floating-input-1"
                                                 type="email"
                                                 autocomplete="off"
-                                                floating_label
+                                                floatingLabel
                                                 value="name@example.com">
                                                 Email address
                                             </Text>
                                             <Password id="floating-password-1"
-                                                floating_label
+                                                floatingLabel
                                                 value="">
                                                 Password
                                                 <span slot="appended">Show password</span>
                                             </Password>
                                             <Select id="floating-select"
-                                                floating_label
+                                                floatingLabel
                                                 options={[
                                                     {v: 1, t: 'One'}, 
                                                     {v: 2, t: 'Two'}, 
@@ -461,7 +461,7 @@
                                             </ImageCheck>
                                             <ImageCheck
                                                 name="color2"
-                                                color_check
+                                                colorCheck
                                                 images={
                                                     ['dark', 'white', 'blue', 'azure', 'indigo', 
                                                         'purple', 'pink', 'red', 'orange', 'yellow',
@@ -476,7 +476,7 @@
                                             </ImageCheck>
                                             <ImageCheck
                                                 name="color-rounded2"
-                                                color_check="rounded"
+                                                colorCheck="rounded"
                                                 images={
                                                     ['dark', 'white', 'blue', 'azure', 'indigo', 
                                                         'purple', 'pink', 'red', 'orange', 'yellow',
@@ -502,28 +502,28 @@
                                             <Text id="valid-state" 
                                                 class="mb-2" 
                                                 placeholder="Valid State.." 
-                                                validation_regex={/^Valid State$/}
+                                                validationRegex={/^Valid State$/}
                                                 value="Valid State">
                                                 Validation States
                                             </Text>
                                             <Text id="invalid-state" 
                                                 placeholder="Invalid State.." 
-                                                validation_regex={/^Valid State$/}
+                                                validationRegex={/^Valid State$/}
                                                 value="Invalid State">
                                                 <span slot="feedback">Invalid feedback</span>
                                             </Text>
                                             <Text id="valid-state-lite" 
                                                 class="mb-2" 
                                                 placeholder="Valid State.." 
-                                                validation_regex={/^Valid State$/}
-                                                validation_lite
+                                                validationRegex={/^Valid State$/}
+                                                validationLite
                                                 value="Valid State">
                                                 Validation States (lite)
                                             </Text>
                                             <Text id="invalid-state" 
                                                 placeholder="Invalid State.." 
-                                                validation_regex={/^Valid State$/}
-                                                validation_lite
+                                                validationRegex={/^Valid State$/}
+                                                validationLite
                                                 value="Invalid State" />
                                             <InputGroup class="mb-0">
                                                 Form fieldset
@@ -564,7 +564,7 @@
                                         </div>
                                         <div class="col-md-6 col-xl-12">
                                             <Checkboxes name="simple-selectgroup"
-                                                selectgroup
+                                                selectGroup
                                                 checkboxes={[
                                                     'HTML', 'CSS', 'PHP', 'JavaScript'
                                                     ].map((i) => ({v: i, t: i}))}
@@ -572,7 +572,7 @@
                                                 Simple selectgroup
                                             </Checkboxes>
                                             <Checkboxes name="icon-selectgroup"
-                                                selectgroup
+                                                selectGroup
                                                 checkboxes={[
                                                     {v: 0, t: '', html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>'},
                                                     {v: 1, t: '', html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>'},
@@ -584,7 +584,7 @@
                                                 Icon input
                                             </Checkboxes>
                                             <Radios name="icon-text-selectgroup"
-                                                selectgroup
+                                                selectGroup
                                                 radios={[
                                                     {v: 0, t: 'Home', html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg>'},
                                                     {v: 1, t: 'User', html: '<svg xmlns="http://www.w3.org/2000/svg" class="icon me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>'},
@@ -595,7 +595,7 @@
                                                 Selectgroup with icons and text
                                             </Radios>
                                             <Checkboxes name="pill-selectgroup"
-                                                selectgroup="pills"
+                                                selectGroup="pills"
                                                 checkboxes={[
                                                     'HTML', 'CSS', 'PHP', 'JavaScript'
                                                 ].map((i) => ({v: i, t: i}))}
@@ -603,7 +603,7 @@
                                                 Different style
                                             </Checkboxes>
                                             <Radios name="form-payment-selectgroup"
-                                                selectgroup="boxes"
+                                                selectGroup="boxes"
                                                 radios={[
                                                     {v: 0, t: '', html: `
                                                         <div class="me-3">
@@ -643,7 +643,7 @@
                                                 Selectgroup with icons and text
                                             </Radios>
                                             <Checkboxes name="form-payment-selectgroup"
-                                                selectgroup="boxes"
+                                                selectGroup="boxes"
                                                 checkboxes={[
                                                     {v: 0, t: '', html: `
                                                         <div class="me-3">
@@ -898,7 +898,7 @@
                                             </Checkboxes>
                                             <Checkboxes
                                                 name="checkboxes-switch"
-                                                toggle_switch
+                                                toggleSwitch
                                                 checkboxes={[
                                                     {v: 1, t: 'Option 1'}, 
                                                     {v: 2, t: 'Option 2'},
@@ -909,7 +909,7 @@
                                             </Checkboxes>
                                             <Checkboxes
                                                 name="checkboxes-switch-single"
-                                                toggle_switch
+                                                toggleSwitch
                                                 checkboxes={[
                                                     {v: true, t: 'I agree with terms and conditions'}, 
                                                 ]}
@@ -918,8 +918,8 @@
                                             </Checkboxes>
                                             <Checkboxes
                                                 name="notifications"
-                                                toggle_switch
-                                                right_align
+                                                toggleSwitch
+                                                rightAlign
                                                 checkboxes={[
                                                     {v: 1, t: 'Push Notifications'},
                                                     {v: 2, t: 'SMS Notifications'},
@@ -935,20 +935,20 @@
                                             <DateSelect id="date-birth">Date of birth</DateSelect>
                                             <Text id="text_mask" 
                                                 placeholder="00/00/0000"
-                                                validation_regex={/^\d{2}\/\d{2}\/\d{4}$/}
+                                                validationRegex={/^\d{2}\/\d{2}\/\d{4}$/}
                                                 autocomplete="off"
                                                 value="">
                                                 Text mask
                                             </Text>
                                             <Text id="telephone_mask" 
                                                 placeholder="(00) 0000-0000"
-                                                validation_regex={/^\(\d{2}\)\s\d{4}-\d{4}$/}
+                                                validationRegex={/^\(\d{2}\)\s\d{4}-\d{4}$/}
                                                 autocomplete="off"
                                                 value="">
                                                 Telephone mask
                                             </Text>
                                             <Textarea id="autosize_textarea"
-                                                auto_resize
+                                                autoResize
                                                 placeholder="Type something..."
                                                 value="">
                                                 Autosize textarea
@@ -1394,7 +1394,7 @@
                                 placeholder="Search..."
                                 readonly
                                 value="prj_5ae74426fe935327a8fa178b07d84ad9">
-                                <span slot="icon_after">
+                                <span slot="iconAfter">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 3v4a1 1 0 0 0 1 1h4" /><path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2z" /><path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" /></svg>
                                 </span>
                             </Text>
@@ -1561,56 +1561,56 @@
                                 <div class="card-body">
                                     <Text id="masks-date"
                                         placeholder="00/00/0000"
-                                        validation_regex={/^[0-3][0-9]\/[0-1][1-9]\/[1-2][0-9]{3}$/}
+                                        validationRegex={/^[0-3][0-9]\/[0-1][1-9]\/[1-2][0-9]{3}$/}
                                         autocomplete="off"
                                         value="">
                                         Date
                                     </Text>
                                     <Text id="masks-hour"
                                         placeholder="00:00:00"
-                                        validation_regex={/^[0-2][0-9](:[0-5][1-9]){2}$/}
+                                        validationRegex={/^[0-2][0-9](:[0-5][1-9]){2}$/}
                                         autocomplete="off"
                                         value="">
                                         Hour
                                     </Text>
                                     <Text id="masks-date-hour"
                                         placeholder="00/00/0000 00:00:00"
-                                        validation_regex={/^[0-3][0-9]\/[0-1][1-9]\/[1-2][0-9]{3} [0-2][0-9](:[0-5][1-9]){2}$/}
+                                        validationRegex={/^[0-3][0-9]\/[0-1][1-9]\/[1-2][0-9]{3} [0-2][0-9](:[0-5][1-9]){2}$/}
                                         autocomplete="off"
                                         value="">
                                         Date &amp; Hour
                                     </Text>
                                     <Text id="masks-zip"
                                         placeholder="00000-000"
-                                        validation_regex={/^[0-9]{5}-[0-9]{3}$/}
+                                        validationRegex={/^[0-9]{5}-[0-9]{3}$/}
                                         autocomplete="off"
                                         value="">
                                         ZIP Code
                                     </Text>
                                     <Text id="masks-money"
                                         placeholder="000.000.000.000.000,00"
-                                        validation_regex={/^([0-9]{3}\.){4}[0-9]{3},[0-9]{2}$/}
+                                        validationRegex={/^([0-9]{3}\.){4}[0-9]{3},[0-9]{2}$/}
                                         autocomplete="off"
                                         value="">
                                         Money
                                     </Text>
                                     <Text id="masks-telephone"
                                         placeholder="0000-0000"
-                                        validation_regex={/^[0-9]{4}-[0-9]{4}$/}
+                                        validationRegex={/^[0-9]{4}-[0-9]{4}$/}
                                         autocomplete="off"
                                         value="">
                                         Telephone
                                     </Text>
                                     <Text id="masks-telephone-code-area"
                                         placeholder="(00) 0000-0000"
-                                        validation_regex={/^\([0-9]{2}\) [0-9]{4}-[0-9]{4}$/}
+                                        validationRegex={/^\([0-9]{2}\) [0-9]{4}-[0-9]{4}$/}
                                         autocomplete="off"
                                         value="">
                                         Telephone with Code Area
                                     </Text>
                                     <Text id="masks-ip"
                                         placeholder="099.099.099.099"
-                                        validation_regex={/^([0-2][0-9]{2}.){3}[0-2][0-9]{2}$/}
+                                        validationRegex={/^([0-2][0-9]{2}.){3}[0-2][0-9]{2}$/}
                                         autocomplete="off"
                                         value="">
                                         IP Address

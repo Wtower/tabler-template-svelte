@@ -60,13 +60,13 @@
      *  target?: string,
      * }>}
 	 */
-    export let footer_menu;
+    export let footerMenu;
     
     /**
      * The footer notice.
 	 * @type {Array.<string>}
 	 */
-    export let footer_notice;
+    export let footerNotice;
 </script>
 
 <!-- 
@@ -204,42 +204,42 @@ Empty page layout.
         <div class="navbar navbar-light">
             <div class="container-xl">
                 <ul class="navbar-nav">
-                    {#each menu as menu_item}
-                        {#if menu_item.menu}
+                    {#each menu as menuItem}
+                        {#if menuItem.menu}
                             <!-- Check if second level page is active (not working for third) -->
                             <!-- https://stackoverflow.com/questions/19590865/from-an-array-of-objects-extract-value-of-a-property-as-array/46694321#46694321 -->
                             <!-- https://stackoverflow.com/questions/10865025/merge-flatten-an-array-of-arrays -->
-                            <!-- {menu_item.menu.flat().map(a => a.href)} -->
+                            <!-- {menuItem.menu.flat().map(a => a.href)} -->
                             <li class="nav-item dropdown" 
-                                class:active={menu_item.menu.flat().map((/** @type {{ href: any; }} */ a) => a.href).includes(path)}>
+                                class:active={menuItem.menu.flat().map((/** @type {{ href: any; }} */ a) => a.href).includes(path)}>
                                 <a class="nav-link dropdown-toggle" 
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside"
                                     role="button"
                                     href="#navbar-base">
-                                    {#if menu_item.icon}
+                                    {#if menuItem.icon}
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                            {@html menu_item.icon}
+                                            {@html menuItem.icon}
                                         </span>
                                     {/if}
-                                    {#if menu_item.title}
-                                        <span class="nav-link-title">{menu_item.title}</span>
+                                    {#if menuItem.title}
+                                        <span class="nav-link-title">{menuItem.title}</span>
                                     {/if}
                                 </a>
-                                <Dropdown {menu_item} {path} />
+                                <Dropdown menuItem={menuItem} {path} />
                             </li>
                         {:else}
                             <li class="nav-item" 
-                                class:active={path === menu_item.href}>
+                                class:active={path === menuItem.href}>
                                 <a class="nav-link" 
-                                    href={menu_item.href ?? '#navbar-base'}>
-                                    {#if menu_item.icon}
+                                    href={menuItem.href ?? '#navbar-base'}>
+                                    {#if menuItem.icon}
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                            {@html menu_item.icon}
+                                            {@html menuItem.icon}
                                         </span>
                                     {/if}
-                                    {#if menu_item.title}
-                                        <span class="nav-link-title">{menu_item.title}</span>
+                                    {#if menuItem.title}
+                                        <span class="nav-link-title">{menuItem.title}</span>
                                     {/if}
                                 </a>
                             </li>
@@ -283,27 +283,27 @@ Empty page layout.
     <footer class="footer footer-transparent d-print-none">
         <div class="container-xl">
             <div class="row text-center align-items-center flex-row-reverse">
-                {#if footer_menu}
+                {#if footerMenu}
                     <div class="col-lg-auto ms-lg-auto">
                         <ul class="list-inline list-inline-dots mb-0">
-                            {#each footer_menu as menu_item}
+                            {#each footerMenu as menuItem}
                                 <li class="list-inline-item">
-                                    <a href={menu_item.href ?? '#'}
+                                    <a href={menuItem.href ?? '#'}
                                         class="link-secondary"
-                                        target={menu_item.target}
-                                        rel={(menu_item.target === '_blank')? 'noreferrer': null}>
-                                        {#if menu_item.icon}{@html menu_item.icon}{/if}
-                                        {menu_item.title}
+                                        target={menuItem.target}
+                                        rel={(menuItem.target === '_blank')? 'noreferrer': null}>
+                                        {#if menuItem.icon}{@html menuItem.icon}{/if}
+                                        {menuItem.title}
                                     </a>
                                 </li>
                             {/each}
                         </ul>
                     </div>
                 {/if}
-                {#if footer_notice}
+                {#if footerNotice}
                     <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                         <ul class="list-inline list-inline-dots mb-0">
-                            {#each footer_notice as notice}
+                            {#each footerNotice as notice}
                                 <li class="list-inline-item">{@html notice}</li>
                             {/each}
                         </ul>

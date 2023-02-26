@@ -6,8 +6,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -49,7 +49,7 @@
      * Whether to display a red/green border if valid/invalid.
      * @type {boolean}
      */
-    export let validation_lite = false;
+    export let validationLite = false;
 
     /**
      * The date format.
@@ -80,13 +80,13 @@
      * The maxiumum year to present as an option.
      * @type {number}
      */
-    export let max_year = new Date().getFullYear();
+    export let maxYear = new Date().getFullYear();
 
     /**
      * The minimum year to present as an option.
      * @type {number}
      */
-    export let min_year = max_year - 100;
+    export let minYear = maxYear - 100;
 
     /**
      * Bound value.
@@ -122,7 +122,7 @@
     $: options = {
         d: [...Array(month_length).keys()].map(i => ({v: i + 1, d: i + 1})),
         m: [...Array(12).keys()].map(i => ({v: i + 1, m: months[i]})),
-        y: [...Array(max_year - min_year).keys()].map(i => ({v: max_year - i, y: max_year - i})),
+        y: [...Array(maxYear - minYear).keys()].map(i => ({v: maxYear - i, y: maxYear - i})),
     };
     $: value = new Date(values.y, values.m - 1, values.d);
 
@@ -131,15 +131,15 @@
      * Exported in case the parent wants to check upon.
      * @type {boolean}
      */
-    export let is_touched = false;
+    export let isTouched = false;
 
     /**
      * Check that the field is valid, only if touched and required.
      * Validation classes not added to control because it changes all text to green/red.
 	 * @type {boolean?}
 	 */
-    export let is_valid = null;
-    $: is_valid = !is_touched || !required? null: !!value;
+    export let isValid = null;
+    $: isValid = !isTouched || !required? null: !!value;
 </script>
 
 <!-- 
@@ -151,7 +151,7 @@ Slots:
 - description: Extra right-aligned label description.
 - feedback: Text to display if validation error.
 -->
-<InputGroup {wrapper} class={extra_class} {required} {flat}>
+<InputGroup {wrapper} class={extraClass} {required} {flat}>
     <slot />
     <slot name="description" />
     <div slot="static">
@@ -162,13 +162,13 @@ Slots:
                     placeholder={placeholders[i]}
                     {disabled}
                     {border}
-                    {validation_lite}
+                    validationLite={validationLite}
                     options={options[item]}
-                    on:input|once={() => {is_touched = true}}
+                    on:input|once={() => {isTouched = true}}
                     bind:value={values[item]} />
             {/each}
         </div>
-        {#if $$slots.feedback && is_valid === false}
+        {#if $$slots.feedback && isValid === false}
             <div class="invalid-feedback"><slot name="feedback" /></div>
         {/if}
     </div>

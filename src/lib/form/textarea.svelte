@@ -6,8 +6,8 @@
      * Extra classes for the wrapper element, or `mb-3`.
      * @type {string?} 
      */
-    let extra_class = null;
-    export { extra_class as class };
+    let extraClass = null;
+    export { extraClass as class };
 
     /**
      * The wrapper element or null.
@@ -75,25 +75,25 @@
      * If provided it shows a counter.
      * @type {number?}
      */
-    export let maxlength_counter = null;
+    export let maxlengthCounter = null;
     
     /**
      * The maximum number of rows for auto-resize.
      * @type {number}
      */
-    export let max_rows = 20;
+    export let maxRows = 20;
 
     /**
      * The line height in px to calculate the auto-resize.
      * @type {number}
      */
-    export let line_height = 20;
+    export let lineHeight = 20;
 
     /**
      * Whether to enable auto-resize.
      * @type {boolean}
      */
-    export let auto_resize = false;
+    export let autoResize = false;
     
     /**
      * The bound value.
@@ -105,29 +105,29 @@
 	 * A regular expression for validation.
 	 * @type {RegExp?}
 	 */
-    export let validation_regex = null;
+    export let validationRegex = null;
 
     /**
      * Whether to display a red/green border if valid/invalid.
      * @type {boolean}
      */
-    export let validation_lite = false;
+    export let validationLite = false;
 
     /**
      * Whether the user has changed the field.
      * Exported in case the parent wants to check upon.
      * @type {boolean}
      */
-    export let is_touched = false;
+    export let isTouched = false;
 
     /**
      * Check that the field is valid, only if touched and required.
 	 * @type {boolean?}
 	 */
-    export let is_valid = null;
-    $: is_valid = !is_touched? null: [
+    export let isValid = null;
+    $: isValid = !isTouched? null: [
         required? !!value.length: null,
-        validation_regex instanceof RegExp? validation_regex.test(value): null,
+        validationRegex instanceof RegExp? validationRegex.test(value): null,
         // maxlength_counter? value.length <= maxlength_counter: null,
     ].reduce((previous, current) => 
         current === null? previous: previous === null? current: previous && current);
@@ -142,28 +142,28 @@ Slots:
 - description: Extra right-aligned label description.
 - feedback: Text to display if validation error.
 -->
-<Wrapper element={wrapper} class={extra_class ?? 'mb-3'}>
+<Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
     <Label {id} {required}>
         <slot />
-        {#if $$slots.description || maxlength_counter}
+        {#if $$slots.description || maxlengthCounter}
             &nbsp;
             <span class="form-label-description">
                 <slot name="description" />
-                {#if maxlength_counter}
-                    <span class:text-red={value.length >= maxlength_counter}>
-                        {value.length}/{maxlength_counter}
+                {#if maxlengthCounter}
+                    <span class:text-red={value.length >= maxlengthCounter}>
+                        {value.length}/{maxlengthCounter}
                     </span>
                 {/if}
             </span>
         {/if}
     </Label>
-    <Wrapper element={auto_resize? 'div': ''} class="textarea-wrapper">
-        {#if auto_resize}
+    <Wrapper element={autoResize? 'div': ''} class="textarea-wrapper">
+        {#if autoResize}
             <!-- Present the value so browser calculates height -->
             <!-- https://svelte.dev/repl/40f4c7846e6f4052927ff5f9c5271b66?version=3.6.8 -->
             <pre aria-hidden="true" 
-                style:min-height={`${rows * line_height}px`}
-                style:max-height={max_rows? `${max_rows * line_height}px`: `auto`}>
+                style:min-height={`${rows * lineHeight}px`}
+                style:max-height={maxRows? `${maxRows * lineHeight}px`: `auto`}>
                 {value}
             </pre>
         {/if}
@@ -172,12 +172,12 @@ Slots:
             class="form-control"
             class:form-control-rounded={border === 'rounded'}
             class:form-control-flush={border === 'none'}
-            class:auto-resize={auto_resize}
-            class:is-valid={is_valid}
-            class:is-valid-lite={is_valid && validation_lite}
-            class:is-invalid={is_valid === false}
-            class:is-invalid-lite={is_valid === false && validation_lite}
-            style:line-height={line_height}{'px'}
+            class:auto-resize={autoResize}
+            class:is-valid={isValid}
+            class:is-valid-lite={isValid && validationLite}
+            class:is-invalid={isValid === false}
+            class:is-invalid-lite={isValid === false && validationLite}
+            style:line-height={lineHeight}{'px'}
             name={id}
             {rows}
             {placeholder}
@@ -185,10 +185,10 @@ Slots:
             {disabled}
             {readonly}
             {maxlength}
-            on:input|once={() => {is_touched = true}}
+            on:input|once={() => {isTouched = true}}
             bind:value />
     </Wrapper>
-    {#if $$slots.feedback && is_valid === false}
+    {#if $$slots.feedback && isValid === false}
         <div class="invalid-feedback"><slot name="feedback" /></div>
     {/if}
 </Wrapper>
