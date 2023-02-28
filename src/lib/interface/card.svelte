@@ -1,4 +1,6 @@
 <script>
+	import Progress from "../form/progress.svelte";
+
     /**
      * Renders the header with light background.
      * @type {'normal'|'light'|'none'}
@@ -24,10 +26,16 @@
     export let effect = '';
 
     /**
-     * Stamp icon background color
+     * Icon type, if content for slot icon is provided.
+     * @type {'stamp'|'ribbon'|'ribbon-top'}
+     */
+    export let iconType = 'stamp';
+
+    /**
+     * Icon background color, if content for slot icon is provided.
      * @type {string}
      */
-    export let stampIconBgColor = 'yellow';
+    export let iconBgColor = 'yellow';
 
     /**
      * Card background.
@@ -35,6 +43,36 @@
      * @type {''|'primary'|'primary-lt'}
      */
     export let bg = '';
+
+    /**
+     * Card status position
+     * @type {''|'top'|'bottom'|'start'}
+     */
+    export let statusPosition = '';
+
+    /**
+     * Card status color
+     * @type {'success'|'warning'|'danger'|'primary'|'primary-lt'}
+     */
+    export let statusColor = 'primary';
+
+    /**
+     * Progress bar value
+     * @type {number?}
+     */
+    export let progressValue = null;
+
+    /**
+     * Progress bar color
+     * @type {string?}
+     */
+    export let progressColor = null;
+
+    /**
+     * Card stacked effect.
+     * @type {boolean}
+     */
+    export let stacked = false;
 </script>
 
 <!-- 
@@ -45,7 +83,7 @@ TODO: card with status
 Slots:
 - title
 - subtitle
-- icon: specify an icon as bg. Recommended with header = none.
+- icon: specify an icon as bg. Recommended with header = none. Can also include text.
 - default: body
 -->
 <svelte:element 
@@ -59,6 +97,7 @@ Slots:
     class:card-rotate-left={!href && effect === 'rotate-left'}
     class:card-active={!href && effect === 'active'}
     class:card-inactive={!href && effect === 'inactive'}
+    class:card-stacked={stacked}
     class:bg-primary-lt={bg === 'primary-lt'}
     class:bg-primary={bg === 'primary'}
     class:text-primary-fg={bg === 'primary'}
@@ -71,12 +110,20 @@ Slots:
         </div>
     {/if}
     {#if $$slots.icon}
-        <div class="card-stamp">
-            <div class="card-stamp-icon bg-{stampIconBgColor}"
-                class:text-primary={bg === 'primary'}>
+        {#if iconType === 'stamp'}
+            <div class="card-stamp">
+                <div class="card-stamp-icon bg-{iconBgColor}" class:text-primary={bg === 'primary'}>
+                    <slot name="icon" />
+                </div>
+            </div>
+        {:else}
+            <div class="ribbon bg-{iconBgColor}" class:ribbon-top={iconType === 'ribbon-top'}>
                 <slot name="icon" />
             </div>
-        </div>
+        {/if}
+    {/if}
+    {#if statusPosition}
+        <div class="card-status-{statusPosition} bg-{statusColor}"></div>        
     {/if}
     <div class="card-body">
         {#if header === 'none'}
@@ -86,4 +133,10 @@ Slots:
         {/if}
         <slot />
     </div>
+    {#if progressValue !== null}
+        <Progress wrapper="" 
+            progressClass="progress-sm card-progress" 
+            color={progressColor}
+            value={progressValue} />
+    {/if}
 </svelte:element>

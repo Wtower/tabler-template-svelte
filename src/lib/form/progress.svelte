@@ -16,6 +16,13 @@
     export let wrapper = 'div';
 
     /**
+     * Progress bar layer extra classes.
+     * Mainly used for Card component.
+     * @type {string}
+     */
+    export let progressClass = '';
+
+    /**
      * The color of the progress bar.
 	 * @type {string?}
 	 */
@@ -40,7 +47,7 @@ Slots:
     <Label>
         <slot /><slot name="description" />
     </Label>
-    <div class="progress">
+    <div class="progress {progressClass}">
         <div class="progress-bar {color? `bg-${color}`: ''}"
             class:progress-bar-indeterminate={value === null}
             role={value === null? null: 'progressbar'}

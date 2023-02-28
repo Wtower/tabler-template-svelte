@@ -19,7 +19,7 @@
 
     /**
      * Displays a status top border.
-     * @type {''|'success'|'warning'|'danger'}
+     * @type {''|'success'|'warning'|'danger'|'primary'|'primary-lt'}
      */
     export let status = '';
 
