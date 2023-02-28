@@ -1,5 +1,7 @@
 <script>
-	import Progress from "../form/progress.svelte";
+	import { element } from "svelte/internal";
+import Progress from "../form/progress.svelte";
+	import Wrapper from "./wrapper.svelte";
 
     /**
      * Renders the header with light background.
@@ -73,17 +75,24 @@
      * @type {boolean}
      */
     export let stacked = false;
+
+    /**
+     * Card columns
+     * @type {''|'left'|'right'}
+     */
+    export let columns = '';
 </script>
 
 <!-- 
 @component
 Card interface component.
-TODO: card with status
+TODO: card with columns; demo
 
 Slots:
 - title
 - subtitle
 - icon: specify an icon as bg. Recommended with header = none. Can also include text.
+- column: if columns is specified.
 - default: body
 -->
 <svelte:element 
@@ -125,14 +134,23 @@ Slots:
     {#if statusPosition}
         <div class="card-status-{statusPosition} bg-{statusColor}"></div>        
     {/if}
-    <div class="card-body">
-        {#if header === 'none'}
-            <h3 class="card-title">
-                <slot name="title" /><span class="card-subtitle"><slot name="subtitle" /></span>
-            </h3>
+    <Wrapper element={columns? 'div': ''} class="row row-0">
+        {#if columns}
+            <div class="col-3" class:order-md-last={columns === 'right'}>
+                <slot name="column" />
+            </div>
         {/if}
-        <slot />
-    </div>
+        <Wrapper element={columns? 'div': ''} class="col">
+            <div class="card-body">
+                {#if header === 'none'}
+                    <h3 class="card-title">
+                        <slot name="title" /><span class="card-subtitle"><slot name="subtitle" /></span>
+                    </h3>
+                {/if}
+                <slot />
+            </div>
+        </Wrapper>
+    </Wrapper>
     {#if progressValue !== null}
         <Progress wrapper="" 
             progressClass="progress-sm card-progress" 
