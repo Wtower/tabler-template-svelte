@@ -1,36 +1,29 @@
 <script>
-    import Dropdown from "../interface/dropdown.svelte";
-    import PopOver from "../interface/pop_over.svelte";
-    import Buttons from "./buttons.svelte";
-    import Checkboxes from "./checkboxes.svelte";
-    import DateInput from "./date_input.svelte"
-    import DateSelect from "./date_select.svelte";
-    import ImageCheck from "./image_check.svelte";
-    import InputGroup from "./input_group.svelte";
-    import Password from "./password.svelte";
-    import Progress from "./progress.svelte";
-    import Radios from "./radios.svelte";
-    import Range from "./range.svelte";
-    import Select from "./select.svelte";
-    import Text from "./text.svelte";
-    import Textarea from "./textarea.svelte";
+	import Empty from "$lib/interface/empty.svelte";
+    import Dropdown from "$lib/interface/dropdown.svelte";
+    import PopOver from "$lib/interface/pop_over.svelte";
+    import Buttons from "$lib/form/buttons.svelte";
+    import Checkboxes from "$lib/form/checkboxes.svelte";
+    import DateInput from "$lib/form/date_input.svelte"
+    import DateSelect from "$lib/form/date_select.svelte";
+    import ImageCheck from "$lib/form/image_check.svelte";
+    import InputGroup from "$lib/form/input_group.svelte";
+    import Password from "$lib/form/password.svelte";
+    import Progress from "$lib/form/progress.svelte";
+    import Radios from "$lib/form/radios.svelte";
+    import Range from "$lib/form/range.svelte";
+    import Select from "$lib/form/select.svelte";
+    import Text from "$lib/form/text.svelte";
+    import Textarea from "$lib/form/textarea.svelte";
+    import { config } from "$stores/config";
 </script>
 
-<div class="page-wrapper">
-    <!-- Page header -->
-    <div class="page-header d-print-none">
-        <div class="container-xl">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <h2 class="page-title">
-                        Form elements
-                    </h2>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Page body -->
-    <div class="page-body">
+<Empty path="/form-elements" {...$config}>
+    <span slot="h2">
+        <h2>Form elements</h2>
+    </span>
+    <main slot="main">
+
         <div class="container-xl">
             <div class="row row-cards">
                 <div class="col-12">
@@ -465,7 +458,7 @@
                                                 images={
                                                     ['dark', 'white', 'blue', 'azure', 'indigo', 
                                                         'purple', 'pink', 'red', 'orange', 'yellow',
-                                                         'lime'
+                                                            'lime'
                                                     ].map((color) => ({
                                                         v: color, 
                                                         img: color,
@@ -480,7 +473,7 @@
                                                 images={
                                                     ['dark', 'white', 'blue', 'azure', 'indigo', 
                                                         'purple', 'pink', 'red', 'orange', 'yellow',
-                                                         'lime'
+                                                            'lime'
                                                     ].map((color) => ({
                                                         v: color, 
                                                         img: color,
@@ -1135,7 +1128,7 @@
                                                          * @param {{owner: { avatar_url: any; login: any; }; name: any; description: any; }} item
                                                          * @param {(arg0: any) => any} escape
                                                          */
-                                                         item: function(item, escape) {
+                                                            item: function(item, escape) {
                                                             return `<div class="py-2 d-flex">
                                                                         <div class="icon me-3">
                                                                             <img class="img-fluid" src="${item.owner.avatar_url}" />
@@ -1855,5 +1848,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        
+    </main>
+</Empty>

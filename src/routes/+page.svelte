@@ -1,3 +1,12 @@
-<h1>Welcome to your library project</h1>
-<p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+	import Empty from "$lib/interface/empty.svelte";
+    import { config } from "$stores/config";
+</script>
+
+<Empty path="/" {...$config}>
+    <span slot="h2">
+        <h1>Welcome to tabler-template-svelte project</h1>
+    </span>
+    <main slot="main">
+    </main>
+</Empty>

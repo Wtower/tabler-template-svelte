@@ -6,8 +6,22 @@
 			"script": "build",
 			"problemMatcher": [],
 			"group": "build",
-			"label": "npm: build - tabler-template-svelte---",
+			"label": "npm: build",
 			"detail": "vite build",
+		},
+		{
+			"type": "npm",
+			"script": "preview",
+			"problemMatcher": [],
+			"label": "npm: preview",
+			"detail": "vite preview"
+		},
+		{
+			"type": "npm",
+			"script": "dev",
+			"problemMatcher": [],
+			"label": "npm: dev",
+			"detail": "vite"
 		}
 	]
 }
