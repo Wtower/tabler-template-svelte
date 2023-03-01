@@ -142,7 +142,7 @@ Slots:
         {/if}
         <Wrapper element={columns? 'div': ''} class="col">
             <div class="card-body">
-                {#if header === 'none'}
+                {#if header === 'none' && ($$slots.title || $$slots.subtitle)}
                     <h3 class="card-title">
                         <slot name="title" /><span class="card-subtitle"><slot name="subtitle" /></span>
                     </h3>

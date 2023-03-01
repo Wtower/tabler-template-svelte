@@ -1,6 +1,7 @@
 <script>
     import { base } from '$app/paths';
 	import Badge from '$lib/interface/badge.svelte';
+	import Card from '$lib/interface/card.svelte';
 	import Empty from "$lib/interface/empty.svelte";
     import { config } from "$stores/config";
 
@@ -36,112 +37,98 @@
     <main slot="main">
         <div class="container-xl">
             <div class="row row-cards">
-              <div class="col-4">
-                <div class="card">
-                  <div class="card-body">
-                    {#each [...Array(6).keys()] as i}
-                        <svelte:element this={`h${i}`}>
-                            Example heading <Badge>New</Badge>
-                        </svelte:element>
-                    {/each}
-                  </div>
+                <div class="col-4">
+                    <Card header="none">
+                        {#each [...Array(6).keys()] as i}
+                            <svelte:element this={`h${i}`}>
+                                Example heading <Badge>New</Badge>
+                            </svelte:element>
+                        {/each}
+                    </Card>
                 </div>
-              </div>
-              <div class="col-8">
-                <div class="row row-cards">
-                  <div class="col-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="badges-list">
-                            {#each colors as color}
-                                <Badge bgColor={color}>{capitalizeFirstLetter(color)}</Badge>                            
-                            {/each}
+                <div class="col-8">
+                    <div class="row row-cards">
+                        <div class="col-12">
+                            <Card header="none">
+                                <div class="badges-list">
+                                    {#each colors as color}
+                                        <Badge bgColor={color}>{capitalizeFirstLetter(color)}</Badge>                            
+                                    {/each}
+                                </div>
+                            </Card>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="badges-list">
-                            {#each colorsLt as color, i}
-                                <Badge bgColor={color}>{capitalizeFirstLetter(colors[i])}</Badge>                            
-                            {/each}
+                        <div class="col-12">
+                            <Card header="none">
+                                <div class="badges-list">
+                                    {#each colorsLt as color, i}
+                                        <Badge bgColor={color}>{capitalizeFirstLetter(colors[i])}</Badge>                            
+                                    {/each}
+                                </div>
+                            </Card>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="badges-list">
-                            {#each colors as color}
-                                <Badge textColor={color}>{capitalizeFirstLetter(color)}</Badge>                            
-                            {/each}
+                        <div class="col-12">
+                            <Card header="none">
+                                <div class="badges-list">
+                                    {#each colors as color}
+                                        <Badge textColor={color}>{capitalizeFirstLetter(color)}</Badge>                            
+                                    {/each}
+                                </div>
+                            </Card>
                         </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
-              <div class="col-sm-6 col-lg-3">
-                <div class="dropdown-menu dropdown-menu-demo dropdown-menu-arrow">
-                  <a class="dropdown-item" href="#action">
-                    Action
-                    <Badge bgColor="primary" marginLeftClass="auto">12</Badge>
-                  </a>
-                  <a class="dropdown-item" href="#action">
-                    Another action
-                    <Badge bgColor="green" marginLeftClass="auto" />
-                  </a>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="dropdown-menu dropdown-menu-demo dropdown-menu-arrow">
+                        <a class="dropdown-item" href="#action">
+                            Action
+                            <Badge bgColor="primary" marginLeftClass="auto">12</Badge>
+                        </a>
+                        <a class="dropdown-item" href="#action">
+                            Another action
+                            <Badge bgColor="green" marginLeftClass="auto" />
+                        </a>
+                    </div>
                 </div>
-              </div>
-              <div class="col-sm-6 col-lg-9">
-                <div class="row row-cards">
-                  <div class="col-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="btn-list">
-                            {#each colors as color, i}
-                                <button class="btn">
-                                    {capitalizeFirstLetter(color)} badge
-                                    <Badge bgColor={color}>{i + 1}</Badge>
-                                </button>
-                            {/each}
+                <div class="col-sm-6 col-lg-9">
+                    <div class="row row-cards">
+                        <div class="col-12">
+                            <Card header="none">
+                                <div class="btn-list">
+                                    {#each colors as color, i}
+                                        <button class="btn">
+                                            {capitalizeFirstLetter(color)} badge
+                                            <Badge bgColor={color}>{i + 1}</Badge>
+                                        </button>
+                                    {/each}
+                                </div>
+                            </Card>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="btn-list">
-                            {#each colors as color, i}
-                                <button class="btn position-relative">
-                                    {capitalizeFirstLetter(color)} badge
-                                    <Badge bgColor={color} notification pill>{i + 1}</Badge>
-                                </button>
-                            {/each}
+                        <div class="col-12">
+                            <Card header="none">
+                                <div class="btn-list">
+                                    {#each colors as color, i}
+                                        <button class="btn position-relative">
+                                            {capitalizeFirstLetter(color)} badge
+                                            <Badge bgColor={color} notification pill>{i + 1}</Badge>
+                                        </button>
+                                    {/each}
+                                </div>
+                            </Card>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="btn-list">
-                            {#each colors as color, i}
-                                <button class="btn position-relative">
-                                    {capitalizeFirstLetter(color)} badge
-                                    <Badge bgColor={color} notification blink />
-                                </button>
-                            {/each}
+                        <div class="col-12">
+                            <Card header="none">
+                                <div class="btn-list">
+                                    {#each colors as color, i}
+                                        <button class="btn position-relative">
+                                            {capitalizeFirstLetter(color)} badge
+                                            <Badge bgColor={color} notification blink />
+                                        </button>
+                                    {/each}
+                                </div>
+                            </Card>
                         </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
           </div>
     </main>
