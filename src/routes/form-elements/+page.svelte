@@ -1,4 +1,5 @@
 <script>
+    import { base } from '$app/paths';
 	import Empty from "$lib/interface/empty.svelte";
     import Dropdown from "$lib/interface/dropdown.svelte";
     import PopOver from "$lib/interface/pop_over.svelte";
@@ -18,7 +19,7 @@
     import { config } from "$stores/config";
 </script>
 
-<Empty path="/form-elements" {...$config}>
+<Empty path="{base}/form-elements" {...$config}>
     <span slot="h2">
         <h2>Form elements</h2>
     </span>
