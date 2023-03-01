@@ -1,7 +1,8 @@
 <script>
     /**
      * Specify bg color for badge.
-     * @type {''|'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|
+     * @type {''|'primary'|
+     *          'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|
      *         'orange'|'yellow'|'lime'|'green'|'teal'|'cyan'|
      *         'blue-lt'|'azure-lt'|'indigo-lt'|'purple-lt'|'pink-lt'|'red-lt'|
      *         'orange-lt'|'yellow-lt'|'lime-lt'|'green-lt'|'teal-lt'|'cyan-lt'}
