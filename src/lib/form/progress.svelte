@@ -44,9 +44,9 @@ Slots:
 - description: Extra right-aligned label description.
 -->
 <Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
-    <Label>
-        <slot /><slot name="description" />
-    </Label>
+    {#if $$slots.default || $$slots.description}
+        <Label><slot /><slot name="description" /></Label>
+    {/if}
     <div class="progress {progressClass}">
         <div class="progress-bar {color? `bg-${color}`: ''}"
             class:progress-bar-indeterminate={value === null}
