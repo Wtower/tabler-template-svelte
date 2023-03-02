@@ -1,6 +1,6 @@
 <script>
 	import { element } from "svelte/internal";
-import Progress from "../form/progress.svelte";
+    import Progress from "../form/progress.svelte";
 	import Wrapper from "./wrapper.svelte";
 
     /**
@@ -114,6 +114,7 @@ Card interface component.
 TODO: card with columns; demo
 
 Slots:
+- header
 - title
 - subtitle
 - icon: specify an icon as bg. Recommended with header = none. Can also include text.
@@ -136,11 +137,15 @@ Slots:
     class:bg-primary={bg === 'primary'}
     class:text-primary-fg={bg === 'primary'}
     class:card-borderless={borderless}>
-    {#if (header === 'normal' || header === 'light') && ($$slots.title || $$slots.subtitle)}
+    {#if (header === 'normal' || header === 'light') && 
+        ($$slots.header || $$slots.title || $$slots.subtitle)}
         <div class="card-header" class:card-header-light={header === 'light'}>
-            <h3 class="card-title">
-                <slot name="title" /><span class="card-subtitle"><slot name="subtitle" /></span>
-            </h3>
+            <slot name="header" />
+            {#if $$slots.title || $$slots.subtitle}
+                <h3 class="card-title">
+                    <slot name="title" /><span class="card-subtitle"><slot name="subtitle" /></span>
+                </h3>
+            {/if}
         </div>
     {/if}
     {#if $$slots.icon}
