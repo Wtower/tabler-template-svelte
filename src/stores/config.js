@@ -1,5 +1,6 @@
 import { base } from '$app/paths';
 import { readable } from "svelte/store";
+import { version } from '../../package.json';
 
 export const config = readable({
     brand: 
@@ -97,6 +98,6 @@ export const config = readable({
 
     footerNotice: [
         'Svelte version &copy; 2022-2023 <a href="https://9-dev.com" class="link-secondary">9DEV Ltd.</a>',
-        'v0.1.0',
+        version,
     ]
 });
