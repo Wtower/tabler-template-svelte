@@ -1,6 +1,9 @@
 <script>
     import { base } from '$app/paths';
 	import Checkboxes from '$lib/form/checkboxes.svelte';
+	import Label from '$lib/form/label.svelte';
+	import Select from '$lib/form/select.svelte';
+	import Text from '$lib/form/text.svelte';
 	import Card from '$lib/interface/card.svelte';
 	import Empty from "$lib/interface/empty.svelte";
     import { config } from "$stores/config";
@@ -294,7 +297,7 @@
                                 <div class="avatar-list avatar-list-stacked">
                                     {#each [...Array(5).keys()] as _}
                                         <span class="avatar avatar-sm rounded" 
-                                            style:background-image="url(//https://via.placeholder.com/32x32)">
+                                            style:background-image="url(https://via.placeholder.com/32x32)">
                                         </span>
                                     {/each}
                                     <span class="avatar avatar-sm rounded">+3</span>
@@ -337,6 +340,101 @@
                         </Card>
                     {/each}
                 </div>
+            </div>
+            <div class="col-12">
+                <div class="row row-cards row-deck">
+                    <div class="col">
+                        <Card>
+                            <span slot="title">Card title</span>
+                            This is a wider card with supporting text below as a natural lead-in 
+                            to additional content. This content is a little bit longer.
+                            <span slot="footer">Last updated 3 mins ago</span>
+                        </Card>
+                    </div>
+                    <div class="col">
+                        <Card>
+                            <span slot="title">Card title</span>
+                            This card has supporting text below as a natural lead-in to additional 
+                            content.
+                            <span slot="footer">Last updated 3 mins ago</span>
+                        </Card>
+                    </div>
+                    <div class="col">
+                        <Card>
+                            <span slot="title">Card title</span>
+                            This is a wider card with supporting text below as a natural lead-in to 
+                            additional content. This card has even longer content than the first to 
+                            show that equal height action.
+                            <span slot="footer">Last updated 3 mins ago</span>
+                        </Card>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <Card>
+                    <div class="empty">
+                        <div class="empty-img">
+                            <img src="https://via.placeholder.com/187x128" height="128" alt="">
+                        </div>
+                        <p class="empty-title">No results found</p>
+                        <p class="empty-subtitle text-muted">
+                            Try adjusting your search or filter to find what you're looking for.
+                        </p>
+                        <div class="empty-action">
+                            <a href="./." class="btn btn-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                                Search again
+                            </a>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+            <div class="col-lg-4">
+                <Card>
+                    <Text id="credit_card"
+                        placeholder="0000 0000 0000 0000"
+                        maxlength={19}
+                        validationRegex={/^(\d{4}\s){3}\d{4}$/}
+                        autocomplete="off"
+                        value="">
+                        Card number
+                    </Text>
+                    <Text id="credit_card_name" autocomplete="off" value="">Card name</Text>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="mb-3">
+                                <Label>Expiration date</Label>
+                                <div class="row g-2">
+                                    <Select id="credit_card_month"
+                                        class="col"
+                                        options={[...Array(12).keys()].map(i => ({
+                                            v: i + 1, t: i + 1
+                                        }))}
+                                        value={1} />
+                                    <Select id="credit_card_year"
+                                        class="col"
+                                        options={[...Array(10).keys()].map(i => ({
+                                            v: i + new Date().getFullYear(), 
+                                            t: i + new Date().getFullYear()
+                                        }))}
+                                        value={new Date().getFullYear()} />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <Text id="credit_card_cvv"
+                                maxlength={3}
+                                validationRegex={/^\d{3}$/}
+                                autocomplete="off"
+                                value="">
+                                CVV
+                            </Text>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <a href="#pay" class="btn btn-primary w-100">Pay now</a>
+                    </div>
+                  </Card>
             </div>
 
         </div>

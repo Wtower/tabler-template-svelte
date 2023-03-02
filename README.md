@@ -1,6 +1,6 @@
 # tabler-template-svelte
 
-Svelte library for the [Tabler](https://github.com/tabler/tabler) template.
+Svelte library for the [Tabler](https://github.com/tabler/tabler) dashboard template.
 
 ```
 npm i -D tabler-template-svelte
