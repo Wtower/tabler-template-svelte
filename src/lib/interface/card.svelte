@@ -11,9 +11,9 @@ import Progress from "../form/progress.svelte";
 
     /**
      * Renders a card as link.
-     * @type {string}
+     * @type {string?}
      */
-    export let href = '';
+    export let href = null;
 
     /**
      * Card link effect.
@@ -97,7 +97,7 @@ Slots:
 -->
 <svelte:element 
     this={href? 'a': 'div'} 
-    {href} 
+    href={href}
     class="card" 
     class:card-link={href}
     class:card-link-rotate={href && linkEffect === 'rotate'}
@@ -147,7 +147,7 @@ Slots:
                         <slot name="title" /><span class="card-subtitle"><slot name="subtitle" /></span>
                     </h3>
                 {/if}
-                <slot />
+                <Wrapper element={header === 'none'? 'div': ''}><slot /></Wrapper>
             </div>
         </Wrapper>
     </Wrapper>

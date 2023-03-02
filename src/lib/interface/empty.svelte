@@ -73,6 +73,12 @@
 <!-- 
 @component
 Empty page layout.
+
+Slots
+- h1: brand
+- h2: page title
+- notification-header
+- main/dafault
 -->
 <header class="navbar navbar-expand-md navbar-light d-print-none">
     <div class="container-xl">
@@ -281,6 +287,7 @@ Empty page layout.
     <div class="page-body">
         <div class="container-xl">
             <!-- Content here -->
+            <main><slot /></main>
             <slot name="main" />
         </div>
     </div>
