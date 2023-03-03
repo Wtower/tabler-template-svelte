@@ -1,5 +1,11 @@
 # tabler-template-svelte
 
-Svelte library for the [Tabler](https://github.com/tabler/tabler) template.
+Svelte library for the [Tabler](https://github.com/tabler/tabler) dashboard template.
 
-[See demo](http://magnum.9-dev.com/tabler).
+```
+npm i -D tabler-template-svelte
+```
+
+[NPM package](https://www.npmjs.com/package/tabler-template-svelte)
+
+[Demo](http://magnum.9-dev.com/tabler).

@@ -1,19 +1,25 @@
 <script>
 	import { element } from "svelte/internal";
-import Progress from "../form/progress.svelte";
+    import Progress from "../form/progress.svelte";
 	import Wrapper from "./wrapper.svelte";
 
     /**
-     * Renders the header with light background.
+     * Renders a header optionally with light background.
      * @type {'normal'|'light'|'none'}
      */
     export let header = 'normal';
 
     /**
-     * Renders a card as link.
-     * @type {string}
+     * Makes the card borderless.
+     * @type {boolean}
      */
-    export let href = '';
+    export let borderless = false;
+
+    /**
+     * Renders a card as link.
+     * @type {string?}
+     */
+    export let href = null;
 
     /**
      * Card link effect.
@@ -47,6 +53,12 @@ import Progress from "../form/progress.svelte";
     export let bg = '';
 
     /**
+     * Display card body without padding.
+     * @type {boolean}
+     */
+    export let noPadding = false;
+
+    /**
      * Card status position
      * @type {''|'top'|'bottom'|'start'}
      */
@@ -54,7 +66,7 @@ import Progress from "../form/progress.svelte";
 
     /**
      * Card status color
-     * @type {'success'|'warning'|'danger'|'primary'|'primary-lt'}
+     * @type {'success'|'warning'|'danger'|'primary'|'primary-lt'|'red'|'green'|'blue'}
      */
     export let statusColor = 'primary';
 
@@ -77,10 +89,23 @@ import Progress from "../form/progress.svelte";
     export let stacked = false;
 
     /**
-     * Card columns
+     * Card columns.
      * @type {''|'left'|'right'}
      */
     export let columns = '';
+
+    /** 
+     * Display an image on card.
+     * Placement is only used if no columns are defined.
+     * @type {{src: string, alt?: string, placement?: 'top'|'bottom'}?}
+     */
+    export let img = null;
+
+    /**
+     * Renders footer with light color.
+     * @type {boolean}
+     */
+    export let footerLight = false;
 </script>
 
 <!-- 
@@ -89,6 +114,7 @@ Card interface component.
 TODO: card with columns; demo
 
 Slots:
+- header
 - title
 - subtitle
 - icon: specify an icon as bg. Recommended with header = none. Can also include text.
@@ -97,7 +123,7 @@ Slots:
 -->
 <svelte:element 
     this={href? 'a': 'div'} 
-    {href} 
+    {href}
     class="card" 
     class:card-link={href}
     class:card-link-rotate={href && linkEffect === 'rotate'}
@@ -110,12 +136,16 @@ Slots:
     class:bg-primary-lt={bg === 'primary-lt'}
     class:bg-primary={bg === 'primary'}
     class:text-primary-fg={bg === 'primary'}
-    class:card-borderless={header === 'none'}>
-    {#if header === 'normal' || header === 'light'}
+    class:card-borderless={borderless}>
+    {#if (header === 'normal' || header === 'light') && 
+        ($$slots.header || $$slots.title || $$slots.subtitle)}
         <div class="card-header" class:card-header-light={header === 'light'}>
-            <h3 class="card-title">
-                <slot name="title" /><span class="card-subtitle"><slot name="subtitle" /></span>
-            </h3>
+            <slot name="header" />
+            {#if $$slots.title || $$slots.subtitle}
+                <h3 class="card-title">
+                    <slot name="title" /><span class="card-subtitle"><slot name="subtitle" /></span>
+                </h3>
+            {/if}
         </div>
     {/if}
     {#if $$slots.icon}
@@ -134,14 +164,26 @@ Slots:
     {#if statusPosition}
         <div class="card-status-{statusPosition} bg-{statusColor}"></div>        
     {/if}
+    {#if !columns && img && img.placement === 'top'}
+        <div class="img-responsive img-responsive-21x9 card-img-top" 
+            style:background-image="url({img.src})">
+        </div>
+    {/if}
     <Wrapper element={columns? 'div': ''} class="row row-0">
         {#if columns}
             <div class="col-3" class:order-md-last={columns === 'right'}>
+                {#if img}
+                    <img src={img.src} 
+                        alt={img.alt} 
+                        class="w-100 h-100 object-cover"
+                        class:card-img-start={columns === 'left'}
+                        class:card-img-end={columns === 'right'} />
+                {/if}
                 <slot name="column" />
             </div>
         {/if}
         <Wrapper element={columns? 'div': ''} class="col">
-            <div class="card-body">
+            <div class="card-body" class:p-0={noPadding}>
                 {#if header === 'none' && ($$slots.title || $$slots.subtitle)}
                     <h3 class="card-title">
                         <slot name="title" /><span class="card-subtitle"><slot name="subtitle" /></span>
@@ -151,6 +193,16 @@ Slots:
             </div>
         </Wrapper>
     </Wrapper>
+    {#if $$slots.footer}
+        <div class="card-footer" class:card-footer-transparent={footerLight}>
+            <slot name="footer" />
+        </div>
+    {/if}
+    {#if !columns && img && img.placement === 'bottom'}
+        <div class="img-responsive img-responsive-21x9 card-img-bottom" 
+            style:background-image="url({img.src})">
+        </div>
+    {/if}
     {#if progressValue !== null}
         <Progress wrapper="" 
             progressClass="progress-sm card-progress" 
