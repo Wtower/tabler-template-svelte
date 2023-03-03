@@ -1,12 +1,32 @@
 <script>
 	import { onMount } from "svelte";
 	import Card from "./card.svelte";
+	import Dropdown from "./dropdown.svelte";
 
     /**
      * Tab definition.
-     * @type {Array.<{id: string, title: string, marginAuto?: 'left'|'right', content?: string}>}
+     * @type {Array.<{
+     *  id: string, 
+     *  title: string, 
+     *  marginAuto?: 'left'|'right', 
+     *  content?: string,
+     *  dropDown?: any,
+     *  disabled?: boolean,
+     * }>}
      */
     export let tabs;
+
+    /**
+     * Reverse the output order of tabs.
+     * @type {boolean}
+     */
+    export let reverse = false;
+
+    /**
+     * Fill the tabs row.
+     * @type {boolean}
+     */
+    export let fill = false;
 
     /**
      * Active tab id.
@@ -26,18 +46,30 @@ https://svelte.dev/docs#template-syntax-slot-slot-key-value
 -->
 <Card>
     <svelte:fragment slot="header">
-        <ul class="nav nav-tabs card-header-tabs">
+        <ul class="nav nav-tabs card-header-tabs" 
+            class:flex-row-reverse={reverse}
+            class:nav-fill={fill}>
             {#each tabs as tab, i}
                 <li class="nav-item" 
                     class:ms-auto={tab.marginAuto === 'left'}
                     class:me-auto={tab.marginAuto === 'right'}
-                    on:click={() => active = tab.id}
-                    on:keypress={() => active = tab.id}>
+                    class:dropdown={tab.dropDown}
+                    on:click={() => {if (!tab.dropDown && !tab.disabled) active = tab.id}}
+                    on:keypress={() => {if (!tab.dropDown && !tab.disabled) active = tab.id}}>
                     <a href={`#${tab.id}`} 
                         class="nav-link" 
-                        class:active={active === tab.id}>
+                        class:active={active === tab.id}
+                        class:disabled={tab.disabled}
+                        class:dropdown-toggle={tab.dropDown}
+                        data-bs-toggle={tab.dropDown? 'dropdown': null}
+                        role={tab.dropDown? 'button': null}
+                        aria-haspopup={!!tab.dropDown}
+                        aria-expanded={tab.dropDown? 'false': null}>
                         {@html tab.title}
                     </a>
+                    {#if tab.dropDown}
+                        <Dropdown menuItem={tab.dropDown} />
+                    {/if}
                 </li>
             {/each}
         </ul>
