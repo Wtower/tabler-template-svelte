@@ -6,6 +6,7 @@
 	import Text from '$lib/form/text.svelte';
 	import Card from '$lib/interface/card.svelte';
 	import Empty from "$lib/interface/empty.svelte";
+	import Tabs from '$lib/interface/tabs.svelte';
     import { config } from "$stores/config";
 
     /** @type {Array.<{title: string, color: 'red'|'green'|'blue'}>} */
@@ -307,9 +308,57 @@
                     </div>
                 </Card>
             </div>
-
-            <!-- TODO: some cards are tabs which will be developed in separate component. -->
-
+            <div class="col-md-6 col-lg-4">
+                <Tabs tabs={[{
+                        id: 'tab-1-1',
+                        title: 'Active',
+                        content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem.',
+                    }, {
+                        id: 'tab-1-2',
+                        title: '<svg xmlns="http://www.w3.org/2000/svg" class="icon nav-link-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg> Link',
+                        content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem.',
+                    }, {
+                        id: 'tab-1-3',
+                        title: 'Disabled',
+                        disabled: true,
+                    }, {
+                        id: 'tab-1-4',
+                        title: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /></svg>',
+                        marginAuto: 'left',
+                        content: '',
+                    }]} 
+                    let:tab>
+                    <p class="text-muted">{tab.content}</p>
+                </Tabs>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <Tabs tabs={[{
+                        id: 'tab-2-1',
+                        title: 'Active',
+                        content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem.',
+                    }, {
+                        id: 'tab-2-2',
+                        title: '<svg xmlns="http://www.w3.org/2000/svg" class="icon nav-link-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg> Link',
+                        content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem.',
+                    }, {
+                        id: 'tab-2-3',
+                        title: 'Disabled',
+                        disabled: true,
+                    }, {
+                        id: 'tab-2-4',
+                        title: '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /></svg>',
+                        marginAuto: 'left',
+                        content: '',
+                    }]} 
+                    pills
+                    let:tab>
+                    <p class="text-muted">{tab.content}</p>
+                </Tabs>
+            </div>
+            <!-- TODO: Missing a card with cards as tabs. -->
+            <!-- This could be implemented with adding a boolean variable in Cards to output 
+                card-tabs instead of card, and add a tabs slot inside cards (these tabs don't 
+                want to be in header). -->
             <div class="col-12">
                 <Card>
                     <span slot="title">Cards inside card</span>
