@@ -35,6 +35,18 @@
     export let active = null;
 
     onMount(() => active = tabs[0].id);
+
+    /**
+     * Handle tab click/keypress.
+     * @param {{
+     *  id: string, 
+     *  dropDown?: any,
+     *  disabled?: boolean,
+     * }} tab
+     */
+     function handleClick(tab) {
+        if (!tab.dropDown && !tab.disabled) active = tab.id;
+    }
 </script>
 
 <!-- 
@@ -53,9 +65,7 @@ https://svelte.dev/docs#template-syntax-slot-slot-key-value
                 <li class="nav-item" 
                     class:ms-auto={tab.marginAuto === 'left'}
                     class:me-auto={tab.marginAuto === 'right'}
-                    class:dropdown={tab.dropDown}
-                    on:click={() => {if (!tab.dropDown && !tab.disabled) active = tab.id}}
-                    on:keypress={() => {if (!tab.dropDown && !tab.disabled) active = tab.id}}>
+                    class:dropdown={tab.dropDown}>
                     <a href={`#${tab.id}`} 
                         class="nav-link" 
                         class:active={active === tab.id}
@@ -64,7 +74,9 @@ https://svelte.dev/docs#template-syntax-slot-slot-key-value
                         data-bs-toggle={tab.dropDown? 'dropdown': null}
                         role={tab.dropDown? 'button': null}
                         aria-haspopup={!!tab.dropDown}
-                        aria-expanded={tab.dropDown? 'false': null}>
+                        aria-expanded={tab.dropDown? 'false': null}
+                        on:click|preventDefault={() => {handleClick(tab)}}
+                        on:keypress={() => {handleClick(tab)}}>
                         {@html tab.title}
                     </a>
                     {#if tab.dropDown}
