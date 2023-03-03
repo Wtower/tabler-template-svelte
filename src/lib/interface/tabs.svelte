@@ -29,6 +29,12 @@
     export let fill = false;
 
     /**
+     * Tabs pill style.
+     * @type {boolean}
+     */
+    export let pills = false;
+
+    /**
      * Active tab id.
      * @type {string?}
      */
@@ -58,7 +64,11 @@ https://svelte.dev/docs#template-syntax-slot-slot-key-value
 -->
 <Card>
     <svelte:fragment slot="header">
-        <ul class="nav nav-tabs card-header-tabs" 
+        <ul class="nav" 
+            class:nav-tabs={!pills}
+            class:card-header-tabs={!pills}
+            class:nav-pills={pills}
+            class:card-header-pills={pills}
             class:flex-row-reverse={reverse}
             class:nav-fill={fill}>
             {#each tabs as tab, i}
