@@ -62,6 +62,7 @@
     /**
      * Handle button click.
 	 * @param {{ [s: string]: any; }} button
+     * @returns {void}
 	 */
     function handleClick(button) {
         if (typeof button.on === 'function') button.on();

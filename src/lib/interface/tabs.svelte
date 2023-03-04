@@ -49,6 +49,7 @@
      *  dropDown?: any,
      *  disabled?: boolean,
      * }} tab
+     * @returns {void}
      */
      function handleClick(tab) {
         if (!tab.dropDown && !tab.disabled) active = tab.id;

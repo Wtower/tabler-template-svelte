@@ -1091,6 +1091,7 @@
                                                      * Fetch remote data.
                                                      * @param {string|number|boolean} query
                                                      * @param {(arg0?: any) => void} callback
+                                                     * @returns {void}
                                                      */
                                                     load: function(query, callback) {
                                                         var url = 'https://api.github.com/search/repositories?q=' + encodeURIComponent(query);
@@ -1108,6 +1109,7 @@
                                                          * and items.
                                                          * @param {{owner: { avatar_url: any; login: any; }; name: any; description: any; }} item
                                                          * @param {(arg0: any) => any} escape
+                                                         * @returns {string}
                                                          */
                                                         option: function(item, escape) {
                                                             return `<div class="py-2 d-flex">
@@ -1128,6 +1130,7 @@
                                                         /**
                                                          * @param {{owner: { avatar_url: any; login: any; }; name: any; description: any; }} item
                                                          * @param {(arg0: any) => any} escape
+                                                         * @returns {string}
                                                          */
                                                             item: function(item, escape) {
                                                             return `<div class="py-2 d-flex">
@@ -1162,6 +1165,7 @@
                                                      * Fetch remote data.
                                                      * @param {any} _
                                                      * @param {(arg0?: any) => void} callback
+                                                     * @returns {void}
                                                      */
                                                     load: function(_, callback) {
                                                         /** @type {any} */
@@ -1186,6 +1190,7 @@
                                                          * and items.
                                                          * @param {{label: any; type: any[]; }} item
                                                          * @param {(arg0: any) => any} escape
+                                                         * @returns {string}
                                                          */
                                                         option: function(item, escape) {
                                                             return `<div class="py-2 d-flex">
@@ -1215,6 +1220,7 @@
                                                         /**
                                                          * @param {{ customProperties: string; text: any; }} data
                                                          * @param {(arg0: any) => string} escape
+                                                         * @returns {string}
                                                          */
                                                         item: function(data, escape) {
                                                             if( data.customProperties ){
@@ -1225,6 +1231,7 @@
                                                         /**
                                                          * @param {{ customProperties: string; text: any; }} data
                                                          * @param {(arg0: any) => string} escape
+                                                         * @returns {string}
                                                          */
                                                         option: function(data, escape){
                                                             if( data.customProperties ){
@@ -1256,6 +1263,7 @@
                                                         /**
                                                          * @param {{customProperties: string; text: any; }} data
                                                          * @param {(arg0: any) => string} escape
+                                                         * @returns {string}
                                                          */
                                                         item: function(data, escape) {
                                                             if( data.customProperties ){
@@ -1266,6 +1274,7 @@
                                                         /**
                                                          * @param {{customProperties: string; text: any; }} data
                                                          * @param {(arg0: any) => string} escape
+                                                         * @returns {string}
                                                          */
                                                         option: function(data, escape){
                                                             if( data.customProperties ){
@@ -1296,6 +1305,7 @@
                                                         /**
                                                          * @param {{customProperties: string; text: any; }} data
                                                          * @param {(arg0: any) => string} escape
+                                                         * @returns {string}
                                                          */
                                                         item: function(data, escape) {
                                                             if( data.customProperties ){
@@ -1306,6 +1316,7 @@
                                                         /**
                                                          * @param {{customProperties: string; text: any; }} data
                                                          * @param {(arg0: any) => string} escape
+                                                         * @returns {string}
                                                          */
                                                         option: function(data, escape){
                                                             if( data.customProperties ){
@@ -1336,6 +1347,7 @@
                                                         /**
                                                          * @param {{customProperties: string; text: any; }} data
                                                          * @param {(arg0: any) => string} escape
+                                                         * @returns {string}
                                                          */
                                                         item: function(data, escape) {
                                                             if( data.customProperties ){
@@ -1346,6 +1358,7 @@
                                                         /**
                                                          * @param {{customProperties: string; text: any; }} data
                                                          * @param {(arg0: any) => string} escape
+                                                         * @returns {string}
                                                          */
                                                         option: function(data, escape){
                                                             if( data.customProperties ){
