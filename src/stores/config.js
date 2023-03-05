@@ -17,6 +17,10 @@ export const config = readable({
         email: '@wtower',
     },
 
+    profileMenu: [[
+        {title: 'Logout'},
+    ]],
+
     menu: [{
         href: `${base}/`,
         title: 'Home',
@@ -101,6 +105,6 @@ export const config = readable({
 
     footerNotice: [
         'Svelte version &copy; 2022-2023 <a href="https://9-dev.com" class="link-secondary">9DEV Ltd.</a>',
-        version,
+        `v${version}`,
     ]
 });

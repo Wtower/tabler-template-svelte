@@ -16,13 +16,40 @@
     
     /**
      * Current user.
-	 * @type {{ username: any; email: any; }}
+	 * @type {{username: string, email: string}}
 	 */
     export let user;
+
+    /**
+     * User profile dropdown menu.
+	 * @type {Array.<Array.<{
+     *      header?: string,
+     *      disabled?: boolean,
+     *      href?: string, 
+     *      title?: string, 
+     *      icon?: string, 
+     *      badge?: {color?: 'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text: string},
+     *      divider?: boolean,
+     *      menu?: Array.<{
+     *          href?: string, 
+     *          title?: string, 
+     *          icon?: string, 
+     *          badge?: {color?: 'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text: string},
+     *          divider?: boolean,
+     *      }>
+     * }>>?}
+     */
+    export let profileMenu = null;
     
     /**
      * Notifications.
-	 * @type {string | any[]}
+	 * @type {Array.<{
+     *  status?: string,
+     *  title: string,
+     *  description: string,
+     *  href?: string,
+     *  star?: string,
+     * }>}
 	 */
     export let notifications;
     
@@ -78,7 +105,9 @@ Slots
 - h1: brand
 - h2: page title
 - notification-header
+- user
 - main/dafault
+- footerNotice
 -->
 <header class="navbar navbar-expand-md navbar-light d-print-none">
     <div class="container-xl">
@@ -198,13 +227,12 @@ Slots
                     <div class="d-none d-xl-block ps-2">
                         <div>{ user.username }</div>
                         <div class="mt-1 small text-muted">{ user.email }</div>
+                        <slot name="user" />
                     </div>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <!-- <a href="#" class="dropdown-item">Profile</a> -->
-                    <!-- <div class="dropdown-divider"></div> -->
-                    <a href="#logout" class="dropdown-item">Logout</a>
-                </div>
+                {#if profileMenu}
+                    <Dropdown menuItem={{menu: profileMenu}} arrow="end" />
+                {/if}
             </div>
         </div>
     </div>
@@ -221,7 +249,7 @@ Slots
                             <!-- https://stackoverflow.com/questions/10865025/merge-flatten-an-array-of-arrays -->
                             <!-- {menuItem.menu.flat().map(a => a.href)} -->
                             <li class="nav-item dropdown" 
-                                class:active={menuItem.menu.flat().map((/** @type {{ href: any; }} */ a) => a.href).includes(path)}>
+                                class:active={menuItem.menu.flat().map((/** @type {{href: string}} */ a) => a.href).includes(path)}>
                                 <a class="nav-link dropdown-toggle" 
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside"
@@ -318,6 +346,7 @@ Slots
                                 <li class="list-inline-item">{@html notice}</li>
                             {/each}
                         </ul>
+                        <slot name="footerNotice" />
                     </div>
                 {/if}
             </div>
