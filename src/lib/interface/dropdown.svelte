@@ -31,7 +31,7 @@
 
     /**
      * Draws an arrow pointing up at `start` or `end` corner.
-     * @type {string}
+     * @type {''|'start'|'end'}
      */
     export let arrow = '';
 
@@ -47,7 +47,7 @@
 Dropdown menu component.
 -->
 <div class="dropdown-menu"
-    class:dropdown-menu-arrow={arrow}
+    class:dropdown-menu-arrow={!!arrow}
     class:dropdown-menu-end={arrow === 'end'}
     class:bg-dark={invert}
     class:text-white={invert}>
