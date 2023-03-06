@@ -12,7 +12,7 @@
      * Html to render as branding at header.
      * @type {string}
      */
-    export let brand;
+    export let brand = '';
     
     /**
      * Current user.
