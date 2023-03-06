@@ -1,5 +1,6 @@
 <script>
     import { base } from '$app/paths';
+	import { onMount } from 'svelte';
     import Dropdown from './dropdown.svelte';
 
     /**
@@ -95,6 +96,17 @@
 	 * @type {Array.<string>}
 	 */
     export let footerNotice;
+
+    /**
+     * Detect dark mode.
+     * https://stackoverflow.com/questions/56393880/how-do-i-detect-dark-mode-using-javascript
+     * https://svelte.dev/repl/26eb44932920421da01e2e21539494cd?version=3.55.1
+     */
+    onMount(() => {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+            document.body.className = 'theme-dark';
+        else document.body.className = 'theme-light';
+    });
 </script>
 
 <!-- 
@@ -119,7 +131,7 @@ Slots
             <span class="navbar-toggler-icon"></span>
         </button>
         <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-            <a href="{base}/" class="no-text-decoration">
+            <a href="{base}/" data-sveltekit-reload class="no-text-decoration">
                 <!-- <img src={logo} height="32" alt="Tabler" class="navbar-brand-image"> -->
                 <slot name="h1">{@html brand}</slot>
             </a>
