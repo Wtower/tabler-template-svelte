@@ -116,30 +116,25 @@
 
     /**
      * Set the current theme.
-     * @param {'light'|'dark'} theme
+     * @type {'light'|'dark'?}
      */
-    function setTheme(theme) {
-        document.body.className = `theme-${theme}`
-    }
-
-    // The above not working; there are more classes throught layout with light/dark
-    // let finalTheme = null;
+    let setTheme = 'light';
 
     // Detect if component is running in browser or get 500.
     // The event does not always fire, and timeout works.
+    const timeout = 1000;
     onMount(() => {
-        const timeout = 100;
-        if (colorScheme === 'light') setTimeout(() => setTheme('light'), timeout);
-        else if (colorScheme === 'dark') setTimeout(() => setTheme('dark'), timeout);
+        if (colorScheme === 'light') setTimeout(() => setTheme = 'light', timeout);
+        else if (colorScheme === 'dark') setTimeout(() => setTheme = 'dark', timeout);
         else {
             preferDark = mediaQuery('(prefers-color-scheme:dark)');
-            setTimeout(() => $preferDark? setTheme('dark'): setTheme('light'), 100);
+            setTimeout(() => setTheme = $preferDark? 'dark': 'light', timeout);
         }
     });
 
-    $: if (browser && colorScheme === 'auto') {
-        $preferDark? setTheme('dark'): setTheme('light');
-    }
+    $: if (browser && colorScheme === 'auto') setTheme = $preferDark? 'dark': 'light';
+    $: if (browser && setTheme !== null) document.body.className = `theme-${setTheme}`;
+    // $: if (browser && setTheme !== null) setTimeout(() => document.body.className = `theme-${setTheme}`, timeout);
 </script>
 
 <!-- 
@@ -155,7 +150,7 @@ Slots
 - footerNotice
 -->
 
-<header class="navbar navbar-expand-md navbar-light d-print-none">
+<header class="navbar navbar-expand-md navbar-{setTheme} d-print-none">
     <div class="container-xl">
         <button 
             class="navbar-toggler" 
@@ -190,7 +185,7 @@ Slots
                 <a href="#theme=dark" 
                     class="nav-link px-0 hide-theme-dark" 
                     title="Enable dark mode" 
-                    on:click={() => setTheme('dark')}
+                    on:click={() => setTheme = 'dark'}
                     data-bs-toggle="tooltip" 
                     data-bs-placement="bottom">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
@@ -198,7 +193,7 @@ Slots
                 <a href="#theme=light"
                     class="nav-link px-0 hide-theme-light"
                     title="Enable light mode"
-                    on:click={() => setTheme('light')}
+                    on:click={() => setTheme = 'light'}
                     data-bs-toggle="tooltip"
                     data-bs-placement="bottom">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="4" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
@@ -285,7 +280,7 @@ Slots
 </header>
 <header class="navbar-expand-md">
     <div class="collapse navbar-collapse" id="navbar-menu">
-        <div class="navbar navbar-light">
+        <div class="navbar navbar-{setTheme}">
             <div class="container-xl">
                 <ul class="navbar-nav">
                     {#each menu as menuItem}
