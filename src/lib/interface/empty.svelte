@@ -1,7 +1,13 @@
 <script>
     import { base } from '$app/paths';
+	import { mediaQuery } from '../../stores/media_query';
 	import { onMount } from 'svelte';
     import Dropdown from './dropdown.svelte';
+	import { browser } from '$app/environment';
+	// import MediaQuery from './media_query.svelte';
+    // import { useMediaQuery } from '../../stores/media_query';
+	// import { afterNavigate } from '$app/navigation';
+	// import { afterUpdate } from 'svelte';
 
     /**
      * The current path.
@@ -97,15 +103,42 @@
 	 */
     export let footerNotice;
 
-    /**
-     * Detect dark mode.
-     * https://stackoverflow.com/questions/56393880/how-do-i-detect-dark-mode-using-javascript
-     * https://svelte.dev/repl/26eb44932920421da01e2e21539494cd?version=3.55.1
-     */
+    // /* First attempt: simple query without subscription; runs effectively once */
+    // //afterUpdate(() => {
+    // //afterNavigate(() => {
+    // onMount(() => {
+    //     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    //         document.body.className = 'theme-dark';
+    //     else document.body.className = 'theme-light';
+    // });
+
+    // /* Second attempt: simple readable store; not working because we did not detect browser */
+    // $: window && useMediaQuery('(prefers-color-scheme: dark)')? document.body.className = 'theme-dark': document.body.className = 'theme-light';
+    // let prefer;
+    // onMount(() => prefer =  useMediaQuery('(prefers-color-scheme: dark)'));
+    // $: $prefer? document.body.className = 'theme-dark': document.body.className = 'theme-light';
+
+    // /* Third attempt: improved store; detecting browser
+    let prefer;
+    // if (browser) {
+    //     prefer = mediaQuery('(prefers-color-scheme:dark)');
+    // }
+    // $: console.log('prefer', $prefer);
+    $: if (browser) {
+        $prefer? document.body.className = 'theme-dark': document.body.className = 'theme-light';
+    }
+
+    // /* Last attempt; the event does not always fire and timeout works.
     onMount(() => {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
-            document.body.className = 'theme-dark';
-        else document.body.className = 'theme-light';
+        prefer = mediaQuery('(prefers-color-scheme:dark)');
+        const interval = setTimeout(() => {
+            console.log('prefer', $prefer);
+            // if (path === 'aaa') $prefer = !$prefer;
+            $prefer? document.body.className = 'theme-dark': document.body.className = 'theme-light';
+        }, 100);
+        // return () => {
+        //     clearInterval(interval);
+        // }
     });
 </script>
 
@@ -121,6 +154,7 @@ Slots
 - main/dafault
 - footerNotice
 -->
+<!-- <MediaQuery query="" /> -->
 <header class="navbar navbar-expand-md navbar-light d-print-none">
     <div class="container-xl">
         <button 
