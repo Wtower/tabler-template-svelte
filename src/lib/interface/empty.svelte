@@ -1,13 +1,9 @@
 <script>
-    import { base } from '$app/paths';
 	import { mediaQuery } from '../../stores/media_query';
-	import { onMount } from 'svelte';
     import Dropdown from './dropdown.svelte';
 	import { browser } from '$app/environment';
-	// import MediaQuery from './media_query.svelte';
-    // import { useMediaQuery } from '../../stores/media_query';
-	// import { afterNavigate } from '$app/navigation';
-	// import { afterUpdate } from 'svelte';
+    import { base } from '$app/paths';
+	import { onMount } from 'svelte';
 
     /**
      * The current path.
@@ -103,43 +99,47 @@
 	 */
     export let footerNotice;
 
-    // /* First attempt: simple query without subscription; runs effectively once */
-    // //afterUpdate(() => {
-    // //afterNavigate(() => {
-    // onMount(() => {
-    //     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    //         document.body.className = 'theme-dark';
-    //     else document.body.className = 'theme-light';
-    // });
+    /**
+     * Select light or dark theme.
+     * 'auto-once' selects theme once on mount.
+     * 'auto' also subsribes to media change event.
+     * @type {'light'|'dark'|'auto-once'|'auto'}
+     */
+    export let colorScheme = 'light';
 
-    // /* Second attempt: simple readable store; not working because we did not detect browser */
-    // $: window && useMediaQuery('(prefers-color-scheme: dark)')? document.body.className = 'theme-dark': document.body.className = 'theme-light';
-    // let prefer;
-    // onMount(() => prefer =  useMediaQuery('(prefers-color-scheme: dark)'));
-    // $: $prefer? document.body.className = 'theme-dark': document.body.className = 'theme-light';
+    /** 
+     * Media query store with boolean value.
+     * https://joyofcode.xyz/sveltekit-window-is-not-defined
+     * https://geoffrich.net/posts/svelte-lifecycle-examples/
+     */
+    let preferDark;
 
-    // /* Third attempt: improved store; detecting browser
-    let prefer;
-    // if (browser) {
-    //     prefer = mediaQuery('(prefers-color-scheme:dark)');
-    // }
-    // $: console.log('prefer', $prefer);
-    $: if (browser) {
-        $prefer? document.body.className = 'theme-dark': document.body.className = 'theme-light';
+    /**
+     * Set the current theme.
+     * @param {'light'|'dark'} theme
+     */
+    function setTheme(theme) {
+        document.body.className = `theme-${theme}`
     }
 
-    // /* Last attempt; the event does not always fire and timeout works.
+    // The above not working; there are more classes throught layout with light/dark
+    // let finalTheme = null;
+
+    // Detect if component is running in browser or get 500.
+    // The event does not always fire, and timeout works.
     onMount(() => {
-        prefer = mediaQuery('(prefers-color-scheme:dark)');
-        const interval = setTimeout(() => {
-            console.log('prefer', $prefer);
-            // if (path === 'aaa') $prefer = !$prefer;
-            $prefer? document.body.className = 'theme-dark': document.body.className = 'theme-light';
-        }, 100);
-        // return () => {
-        //     clearInterval(interval);
-        // }
+        const timeout = 100;
+        if (colorScheme === 'light') setTimeout(() => setTheme('light'), timeout);
+        else if (colorScheme === 'dark') setTimeout(() => setTheme('dark'), timeout);
+        else {
+            preferDark = mediaQuery('(prefers-color-scheme:dark)');
+            setTimeout(() => $preferDark? setTheme('dark'): setTheme('light'), 100);
+        }
     });
+
+    $: if (browser && colorScheme === 'auto') {
+        $preferDark? setTheme('dark'): setTheme('light');
+    }
 </script>
 
 <!-- 
@@ -154,7 +154,7 @@ Slots
 - main/dafault
 - footerNotice
 -->
-<!-- <MediaQuery query="" /> -->
+
 <header class="navbar navbar-expand-md navbar-light d-print-none">
     <div class="container-xl">
         <button 
@@ -190,7 +190,7 @@ Slots
                 <a href="#theme=dark" 
                     class="nav-link px-0 hide-theme-dark" 
                     title="Enable dark mode" 
-                    on:click={() => document.body.className = 'theme-dark'}
+                    on:click={() => setTheme('dark')}
                     data-bs-toggle="tooltip" 
                     data-bs-placement="bottom">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
@@ -198,7 +198,7 @@ Slots
                 <a href="#theme=light"
                     class="nav-link px-0 hide-theme-light"
                     title="Enable light mode"
-                    on:click={() => document.body.className = 'theme-light'}
+                    on:click={() => setTheme('light')}
                     data-bs-toggle="tooltip"
                     data-bs-placement="bottom">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="4" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
