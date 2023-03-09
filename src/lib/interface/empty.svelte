@@ -105,14 +105,14 @@
      * 'auto' also subsribes to media change event.
      * @type {'light'|'dark'|'auto-once'|'auto'}
      */
-    export let colorScheme = 'light';
+    export let colorTheme = 'light';
 
     /** 
      * Media query store with boolean value.
      * https://joyofcode.xyz/sveltekit-window-is-not-defined
      * https://geoffrich.net/posts/svelte-lifecycle-examples/
      */
-    let preferDark;
+    let colorThemeQuery;
 
     /**
      * Set the current theme.
@@ -120,21 +120,23 @@
      */
     let setTheme = 'light';
 
-    // Detect if component is running in browser or get 500.
-    // The event does not always fire, and timeout works.
-    const timeout = 1000;
+    /**
+     * Detect if component is running in browser to avoid get error 500.
+     * @see https://github.com/sveltejs/svelte/issues/3105#issuecomment-1461087714
+     * For some reason it only works with a timeout.
+     * @type {number}
+     */
+    const timeout = 500;
     onMount(() => {
-        if (colorScheme === 'light') setTimeout(() => setTheme = 'light', timeout);
-        else if (colorScheme === 'dark') setTimeout(() => setTheme = 'dark', timeout);
-        else {
-            preferDark = mediaQuery('(prefers-color-scheme:dark)');
-            setTimeout(() => setTheme = $preferDark? 'dark': 'light', timeout);
-        }
+        if (colorTheme === 'light') setTimeout(() => setTheme = 'light', timeout);
+        else if (colorTheme === 'dark') setTimeout(() => setTheme = 'dark', timeout);
+        else colorThemeQuery = mediaQuery('(prefers-color-scheme:dark)');
     });
-
-    $: if (browser && colorScheme === 'auto') setTheme = $preferDark? 'dark': 'light';
-    $: if (browser && setTheme !== null) document.body.className = `theme-${setTheme}`;
-    // $: if (browser && setTheme !== null) setTimeout(() => document.body.className = `theme-${setTheme}`, timeout);
+    // TODO: Improve by removing setTheme and making a default mediaquery, which works with an invalid mql string.
+    $: if (browser && (colorTheme === 'auto' || colorTheme === 'auto-once')) {
+        setTimeout(() => setTheme = $colorThemeQuery? 'dark': 'light', timeout);
+    }
+    $: if (browser) document.body.className = `theme-${setTheme}`;
 </script>
 
 <!-- 
