@@ -111,32 +111,28 @@
      * Media query store with boolean value.
      * https://joyofcode.xyz/sveltekit-window-is-not-defined
      * https://geoffrich.net/posts/svelte-lifecycle-examples/
+     * For some reason it only works with a timeout.
+     * Detect if component is running in browser to avoid get error 500.
+     * @see https://github.com/sveltejs/svelte/issues/3105#issuecomment-1461087714
+     * @type {import("svelte/store").Writable<boolean?>}
      */
     let colorThemeQuery;
 
-    /**
-     * Set the current theme.
-     * @type {'light'|'dark'?}
-     */
-    let setTheme = 'light';
-
-    /**
-     * Detect if component is running in browser to avoid get error 500.
-     * @see https://github.com/sveltejs/svelte/issues/3105#issuecomment-1461087714
-     * For some reason it only works with a timeout.
-     * @type {number}
-     */
-    const timeout = 500;
     onMount(() => {
-        if (colorTheme === 'light') setTimeout(() => setTheme = 'light', timeout);
-        else if (colorTheme === 'dark') setTimeout(() => setTheme = 'dark', timeout);
-        else colorThemeQuery = mediaQuery('(prefers-color-scheme:dark)');
+        setTimeout(() => {
+            if (colorTheme === 'light') {
+                colorThemeQuery = mediaQuery('');
+                colorThemeQuery.set(false);
+            }
+            else if (colorTheme === 'dark') {
+                colorThemeQuery = mediaQuery('');
+                colorThemeQuery.set(true);
+            }
+            else colorThemeQuery = mediaQuery('(prefers-color-scheme:dark)');
+        }, 500);
     });
-    // TODO: Improve by removing setTheme and making a default mediaquery, which works with an invalid mql string.
-    $: if (browser && (colorTheme === 'auto' || colorTheme === 'auto-once')) {
-        setTimeout(() => setTheme = $colorThemeQuery? 'dark': 'light', timeout);
-    }
-    $: if (browser) document.body.className = `theme-${setTheme}`;
+
+    $: if (colorThemeQuery) document.body.className = $colorThemeQuery? 'theme-dark': 'theme-light';
 </script>
 
 <!-- 
@@ -152,7 +148,9 @@ Slots
 - footerNotice
 -->
 
-<header class="navbar navbar-expand-md navbar-{setTheme} d-print-none">
+<header class="navbar navbar-expand-md d-print-none" 
+    class:navbar-light={!$colorThemeQuery}
+    class:navbar-dark={$colorThemeQuery}>
     <div class="container-xl">
         <button 
             class="navbar-toggler" 
@@ -187,7 +185,7 @@ Slots
                 <a href="#theme=dark" 
                     class="nav-link px-0 hide-theme-dark" 
                     title="Enable dark mode" 
-                    on:click={() => setTheme = 'dark'}
+                    on:click={() => {colorThemeQuery.set(true);}}
                     data-bs-toggle="tooltip" 
                     data-bs-placement="bottom">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
@@ -195,7 +193,7 @@ Slots
                 <a href="#theme=light"
                     class="nav-link px-0 hide-theme-light"
                     title="Enable light mode"
-                    on:click={() => setTheme = 'light'}
+                    on:click={() => {colorThemeQuery.set(false);}}
                     data-bs-toggle="tooltip"
                     data-bs-placement="bottom">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="4" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
@@ -282,7 +280,9 @@ Slots
 </header>
 <header class="navbar-expand-md">
     <div class="collapse navbar-collapse" id="navbar-menu">
-        <div class="navbar navbar-{setTheme}">
+        <div class="navbar"
+            class:navbar-light={!$colorThemeQuery}
+            class:navbar-dark={$colorThemeQuery}>
             <div class="container-xl">
                 <ul class="navbar-nav">
                     {#each menu as menuItem}
@@ -400,5 +400,10 @@ Slots
 <style>
     a.no-text-decoration:hover {
         text-decoration: none;
+    }
+    /* Hide the scrollbar; if shown set to body bg.  */
+    :global(::-webkit-scrollbar) {
+        display: none;
+        background-color: var(--tblr-body-bg);
     }
 </style>
