@@ -17,6 +17,11 @@
     import Text from "$lib/form/text.svelte";
     import Textarea from "$lib/form/textarea.svelte";
     import { config } from "$stores/config";
+
+    /** @type Array.<boolean> */
+    let terms = [];
+    /** @type {Object.<string, boolean?>} */
+    let isValid = {terms: null};
 </script>
 
 <Empty path="{base}/form-elements" {...$config}>
@@ -550,8 +555,16 @@
                                                             name="fieldset-terms"
                                                             required
                                                             checkboxes={[{
-                                                                v: true, t: 'I agree to the Terms & Conditions'}]}
-                                                            value={[]} />
+                                                                v: true, 
+                                                                t: '',
+                                                                html: 'I agree to the <a href="#terms">Terms & Conditions</a>',
+                                                            }]}
+                                                            bind:isValid={isValid.terms}
+                                                            bind:value={terms}>
+                                                            <span slot="feedback">
+                                                                Field is required.
+                                                            </span>
+                                                        </Checkboxes>
                                                     </fieldset>
                                                 </svelte:fragment>
                                             </InputGroup>
