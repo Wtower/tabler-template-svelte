@@ -47,7 +47,7 @@
 
     /**
      * Define the radios.
-	 * @type {Array.<{v: any, t: any, disabled?: boolean, html?: string, description?: string}>}
+	 * @type {Array.<{v: any, t?: string, disabled?: boolean, html?: string, description?: string, slot?: string}>}
 	 */
     export let radios;
 
@@ -102,17 +102,21 @@ Slots:
                     value={Object.values(radio)[0]}
                     checked={value == Object.values(radio)[0]}
                     disabled={radio.disabled}>
-                <span
-                    class:form-check-label={!selectGroup}
-                    class:form-selectgroup-label={!!selectGroup}
-                    class:d-flex={selectGroup === 'boxes'}
-                    class:align-items-center={selectGroup === 'boxes'}
-                    class:p-3={selectGroup === 'boxes'}>
-                    {#if radio.html}
-                        {@html radio.html}
-                    {/if}
-                    {Object.values(radio)[1]}
-                </span>
+                {#if radio.slot}
+                    <slot name="radioLabel" item={radio.slot} />
+                {:else}
+                    <span
+                        class:form-check-label={!selectGroup}
+                        class:form-selectgroup-label={!!selectGroup}
+                        class:d-flex={selectGroup === 'boxes'}
+                        class:align-items-center={selectGroup === 'boxes'}
+                        class:p-3={selectGroup === 'boxes'}>
+                        {#if radio.html}
+                            {@html radio.html}
+                        {/if}
+                        {Object.values(radio)[1]}
+                    </span>
+                {/if}
             </label>
         {/each}
     </div>
