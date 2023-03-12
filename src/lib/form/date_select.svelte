@@ -152,8 +152,12 @@ Slots:
 - feedback: Text to display if validation error.
 -->
 <InputGroup {wrapper} class={extraClass} {required} {flat}>
-    <slot />
-    <slot name="description" />
+    {#if $$slots.default}
+        <slot />
+    {/if}
+    {#if $$slots.description}
+        <slot name="description" />
+    {/if}
     <div slot="static">
         <div class="row g-2">
             {#each format.split('') as item, i}

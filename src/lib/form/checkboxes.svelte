@@ -89,9 +89,11 @@ Slots:
 - feedback: Text to display if validation error.
 -->
 <Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
-    <Label required={$$slots.default && required}>
-        <slot /><slot name="description" />
-    </Label>
+    {#if $$slots.default || $$slots.description}
+        <Label {required}>
+            <slot /><slot name="description" />
+        </Label>
+    {/if}
     <div class:divide-y={rightAlign}
         class:form-selectgroup={!!selectGroup}
         class:form-selectgroup-pills={selectGroup === 'pills'}

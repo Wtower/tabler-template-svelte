@@ -1,5 +1,4 @@
 <script>
-	import { element } from "svelte/internal";
     import Progress from "../form/progress.svelte";
 	import Wrapper from "./wrapper.svelte";
 

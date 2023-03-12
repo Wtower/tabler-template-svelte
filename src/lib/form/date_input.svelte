@@ -115,9 +115,11 @@ Slots:
 - feedback: Text to display if validation error.
 -->
 <Wrapper element={wrapper} class="{extraClass ?? 'mb-3'}">
-    <Label {required}>
-        <slot /><slot name="description" />
-    </Label>
+    {#if $$slots.default || $$slots.description}
+        <Label {required}>
+            <slot /><slot name="description" />
+        </Label>
+    {/if}
     <div class="date-input" 
         class:input-icon={icon} 
         class:input-icon-left={icon === 'left'}

@@ -23,6 +23,8 @@
 @component
 Label component.
 
+Check if slots defined before passing, otherwise they pass empty.
+
 Slots:
 - default: The field label.
 - description: Extra right-aligned label description.
