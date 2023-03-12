@@ -1,9 +1,8 @@
 <script>
     import { base } from "$app/paths";
-	import Checkboxes from "$lib/form/checkboxes.svelte";
-	import Radios from "$lib/form/radios.svelte";
-	import Badge from "$lib/interface/badge.svelte";
-	import Dropdown from "$lib/interface/dropdown.svelte";
+    import Checkboxes from "$lib/form/checkboxes.svelte";
+    import Radios from "$lib/form/radios.svelte";
+    import Dropdown from "$lib/interface/dropdown.svelte";
     import Empty from "$lib/interface/empty.svelte";
     import { config } from "$stores/config";
 </script>

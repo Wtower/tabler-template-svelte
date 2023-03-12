@@ -53,10 +53,9 @@
     }
     :global(body) {
         font-feature-settings: "cv03", "cv04", "cv11";
+        overflow: auto;
     }
-    /* Hide the scrollbar; if shown set to body bg.  */
     :global(::-webkit-scrollbar) {
-        display: none;
         background-color: var(--tblr-body-bg);
     }
 </style>

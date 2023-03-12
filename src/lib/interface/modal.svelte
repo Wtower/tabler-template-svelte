@@ -18,6 +18,12 @@
     export let scrollable = false;
 
     /**
+     * Centered content.
+     * @type {boolean}
+     */
+    export let center = false;
+
+    /**
      * Displays a status top border.
      * @type {''|'success'|'warning'|'danger'|'primary'|'primary-lt'}
      */
@@ -47,18 +53,20 @@ Slots:
         class:modal-dialog-scrollable={scrollable}
         role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><slot name="title" /></h5>
-                <button type="button" 
-                    class="btn-close" 
-                    data-bs-dismiss="modal" 
-                    aria-label="Close">
-                </button>
-            </div>
+            {#if $$slots.title}
+                <div class="modal-header">
+                    <h5 class="modal-title"><slot name="title" /></h5>
+                </div>
+            {/if}
+            <button type="button" 
+                class="btn-close" 
+                data-bs-dismiss="modal" 
+                aria-label="Close">
+            </button>
             {#if status}
                 <div class="modal-status bg-{status}"></div>
             {/if}
-            <div class="modal-body">
+            <div class="modal-body" class:text-center={center}>
                 {#if icon && status === 'success'}
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-green icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" /></svg>
                 {:else if icon && status === 'warning'}
@@ -66,7 +74,8 @@ Slots:
                 {:else if icon && status === 'danger'}
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
                 {/if}
-                <slot /></div>
+                <slot />
+            </div>
             <div class="modal-footer">
                 <slot name="buttons">
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
@@ -76,3 +85,9 @@ Slots:
         </div>
     </div>
 </div>
+
+<style>
+    :global(.modal-dialog-scrollable ::-webkit-scrollbar) {
+        background-color: var(--tblr-modal-bg);
+    }
+</style>
