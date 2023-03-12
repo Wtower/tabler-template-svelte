@@ -1,4 +1,5 @@
 <script>
+    import Progress from "$lib/form/progress.svelte";
     import { slide } from "svelte/transition";
 
     /**
@@ -9,9 +10,10 @@
      *      label?: string,
      *      align?: 'left'|'center'|'right',
      *      strong?: boolean,
-     *      type?: 'text'|'email'|'calculate'|'slot',
+     *      type?: 'text'|'email'|'calculate'|'slot'|'progress',
      *      calculate?: {fields: Array.<string>, function: function},
      *      slot?: boolean,
+     *      progress?: {fieldLabel: string, fieldValue: string, maxValue?: number},
      * }}}
      */
     export let fields;
@@ -78,12 +80,21 @@
                         <td id="{row.id}.{id}" 
                             class:text-muted={!f.strong}
                             class:text-center={f.align === 'center'} 
-                            class:text-end={f.align === 'right'}>
-                                {#if f.calculate}
+                            class:text-end={f.align === 'right'}
+                            class:w-1={f.align === 'right'}>
+                            {#if f.calculate}
                                 {f.calculate.function(f.calculate.fields.reduce((a, v) => 
                                     ({...a, [v]: row[v]}), {}))}
                             {:else if f.slot}
                                 <slot name="row" {row} />
+                            {:else if f.progress}
+                                <Progress 
+                                    class="progressbg" 
+                                    progressClass="progressbg-progress" 
+                                    color="primary-lt" 
+                                    value={row[f.progress.fieldValue] / (f.progress.maxValue ?? 1)}>
+                                    <span slot="progressbg">{row[f.progress.fieldLabel]}</span>
+                                </Progress>
                             {:else if f.type === 'email'}
                                 <a href="mailto:{row[id]}" class="text-reset">{row[id]}</a>
                             {:else}

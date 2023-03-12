@@ -12,8 +12,9 @@
      * @returns {Promise<Object>} 
      */
     async function getUsers() {
-        const res = 
-            await fetch('https://dummyjson.com/users?select=firstName,email,lastName,company');
+        const res = await fetch(
+            'https://dummyjson.com/users?limit=8&select=firstName,email,lastName,company'
+        );
         const data = await res.json();
         return data.users;
     }
@@ -138,8 +139,15 @@
                             small
                             borderless
                             fields={{
-                                title: {},
-                                stock: {align: 'right'},
+                                product: {
+                                    strong: true,
+                                    progress: {
+                                        fieldLabel: 'title', 
+                                        fieldValue: 'stock', 
+                                        maxValue: 200
+                                    }
+                                },
+                                stock: {align: 'right', strong: true},
                             }} 
                             {data} />
                     {/await}

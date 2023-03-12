@@ -42,6 +42,7 @@ Progress bar component.
 Slots:
 - default: The field label.
 - description: Extra right-aligned label description.
+- progressbg: Text to output on top of the progress bar. 
 -->
 <Wrapper element={wrapper} class={extraClass ?? 'mb-3'}>
     {#if $$slots.default || $$slots.description}
@@ -61,4 +62,7 @@ Slots:
             {/if}
         </div>
     </div>
+    {#if $$slots.progressbg}
+        <div class="progressbg-text"><slot name="progressbg" /></div>
+    {/if}
 </Wrapper>
