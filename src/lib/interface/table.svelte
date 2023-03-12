@@ -50,6 +50,12 @@
      * @type {boolean}
      */
     export let borderless = false;
+
+    /**
+     * Striped rows.
+     * @type {boolean}
+     */
+    export let striped = false;
 </script>
 
 <div class="table-responsive">
@@ -57,13 +63,15 @@
         class:table-vcenter={vcenter} 
         class:card-table={noMargin}
         class:table-sm={small}
-        class:table-borderless={borderless}>
+        class:table-borderless={borderless}
+        class:table-striped={striped}>
         <thead>
             <tr>
                 {#each Object.entries(fields) as [id, f]}
                     <th {id} 
                         class:text-center={f.align === 'center'} 
-                        class:text-end={f.align === 'right'}>
+                        class:text-end={f.align === 'right'}
+                        class:w-1={f.label === ''}>
                         {#if f.label}
                             {f.label}
                         {:else if f.label !== ''}
@@ -78,7 +86,7 @@
                 <tr id={row.id}>
                     {#each Object.entries(fields) as [id, f]}
                         <td id="{row.id}.{id}" 
-                            class:text-muted={!f.strong}
+                            class:text-muted={!f.strong && !f.slot}
                             class:text-center={f.align === 'center'} 
                             class:text-end={f.align === 'right'}
                             class:w-1={f.align === 'right'}>
@@ -86,7 +94,7 @@
                                 {f.calculate.function(f.calculate.fields.reduce((a, v) => 
                                     ({...a, [v]: row[v]}), {}))}
                             {:else if f.slot}
-                                <slot name="row" {row} />
+                                <slot name="row" {row} fieldId={id} field={f} />
                             {:else if f.progress}
                                 <Progress 
                                     class="progressbg" 

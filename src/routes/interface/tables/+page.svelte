@@ -11,16 +11,59 @@
      * https://dummyjson.com/docs/users
      * @returns {Promise<Object>} 
      */
-    async function getUsers() {
+    async function getUsers(limit = 8, skip = 0) {
         const res = await fetch(
-            'https://dummyjson.com/users?limit=8&select=firstName,email,lastName,company'
+            `https://dummyjson.com/users?limit=${Number(limit)}&skip=${Number(skip)}&select=firstName,email,lastName,image,company`
         );
         const data = await res.json();
         return data.users;
     }
-    let promiseUsers = getUsers();
+    let promiseUsers = [
+        getUsers(), 
+        getUsers(5, 8),
+        getUsers(5, 13),
+    ];
     /** @type {string} */
     let visibleUser;
+
+    /**
+     * Field definition.
+     * @type {{ 
+     *  [fieldId: string]: {
+     *      label?: string,
+     *      align?: 'left'|'center'|'right',
+     *      strong?: boolean,
+     *      type?: 'text'|'email'|'calculate'|'slot'|'progress',
+     *      calculate?: {fields: Array.<string>, function: function},
+     *      slot?: boolean,
+     *      progress?: {fieldLabel: string, fieldValue: string, maxValue?: number},
+     * }}}
+     */
+     const fieldUsers = {
+        name: {
+            strong: true,
+            calculate: {
+                fields: ['lastName', 'firstName'], 
+                /** @param {{lastName: string, firstName: string}} name */
+                function: ({lastName, firstName}) => `${lastName}, ${firstName}`
+        }},
+        title: {
+            calculate: {
+                fields: ['company'],
+                /** @param {{company: {title: string}}} company */
+                function: ({company}) => company.title,
+            }
+        },
+        email: {type: 'email'},
+        department: {
+            calculate: {
+                fields: ['company'],
+                /** @param {{company: {department: string}}} company */
+                function: ({company}) => company.department,
+            }
+        },
+        edit: {label: '', slot: true},
+    };
 
     /**
      * https://dummyjson.com/docs/products
@@ -48,38 +91,13 @@
         <div class="row row-cards">
             <div class="col-lg-8">
                 <Card noPadding>
-                    {#await promiseUsers}
+                    {#await promiseUsers[0]}
                         <Progress />
                     {:then data}
                         <Table 
                             vcenter
                             noMargin
-                            fields={{
-                                name: {
-                                    strong: true,
-                                    calculate: {
-                                        fields: ['lastName', 'firstName'], 
-                                        /** @param {{lastName: string, firstName: string}} name */
-                                        function: ({lastName, firstName}) => 
-                                            `${lastName}, ${firstName}`
-                                }},
-                                title: {
-                                    calculate: {
-                                        fields: ['company'],
-                                        /** @param {{company: {title: string}}} company */
-                                        function: ({company}) => company.title,
-                                    }
-                                },
-                                email: {type: 'email'},
-                                department: {
-                                    calculate: {
-                                        fields: ['company'],
-                                        /** @param {{company: {department: string}}} company */
-                                        function: ({company}) => company.department,
-                                    }
-                                },
-                                edit: {label: '', slot: true},
-                            }}
+                            fields={fieldUsers}
                             {data}
                             bind:visible={visibleUser}
                             let:row>
@@ -150,6 +168,74 @@
                                 stock: {align: 'right', strong: true},
                             }} 
                             {data} />
+                    {/await}
+                </Card>
+            </div>
+
+            <div class="col-12">
+                <Card noPadding>
+                    {#await promiseUsers[1]}
+                        <Progress />
+                    {:then data}
+                        <Table 
+                            vcenter
+                            noMargin
+                            striped
+                            fields={fieldUsers}
+                            {data}
+                            let:row>
+                            <span slot="row">(edit disabled)</span>
+                        </Table>
+                    {:catch _}
+                        Error loading data.
+                    {/await}
+                </Card>
+            </div>
+
+            <div class="col-12">
+                <Card noPadding>
+                    {#await promiseUsers[2]}
+                        <Progress />
+                    {:then data}
+                        <Table 
+                            vcenter
+                            noMargin
+                            fields={{
+                                name: {slot: true},
+                                title: {slot: true},
+                                company: {slot: true},
+                                edit: {slot: true, label: ''},
+                            }}
+                            {data}>
+                            <span slot="row" let:row let:fieldId let:field>
+                                {#if fieldId === 'name'}
+                                    <div class="d-flex py-1 align-items-center">
+                                        <span class="avatar me-2" 
+                                            style:background-image={`url(${row.image})`}>
+                                        </span>
+                                        <div class="flex-fill">
+                                            <div class="font-weight-medium">
+                                                {row.lastName}, {row.firstName}
+                                            </div>
+                                            <div class="text-muted">
+                                                <a href="mailto:{row.email}" class="text-reset">
+                                                    {row.email}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {:else if fieldId === 'title'}
+                                    <div>{row.company.title}</div>
+                                    <div class="text-muted">{row.company.department}</div>
+                                {:else if fieldId === 'company'}
+                                    {row.company.name}
+                                {:else}
+                                    (edit disabled)
+                                {/if}
+                            </span>
+                        </Table>
+                    {:catch _}
+                        Error loading data.
                     {/await}
                 </Card>
             </div>
