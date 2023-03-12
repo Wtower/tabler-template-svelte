@@ -18,6 +18,9 @@
      * @type {boolean}
      */
     export let show = false;
+
+    /** @type {'start'|'end'|'top'|'bottom'} */
+    export let placement = 'bottom';
 </script>
 
 <!-- 
@@ -29,7 +32,7 @@ Slots
 - buttons
 -->
 {#if show}
-    <div class="offcanvas offcanvas-bottom show" 
+    <div class="offcanvas offcanvas-{placement} show" 
         transition:fade
         tabindex="-1" 
         aria-labelledby={label}>
