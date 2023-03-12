@@ -30,9 +30,9 @@
 
     /**
      * The bound value.
-	 * @type {number}
+	 * @type {number?}
 	 */
-    export let value;
+    export let value = null;
 </script>
 
 <!-- 
@@ -51,11 +51,11 @@ Slots:
         <div class="progress-bar {color? `bg-${color}`: ''}"
             class:progress-bar-indeterminate={value === null}
             role={value === null? null: 'progressbar'}
-            style:width={`${value * 100}%`}
-            aria-valuenow={value * 100}
+            style:width={`${Number(value) * 100}%`}
+            aria-valuenow={Number(value) * 100}
             aria-valuemin={value === null? null: 0}
             aria-valuemax={value === null? null: 100} 
-            aria-label={`${value * 100}% Complete`}>
+            aria-label={`${Number(value) * 100}% Complete`}>
             {#if value !== null}
                 <span class="visually-hidden">{value * 100}% Complete</span>
             {/if}

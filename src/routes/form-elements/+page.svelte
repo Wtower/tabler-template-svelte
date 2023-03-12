@@ -1036,7 +1036,7 @@
                                                 Inline datepicker
                                             </DateInput>
                                             <Progress class="mb-2" value={0.38}>Progress</Progress>
-                                            <Progress color="green" value={0.38} />
+                                            <Progress color="green" />
                                             <div class="mb-3">
                                                 <span class="form-label">Form buttons</span>
                                                 <div class="row">
