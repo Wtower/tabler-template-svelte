@@ -2,7 +2,7 @@
     import { base } from "$app/paths";
     import Card from "$lib/interface/card.svelte";
     import Empty from "$lib/interface/empty.svelte";
-	import Offcanvas from "$lib/interface/offcanvas.svelte";
+    import Offcanvas from "$lib/interface/offcanvas.svelte";
     import { config } from "$stores/config";
 
     const placements = ['start', 'end', 'top', 'bottom'];
