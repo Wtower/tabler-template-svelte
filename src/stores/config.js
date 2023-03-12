@@ -52,6 +52,9 @@ export const config = readable({
             href: `${base}/interface/tabs`,
             title: 'Tabs',
         }, {
+            href: `${base}/interface/tables`,
+            title: 'Tables',
+        }, {
             href: `${base}/interface/offcanvas`,
             title: 'Offcanvas',
         }, {
