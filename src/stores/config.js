@@ -42,6 +42,9 @@ export const config = readable({
                 href: `${base}/interface/cards`,
                 title: 'Sample cards',
             }]],
+        }, {
+            href: `${base}/interface/dropdowns`,
+            title: 'Dropdowns',
         }], [{ // 2nd column
             href: `${base}/interface/tabs`,
             title: 'Tabs',

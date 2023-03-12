@@ -26,18 +26,19 @@
     /**
      * User profile dropdown menu.
 	 * @type {Array.<Array.<{
-     *      header?: string,
+     *      header?: boolean,
      *      disabled?: boolean,
+     *      slot?: string,
      *      href?: string, 
      *      title?: string, 
      *      icon?: string, 
-     *      badge?: {color?: 'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text: string},
+     *      badge?: {color?: 'primary'|'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text?: string, marginLeftClass?: '1'|'2'|'3'|'4'|'5'|'auto'},
      *      divider?: boolean,
      *      menu?: Array.<{
      *          href?: string, 
      *          title?: string, 
      *          icon?: string, 
-     *          badge?: {color?: 'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text: string},
+     *          badge?: {color?: 'primary'|'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text?: string, marginLeftClass?: '1'|'2'|'3'|'4'|'5'|'auto'},
      *          divider?: boolean,
      *      }>
      * }>>?}

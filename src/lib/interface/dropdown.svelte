@@ -11,18 +11,19 @@
      * The menu item.
 	 * @type {{ 
      *  menu: Array.<Array.<{
-     *      header?: string,
+     *      header?: boolean,
      *      disabled?: boolean,
+     *      slot?: string,
      *      href?: string, 
      *      title?: string, 
      *      icon?: string, 
-     *      badge?: {color?: 'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text: string},
+     *      badge?: {color?: 'primary'|'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text?: string, marginLeftClass?: '1'|'2'|'3'|'4'|'5'|'auto'},
      *      divider?: boolean,
      *      menu?: Array.<{
      *          href?: string, 
      *          title?: string, 
      *          icon?: string, 
-     *          badge?: {color?: 'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text: string},
+     *          badge?: {color?: 'primary'|'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text?: string, marginLeftClass?: '1'|'2'|'3'|'4'|'5'|'auto'},
      *          divider?: boolean,
      *      }>
      * }>>}}
@@ -78,36 +79,40 @@ Dropdown menu component.
                                 {#if columnItem.badge}
                                     <Badge 
                                         bgColor={columnItem.badge.color}
-                                        marginLeftClass="2"
+                                        marginLeftClass="{columnItem.badge.marginLeftClass ?? '2'}"
                                         textUppercase
                                         small>
-                                        {columnItem.badge.text}
+                                        {columnItem.badge.text ?? ''}
                                     </Badge>
                                 {/if}
                             </a>
                             <svelte:self menuItem={columnItem} {path} />
                         </div>
                     {:else}
-                        <a class="dropdown-item" 
-                            class:active={path === columnItem.href}
-                            class:disabled={columnItem.disabled}
-                            href={columnItem.href ?? '#navbar-base'}>
-                            {#if columnItem.icon}
-                                {@html columnItem.icon}&nbsp;
-                            {/if}
-                            {#if columnItem.title}
-                                {columnItem.title}
-                            {/if}
-                            {#if columnItem.badge}
-                                <Badge 
-                                    bgColor={columnItem.badge.color}
-                                    marginLeftClass="2"
-                                    textUppercase
-                                    small>
-                                    {columnItem.badge.text}
-                                </Badge>
-                            {/if}
-                        </a>
+                        {#if columnItem.slot}
+                            <div class="dropdown-item"><slot item={columnItem.slot}/></div>
+                        {:else}
+                            <a class="dropdown-item" 
+                                class:active={path === columnItem.href}
+                                class:disabled={columnItem.disabled}
+                                href={columnItem.href ?? '#navbar-base'}>
+                                {#if columnItem.icon}
+                                    {@html columnItem.icon}&nbsp;
+                                {/if}
+                                {#if columnItem.title}
+                                    {columnItem.title}
+                                {/if}
+                                {#if columnItem.badge}
+                                    <Badge 
+                                        bgColor={columnItem.badge.color}
+                                        marginLeftClass="{columnItem.badge.marginLeftClass ?? '2'}"
+                                        textUppercase
+                                        small>
+                                        {columnItem.badge.text ?? ''}
+                                    </Badge>
+                                {/if}
+                            </a>
+                        {/if}
                     {/if}
                 {/each}
             </div>
