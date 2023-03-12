@@ -177,7 +177,7 @@ Slots:
                 }, Object.create(null))) as [group, groupOptions]}
 
                 <!-- Display an optgroup if a group is defined -->
-                <Wrapper element={group == 'undefined'? null: 'optgroup'} label={group}>
+                <Wrapper element={group? 'optgroup': null} label={group}>
                     {#each groupOptions as option}
                         <option value={Object.values(option)[0]}
                             data-custom-properties={option.data}>
