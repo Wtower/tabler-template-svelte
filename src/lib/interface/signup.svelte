@@ -7,7 +7,7 @@
      * Html to display as brand on header.
 	 * @type {string}
 	 */
-    export let brand;
+    export let brand = '';
 
     /**
      * Username
