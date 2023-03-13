@@ -3,15 +3,18 @@
     import Progress from "$lib/form/progress.svelte";
     import Text from "$lib/form/text.svelte";
     import Card from "$lib/interface/card.svelte";
+    import Dropdown from "$lib/interface/dropdown.svelte";
     import Empty from "$lib/interface/empty.svelte";
     import Table from "$lib/interface/table.svelte";
     import { config } from "$stores/config";
 
     /**
-     * https://dummyjson.com/docs/users
-     * @returns {Promise<Object>} 
-     */
-    async function getUsers(limit = 8, skip = 0) {
+	 * https://dummyjson.com/docs/users
+	 * @param {number} limit
+	 * @param {number} skip
+	 * @returns {Promise<Object>}
+	 */
+    async function getUsers(limit, skip) {
         const res = await fetch(
             `https://dummyjson.com/users?limit=${Number(limit)}&skip=${Number(skip)}&select=firstName,email,lastName,image,company`
         );
@@ -19,9 +22,10 @@
         return data.users;
     }
     let promiseUsers = [
-        getUsers(), 
+        getUsers(8, 0), 
         getUsers(5, 8),
         getUsers(5, 13),
+        getUsers(5, 18),
     ];
     /** @type {string} */
     let visibleUser;
@@ -83,6 +87,21 @@
         );
     }
     let promiseProducts = getProducts();
+
+    /**
+	 * https://dummyjson.com/docs/carts
+	 * @param {number} limit
+	 * @param {number} skip
+	 * @returns {Promise<{carts: Array.<Object>, total: number, skip: number, limit: number}>}
+	 */
+    async function getCarts(limit, skip) {
+        const res = await fetch(
+            `https://dummyjson.com/carts?limit=${Number(limit)}&skip=${Number(skip)}`
+        );
+        const data = await res.json();
+        return data;
+    }
+    let promiseCarts = getCarts(8, 0);
 </script>
 
 <Empty path="{base}/interface/tables" {...$config}>
@@ -135,8 +154,7 @@
                                     Company department
                                 </Text>
                             </div>
-                            <button type="button" 
-                                class="btn btn-primary me-auto mb-3" 
+                            <button class="btn btn-primary me-auto mb-3" 
                                 on:click={() => visibleUser = ''}>
                                 Close
                             </button>
@@ -182,8 +200,7 @@
                             noMargin
                             striped
                             fields={fieldUsers}
-                            {data}
-                            let:row>
+                            {data}>
                             <span slot="row">(edit disabled)</span>
                         </Table>
                     {:catch _}
@@ -233,6 +250,123 @@
                                     (edit disabled)
                                 {/if}
                             </span>
+                        </Table>
+                    {:catch _}
+                        Error loading data.
+                    {/await}
+                </Card>
+            </div>
+
+            <div class="col-12">
+                <Card noPadding>
+                    {#await promiseUsers[3]}
+                        <Progress />
+                    {:then data}
+                        <Table 
+                            vcenter
+                            noMargin
+                            fields={{
+                                name: {slot: true},
+                                title: {slot: true},
+                                company: {slot: true},
+                                edit: {slot: true, label: ''},
+                            }}
+                            {data}>
+                            <span slot="row" let:row let:fieldId let:field>
+                                {#if fieldId === 'name'}
+                                    <div class="d-flex py-1 align-items-center">
+                                        <span class="avatar me-2" 
+                                            style:background-image={`url(${row.image})`}>
+                                        </span>
+                                        <div class="flex-fill">
+                                            <div class="font-weight-medium">
+                                                {row.lastName}, {row.firstName}
+                                            </div>
+                                            <div class="text-muted">
+                                                <a href="mailto:{row.email}" class="text-reset">
+                                                    {row.email}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {:else if fieldId === 'title'}
+                                    <div>{row.company.title}</div>
+                                    <div class="text-muted">{row.company.department}</div>
+                                {:else if fieldId === 'company'}
+                                    {row.company.name}
+                                {:else}
+                                    <div class="btn-list flex-nowrap">
+                                        <button class="btn disabled">Edit</button>
+                                        <button 
+                                            class="btn dropdown-toggle align-text-top" 
+                                            data-bs-toggle="dropdown">
+                                            Actions
+                                        </button>
+                                        <Dropdown menuItem={{menu: [[
+                                            {title: 'Action'}, 
+                                            {title: 'Another action'},
+                                        ]]}} />
+                                    </div>
+                                {/if}
+                            </span>
+                        </Table>
+                    {:catch _}
+                        Error loading data.
+                    {/await}
+                </Card>
+            </div>
+
+            <div class="col-12">
+                <Card noPadding>
+                    <span slot="header">Carts</span>
+                    <!-- TODO: limit, search, sort -->
+                    {#await promiseCarts}
+                        <Progress />
+                    {:then data}
+                        <Table 
+                            vcenter
+                            noMargin
+                            fields={{
+                                id: {label: 'ID'},
+                                products: {
+                                    calculate: {
+                                        fields: ['products'],
+                                        /** @param {{products: Array.<{title: string}>}} products */
+                                        function: ({products}) => 
+                                            products.map((p) => p.title).join(', '),
+                                        // function: ({products}) => {
+                                        //     let v = 'None';
+                                        //     if (products.length) {
+                                        //         v = products[0].title;
+                                        //         if (products.length) 
+                                        //             v += ` +${products.length - 1} more`
+                                        //     }
+                                        //     return v;
+                                        // },
+                                    }
+                                },
+                                totalProducts: {label: 'Total products', align: 'right'},
+                                totalQuantity: {label: 'Total quantity', align: 'right'},
+                                userId: {label: 'User ID', align: 'right'},
+                                total: {
+                                    align: 'right',
+                                    calculate: {
+                                        fields: ['total'],
+                                        /**
+                                         * https://stackoverflow.com/a/75718667/940098
+                                         * https://stackoverflow.com/questions/31581011/how-to-use-tolocalestring-and-tofixed2-in-javascript 
+                                         * @param {{total: number}} total 
+                                         */
+                                        function: ({total}) => total.toLocaleString(undefined, {
+                                            minimumFractionDigits: 2,
+                                        }),
+                                    }
+                                },
+                                // TODO: actions, some status slot
+                                actions: {slot: true, label: ''},
+                            }}
+                            data={data.carts}>
+                            <span slot="row">(edit disabled)</span>
                         </Table>
                     {:catch _}
                         Error loading data.
