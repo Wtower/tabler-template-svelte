@@ -2,6 +2,7 @@
     import { base } from "$app/paths";
     import Progress from "$lib/form/progress.svelte";
     import Text from "$lib/form/text.svelte";
+    import Badge from "$lib/interface/badge.svelte";
     import Card from "$lib/interface/card.svelte";
     import Dropdown from "$lib/interface/dropdown.svelte";
     import Empty from "$lib/interface/empty.svelte";
@@ -108,6 +109,8 @@
     <span slot="h2">Tables</span>
     <div class="container-xl">
         <div class="row row-cards">
+
+            <!-- Table: Users [0] -->
             <div class="col-lg-8">
                 <Card noPadding>
                     {#await promiseUsers[0]}
@@ -165,6 +168,7 @@
                 </Card>
             </div>
 
+            <!-- Table: Products -->
             <div class="col-lg-4">
                 <Card noPadding>
                     <span slot="title">Top Products</span>
@@ -187,9 +191,11 @@
                             }} 
                             {data} />
                     {/await}
+                    <div class="mb-3"></div>
                 </Card>
             </div>
 
+            <!-- Table: Users [1] -->
             <div class="col-12">
                 <Card noPadding>
                     {#await promiseUsers[1]}
@@ -209,6 +215,7 @@
                 </Card>
             </div>
 
+            <!-- Table: Users [2] -->
             <div class="col-12">
                 <Card noPadding>
                     {#await promiseUsers[2]}
@@ -257,6 +264,7 @@
                 </Card>
             </div>
 
+            <!-- Table: Users [3] -->
             <div class="col-12">
                 <Card noPadding>
                     {#await promiseUsers[3]}
@@ -272,7 +280,7 @@
                                 edit: {slot: true, label: ''},
                             }}
                             {data}>
-                            <span slot="row" let:row let:fieldId let:field>
+                            <span slot="row" let:row let:fieldId>
                                 {#if fieldId === 'name'}
                                     <div class="d-flex py-1 align-items-center">
                                         <span class="avatar me-2" 
@@ -316,6 +324,7 @@
                 </Card>
             </div>
 
+            <!-- Table: Carts -->
             <div class="col-12">
                 <Card noPadding>
                     <span slot="header">Carts</span>
@@ -350,6 +359,7 @@
                                 userId: {label: 'User ID', align: 'right'},
                                 total: {
                                     align: 'right',
+                                    nowrap: true,
                                     calculate: {
                                         fields: ['total'],
                                         /**
@@ -357,16 +367,39 @@
                                          * https://stackoverflow.com/questions/31581011/how-to-use-tolocalestring-and-tofixed2-in-javascript 
                                          * @param {{total: number}} total 
                                          */
-                                        function: ({total}) => total.toLocaleString(undefined, {
+                                        function: ({total}) => `${total.toLocaleString(undefined, {
                                             minimumFractionDigits: 2,
-                                        }),
+                                        })} €`,
                                     }
                                 },
-                                // TODO: actions, some status slot
+                                priority: {slot: true, nowrap: true},
                                 actions: {slot: true, label: ''},
                             }}
                             data={data.carts}>
-                            <span slot="row">(edit disabled)</span>
+                            <span slot="row" let:row let:fieldId>
+                                {#if fieldId === 'priority'}
+                                    {#if row.total > 2000}
+                                        <Badge bgColor="danger" marginLeftClass="1" /> High
+                                    {:else if row.total > 1000}
+                                        <Badge bgColor="success" marginLeftClass="1" /> Normal
+                                    {:else}
+                                        <Badge bgColor="primary-lt" marginLeftClass="1" /> Low
+                                    {/if}
+                                {:else}
+                                    <div class="dropdown">
+                                        <button 
+                                            class="btn dropdown-toggle align-text-top" 
+                                            data-bs-boundary="viewport"
+                                            data-bs-toggle="dropdown">
+                                            Actions
+                                        </button>
+                                        <Dropdown menuItem={{menu: [[
+                                            {title: 'Action'}, 
+                                            {title: 'Another action'},
+                                        ]]}} />
+                                    </div>
+                                {/if}
+                            </span>
                         </Table>
                     {:catch _}
                         Error loading data.

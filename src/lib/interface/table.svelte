@@ -10,6 +10,7 @@
      *      label?: string,
      *      align?: 'left'|'center'|'right',
      *      strong?: boolean,
+     *      nowrap?: boolean,
      *      type?: 'text'|'email'|'calculate'|'slot'|'progress',
      *      calculate?: {fields: Array.<string>, function: function},
      *      slot?: boolean,
@@ -71,7 +72,8 @@
                     <th {id} 
                         class:text-center={f.align === 'center'} 
                         class:text-end={f.align === 'right'}
-                        class:w-1={f.label === ''}>
+                        class:w-1={f.label === ''}
+                        class:text-nowrap={f.nowrap}>
                         {#if f.label}
                             {f.label}
                         {:else if f.label !== ''}
@@ -89,7 +91,8 @@
                             class:text-muted={!f.strong && !f.slot}
                             class:text-center={f.align === 'center'} 
                             class:text-end={f.align === 'right'}
-                            class:w-1={f.align === 'right'}>
+                            class:w-1={f.align === 'right'}
+                            class:text-nowrap={f.nowrap}>
                             {#if f.calculate}
                                 {f.calculate.function(f.calculate.fields.reduce((a, v) => 
                                     ({...a, [v]: row[v]}), {}))}
