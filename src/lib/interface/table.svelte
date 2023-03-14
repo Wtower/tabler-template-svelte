@@ -1,4 +1,5 @@
 <script>
+    import Checkboxes from "$lib/form/checkboxes.svelte";
     import Progress from "$lib/form/progress.svelte";
     import { slide } from "svelte/transition";
 
@@ -11,7 +12,7 @@
      *      align?: 'left'|'center'|'right',
      *      strong?: boolean,
      *      nowrap?: boolean,
-     *      type?: 'text'|'email'|'calculate'|'slot'|'progress',
+     *      type?: 'text'|'email'|'calculate'|'slot'|'progress'|'select',
      *      calculate?: {fields: Array.<string>, function: function},
      *      slot?: boolean,
      *      progress?: {fieldLabel: string, fieldValue: string, maxValue?: number},
@@ -57,6 +58,12 @@
      * @type {boolean}
      */
     export let striped = false;
+
+    /**
+     * The selected records.
+     * @type {Array.<string>}
+     */
+    export let selected = [];
 </script>
 
 <div class="table-responsive">
@@ -73,8 +80,19 @@
                         class:text-center={f.align === 'center'} 
                         class:text-end={f.align === 'right'}
                         class:w-1={f.label === ''}
-                        class:text-nowrap={f.nowrap}>
-                        {#if f.label}
+                        class:text-nowrap={f.nowrap}
+                        class:select-field={f.type === 'select'}>
+                        {#if f.type === 'select'}
+                            <Checkboxes 
+                                name={id}
+                                wrapper="" 
+                                checkboxes={[{v: 0, t: ''}]} 
+                                on:click={() => selected = 
+                                    selected.length === data.length? []: data.map(
+                                    /** @param {{ id: any; }} row */ row => row.id
+                                )}
+                                value={[]} />
+                        {:else if f.label}
                             {f.label}
                         {:else if f.label !== ''}
                             {id}
@@ -92,8 +110,16 @@
                             class:text-center={f.align === 'center'} 
                             class:text-end={f.align === 'right'}
                             class:w-1={f.align === 'right'}
-                            class:text-nowrap={f.nowrap}>
-                            {#if f.calculate}
+                            class:text-nowrap={f.nowrap}
+                            class:select-field={f.type === 'select'}>
+                            {#if f.type === 'select'}
+                                <Checkboxes 
+                                    name={id}
+                                    wrapper=""
+                                    checkboxes={[{v: row.id, t: ''}]}
+                                    bind:value={selected} />
+                                    <!-- TODO: bind not working because not on same group? use onclick? -->
+                            {:else if f.calculate}
                                 {f.calculate.function(f.calculate.fields.reduce((a, v) => 
                                     ({...a, [v]: row[v]}), {}))}
                             {:else if f.slot}
@@ -123,3 +149,9 @@
         </tbody>
     </table>
 </div>
+
+<style>
+    .select-field :global(label) {
+        margin: 0;
+    }
+</style>

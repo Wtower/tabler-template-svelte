@@ -336,6 +336,7 @@
                             vcenter
                             noMargin
                             fields={{
+                                selectUsers: {type: 'select'},
                                 id: {label: 'ID'},
                                 products: {
                                     calculate: {
