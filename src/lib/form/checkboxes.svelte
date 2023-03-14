@@ -1,4 +1,5 @@
 <script>
+	import { createEventDispatcher } from "svelte";
     import Wrapper from "../interface/wrapper.svelte";
     import Label from "./label.svelte";
 
@@ -77,6 +78,18 @@
 	 */
     export let isValid = null;
     $: isValid = !isTouched || !required? null: !!value.length;
+
+    const dispatch = createEventDispatcher();
+
+    /**
+     * Add click listener.
+     * Not in multiline.
+     * https://svelte.dev/tutorial/component-events
+	 * @param {any} value
+	 */
+    function handleClick(value) {
+        dispatch('click', {value});
+    }
 </script>
 
 <!-- 
@@ -119,6 +132,7 @@ Slots:
                                 class:form-selectgroup-input={!!selectGroup}
                                 {name}
                                 on:input|once={() => isTouched = true}
+                                on:click={() => handleClick(Object.values(checkbox)[0])}
                                 bind:group={value}
                                 value={Object.values(checkbox)[0]}
                                 checked={value.includes(Object.values(checkbox)[0])}
