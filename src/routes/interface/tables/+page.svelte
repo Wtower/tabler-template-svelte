@@ -335,6 +335,8 @@
                         <Table 
                             vcenter
                             noMargin
+                            search=""
+                            addNewRecord
                             fields={{
                                 selectUsers: {type: 'select'},
                                 id: {label: 'ID'},
@@ -367,7 +369,8 @@
                                 priority: {slot: true, nowrap: true},
                                 actions: {slot: true, label: ''},
                             }}
-                            data={data.carts}>
+                            data={data.carts}
+                            let:row>
                             <span slot="row" let:row let:fieldId>
                                 {#if fieldId === 'priority'}
                                     {#if row.total > 2000}
@@ -392,6 +395,22 @@
                                     </div>
                                 {/if}
                             </span>
+                            <div class="row mb-3">
+                                <!-- Here should add the record and refresh the promise -->
+                                <Text id="{row.id}.id" 
+                                    class="col-lg-6 mb-3"
+                                    disabled 
+                                    value="">
+                                    ID
+                                </Text>
+                                <div class="col-lg-6 mt-4 text-end">
+                                    <button class="btn btn-primary" >
+                                        <!-- on:click={() => visibleUser = ''}> -->
+                                        <!-- TODO: instead of binding additional prop, use the same visible variable with null for off and '' for add -->
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
                         </Table>
                     {:catch _}
                         Error loading data.

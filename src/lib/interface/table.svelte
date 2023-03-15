@@ -127,7 +127,11 @@ Slots:
             </div>
         {/if}
     </div>
-    <!-- TODO: slot add record -->
+    {#if visibleAdd}
+        <div class="p-3 ms-2 border-bottom" transition:slide>
+            <slot row="" />
+        </div>
+    {/if}
 {/if}
 
 <div class="table-responsive">
