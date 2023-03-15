@@ -77,6 +77,18 @@
      * @type {string?}
      */
     export let search = null;
+
+    /**
+     * Display an Add new record button.
+     * @type {boolean}
+     */
+    export let addNewRecord = false;
+
+    /**
+     * Controls the visibility of add new record form.
+     * @type {boolean}
+     */
+    let visibleAdd = false;
 </script>
 
 <!-- 
@@ -84,34 +96,38 @@
 Table component.
 
 Slots:
-- searchLabel: The search label.
+- search: The search label.
+- addNewRecord: The add new record label.
 - default: Provide an edit form for each row.
 - row: Custom slot with props to control field output.
 -->
 
-{#if search} 
-<!-- OR if add record -->
+{#if search !== null || addNewRecord} 
     <div class="d-flex p-3 border-bottom">
         <!-- TODO: Here add filters Django-style; define object of filters -->
-        <div class="ms-2 py-1 text-muted">
-            <slot name="searchLabel">Search:</slot>
-            <Text id="" 
-                class="ms-2 d-inline-block"
-                size="small"
-                bind:value={search} />
-        </div>
-        <div class="ms-auto text-muted">
-            <button class="btn">
-                <!-- TODO onclick visible -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M12 5l0 14"></path>
-                    <path d="M5 12l14 0"></path>
-                </svg>
-                Add record
-            </button>
-        </div>
+        {#if search !== null}
+            <div class="ms-2 py-1 text-muted">
+                <slot name="search">Search:</slot>
+                <Text id="" 
+                    class="ms-2 d-inline-block"
+                    size="small"
+                    bind:value={search} />
+            </div>
+        {/if}
+        {#if addNewRecord}
+            <div class="ms-auto text-muted">
+                <button class="btn" on:click={() => visibleAdd = !visibleAdd}>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 5l0 14"></path>
+                        <path d="M5 12l14 0"></path>
+                    </svg>
+                    <slot name="addNewRecord">Add record</slot>
+                </button>
+            </div>
+        {/if}
     </div>
+    <!-- TODO: slot add record -->
 {/if}
 
 <div class="table-responsive">
@@ -166,7 +182,7 @@ Slots:
                                     wrapper=""
                                     checkboxes={[{v: row.id, t: ''}]}
                                     on:click={() => {
-                                        // Handle  click manually; bind not working.
+                                        // Handle click manually; bind not working.
                                         selected.includes(row.id)? 
                                             selected = selected.filter(i => i !== row.id): 
                                             selected.push(row.id);
