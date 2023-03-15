@@ -64,6 +64,12 @@
      * @type {Array.<string>}
      */
     export let selected = [];
+
+    /**
+     * The select all value
+     * @type {Array.<boolean>}
+     */
+    let selectAll = [];
 </script>
 
 <div class="table-responsive">
@@ -86,12 +92,12 @@
                             <Checkboxes 
                                 name={id}
                                 wrapper="" 
-                                checkboxes={[{v: 0, t: ''}]} 
+                                checkboxes={[{v: true, t: ''}]} 
                                 on:click={() => selected = 
                                     selected.length === data.length? []: data.map(
                                     /** @param {{ id: any; }} row */ row => row.id
                                 )}
-                                value={[]} />
+                                bind:value={selectAll} />
                         {:else if f.label}
                             {f.label}
                         {:else if f.label !== ''}
@@ -117,8 +123,14 @@
                                     name={id}
                                     wrapper=""
                                     checkboxes={[{v: row.id, t: ''}]}
-                                    bind:value={selected} />
-                                    <!-- TODO: bind not working because not on same group? use onclick? -->
+                                    on:click={() => {
+                                        // Handle  click manually; bind not working.
+                                        selected.includes(row.id)? 
+                                            selected = selected.filter(i => i !== row.id): 
+                                            selected.push(row.id);
+                                        selectAll = [];
+                                    }}
+                                    value={selected} />
                             {:else if f.calculate}
                                 {f.calculate.function(f.calculate.fields.reduce((a, v) => 
                                     ({...a, [v]: row[v]}), {}))}
