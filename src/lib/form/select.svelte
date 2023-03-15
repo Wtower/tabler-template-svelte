@@ -61,6 +61,12 @@
     export let floatingLabel = false;
 
     /**
+     * The control size.
+     * @type {''|'small'|'large'}
+     */
+    export let size = '';
+
+    /**
      * The bound value.
 	 * @type {string|number|Array.<string|number>}
 	 */
@@ -152,6 +158,8 @@ Slots:
             {id} 
             name={id}
             class="form-select"
+            class:form-control-sm={size === 'small'}
+            class:form-control-lg={size === 'large'}
             class:form-control-rounded={border === 'rounded'}
             class:form-control-flush={border === 'none'}
             class:is-valid={isValid}

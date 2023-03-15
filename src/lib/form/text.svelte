@@ -88,6 +88,12 @@
     export let type = 'text';
 
     /**
+     * The control size.
+     * @type {''|'small'|'large'}
+     */
+    export let size = '';
+
+    /**
      * The bound value.
 	 * @type {string}
 	 */
@@ -167,6 +173,8 @@ Slots:
             {id}
             type="email" 
             class="form-control"
+            class:form-control-sm={size === 'small'}
+            class:form-control-lg={size === 'large'}
             class:form-control-rounded={border === 'rounded'}
             class:form-control-flush={border === 'none'}
             class:ps-0={padding.includes('none')}
@@ -189,6 +197,8 @@ Slots:
             {id}
             type="text" 
             class="form-control"
+            class:form-control-sm={size === 'small'}
+            class:form-control-lg={size === 'large'}
             class:form-control-rounded={border === 'rounded'}
             class:form-control-flush={border === 'none'}
             class:ps-0={padding.includes('none')}

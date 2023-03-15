@@ -96,6 +96,12 @@
     export let autoResize = false;
     
     /**
+     * The control size.
+     * @type {''|'small'|'large'}
+     */
+    export let size = '';
+
+    /**
      * The bound value.
 	 * @type {string}
 	 */
@@ -170,6 +176,8 @@ Slots:
         <textarea 
             {id} 
             class="form-control"
+            class:form-control-sm={size === 'small'}
+            class:form-control-lg={size === 'large'}
             class:form-control-rounded={border === 'rounded'}
             class:form-control-flush={border === 'none'}
             class:auto-resize={autoResize}

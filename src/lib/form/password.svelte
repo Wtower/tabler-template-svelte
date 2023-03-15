@@ -56,6 +56,12 @@
     export let floatingLabel = false;
 
     /**
+     * The control size.
+     * @type {''|'small'|'large'}
+     */
+    export let size = '';
+
+    /**
      * The bound value.
 	 * @type {string}
 	 */
@@ -106,6 +112,8 @@ Slots:
             <input {id} 
                 type="password" 
                 class="form-control"
+                class:form-control-sm={size === 'small'}
+                class:form-control-lg={size === 'large'}
                 class:form-control-rounded={border === 'rounded'}
                 class:form-control-flush={border === 'none'}
                 class:is-valid={isValid}
@@ -149,6 +157,8 @@ Slots:
         <input {id} 
             type="password" 
             class="form-control" 
+            class:form-control-sm={size === 'small'}
+            class:form-control-lg={size === 'large'}
             class:form-control-rounded={border === 'rounded'}
             class:form-control-flush={border === 'none'}
             name={id}
