@@ -344,15 +344,6 @@
                                         /** @param {{products: Array.<{title: string}>}} products */
                                         function: ({products}) => 
                                             products.map((p) => p.title).join(', '),
-                                        // function: ({products}) => {
-                                        //     let v = 'None';
-                                        //     if (products.length) {
-                                        //         v = products[0].title;
-                                        //         if (products.length) 
-                                        //             v += ` +${products.length - 1} more`
-                                        //     }
-                                        //     return v;
-                                        // },
                                     }
                                 },
                                 totalProducts: {label: 'Total products', align: 'right'},

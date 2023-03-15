@@ -1,6 +1,7 @@
 <script>
     import Checkboxes from "$lib/form/checkboxes.svelte";
     import Progress from "$lib/form/progress.svelte";
+    import Text from "$lib/form/text.svelte";
     import { slide } from "svelte/transition";
 
     /**
@@ -70,7 +71,48 @@
      * @type {Array.<boolean>}
      */
     let selectAll = [];
+
+    /**
+     * If provided, show a search box and bind its input.
+     * @type {string?}
+     */
+    export let search = null;
 </script>
+
+<!-- 
+@component
+Table component.
+
+Slots:
+- searchLabel: The search label.
+- default: Provide an edit form for each row.
+- row: Custom slot with props to control field output.
+-->
+
+{#if search} 
+<!-- OR if add record -->
+    <div class="d-flex p-3 border-bottom">
+        <!-- TODO: Here add filters Django-style; define object of filters -->
+        <div class="ms-2 py-1 text-muted">
+            <slot name="searchLabel">Search:</slot>
+            <Text id="" 
+                class="ms-2 d-inline-block"
+                size="small"
+                bind:value={search} />
+        </div>
+        <div class="ms-auto text-muted">
+            <button class="btn">
+                <!-- TODO onclick visible -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M12 5l0 14"></path>
+                    <path d="M5 12l14 0"></path>
+                </svg>
+                Add record
+            </button>
+        </div>
+    </div>
+{/if}
 
 <div class="table-responsive">
     <table class="table" 
