@@ -15,12 +15,14 @@
      *      disabled?: boolean,
      *      slot?: string,
      *      href?: string, 
+     *      function?: any,
      *      title?: string, 
      *      icon?: string, 
      *      badge?: {color?: 'primary'|'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text?: string, marginLeftClass?: '1'|'2'|'3'|'4'|'5'|'auto'},
      *      divider?: boolean,
      *      menu?: Array.<{
      *          href?: string, 
+     *          function?: any,
      *          title?: string, 
      *          icon?: string, 
      *          badge?: {color?: 'primary'|'blue'|'azure'|'indigo'|'purple'|'pink'|'red'|'orange'|'yellow'|'lime'|'green'|'teal'|'cyan', text?: string, marginLeftClass?: '1'|'2'|'3'|'4'|'5'|'auto'},
@@ -62,14 +64,18 @@ Dropdown menu component.
                        <div class="dropdown-divider"></div>
                     {:else if columnItem.menu}
                         <div class="dropend">
-                            <a class="dropdown-item dropdown-toggle" 
+                            <svelte:element
+                                this={columnItem.href? 'a': 'span'}
+                                class="dropdown-item dropdown-toggle cursor-pointer" 
                                 class:active={path === columnItem.href}
                                 class:disabled={columnItem.disabled}
                                 data-bs-toggle="dropdown"
                                 data-bs-auto-close="outside"
                                 role="button"
                                 aria-expanded="false"
-                                href={columnItem.href ?? '#navbar-base'}>
+                                on:click={columnItem.function}
+                                on:keypress={columnItem.function}
+                                href={columnItem.href}>
                                 {#if columnItem.icon}
                                     {@html columnItem.icon}
                                 {/if}
@@ -85,17 +91,21 @@ Dropdown menu component.
                                         {columnItem.badge.text ?? ''}
                                     </Badge>
                                 {/if}
-                            </a>
+                            </svelte:element>
                             <svelte:self menuItem={columnItem} {path} />
                         </div>
                     {:else}
                         {#if columnItem.slot}
                             <div class="dropdown-item"><slot item={columnItem.slot}/></div>
                         {:else}
-                            <a class="dropdown-item" 
+                            <svelte:element
+                                this={columnItem.href? 'a': 'span'}
+                                class="dropdown-item cursor-pointer" 
                                 class:active={path === columnItem.href}
                                 class:disabled={columnItem.disabled}
-                                href={columnItem.href ?? '#navbar-base'}>
+                                on:click={columnItem.function}
+                                on:keypress={columnItem.function}
+                                href={columnItem.href}>
                                 {#if columnItem.icon}
                                     {@html columnItem.icon}&nbsp;
                                 {/if}
@@ -111,7 +121,7 @@ Dropdown menu component.
                                         {columnItem.badge.text ?? ''}
                                     </Badge>
                                 {/if}
-                            </a>
+                            </svelte:element>
                         {/if}
                     {/if}
                 {/each}
