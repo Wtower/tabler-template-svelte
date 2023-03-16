@@ -255,7 +255,7 @@ Slots:
                     options={Object.keys(bulk).map((k) => ({v: k, t: k}))} 
                     bind:value={bulkAction} />
                 <button 
-                    class="btn btn-go" 
+                    class="btn btn-sm" 
                     class:disabled={!selected.length || (selected.length && !bulkAction)} 
                     on:click={bulk[bulkAction]}>
                     <slot name="bulkAction">GO</slot>
@@ -268,8 +268,5 @@ Slots:
 <style>
     .select-field :global(label) {
         margin: 0;
-    }
-    .btn-go {
-        margin-top: -2px;
     }
 </style>

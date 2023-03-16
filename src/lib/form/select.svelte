@@ -158,8 +158,8 @@ Slots:
             {id} 
             name={id}
             class="form-select"
-            class:form-control-sm={size === 'small'}
-            class:form-control-lg={size === 'large'}
+            class:form-select-sm={size === 'small'}
+            class:form-select-lg={size === 'large'}
             class:form-control-rounded={border === 'rounded'}
             class:form-control-flush={border === 'none'}
             class:is-valid={isValid}
