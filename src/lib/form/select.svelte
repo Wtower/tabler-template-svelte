@@ -19,9 +19,9 @@
 
     /** 
      * The select id and the associated label.
-     * @type {string} 
+     * @type {string?} 
      */
-    export let id;
+    export let id = null;
 
     /**
      * The placeholder option.

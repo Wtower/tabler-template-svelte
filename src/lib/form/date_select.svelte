@@ -17,9 +17,9 @@
 
     /** 
      * The input id and the associated label.
-     * @type {string} 
+     * @type {string?} 
      */
-    export let id;
+    export let id = null;
 
     /**
      * Extra flat class for the input group.
@@ -113,7 +113,7 @@
      * Construct an array [0...length] and map into object with days/months/years
      * https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n
      * https://stackoverflow.com/questions/58120940/javascript-create-array-of-objects-of-length-n
-     * type {{
+     * @type {{
      *  d: Array<{v: number, d: number}>, 
      *  m: Array<{v: number, m: string}>, 
      *  y: Array<{v: number, y: number}>
