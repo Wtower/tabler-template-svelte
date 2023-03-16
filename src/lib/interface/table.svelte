@@ -104,19 +104,26 @@
     export let limit = 0;
 
     /**
+     * Provide preset limits.
+     * Set to any string for 0 (all).
+     * Set to null to show textbox.
+     * @type {Array<number|string?>}
+     */
+    export let limits = [8, 25, 'All', null];
+    /**
      * Bind the items to skip for next pages.
      * @type {number}
      */
     export let skip = 0;
 
     /**
-     * The total items.
+     * The total items. If provided, it enables pagination.
      * @type {number}
      */
     export let total = 0;
 
-    $: page = (skip ?? 0) / limit;
-    $: pages = Math.ceil(total / (limit || 1));
+    $: page = (skip ?? 0) / (limit || 1);
+    $: pages = Math.ceil(total / (limit || total));
 </script>
 
 <!-- 
@@ -128,6 +135,8 @@ Slots:
 - addNewRecord: The add new record label.
 - default: Provide an edit form for each row.
 - row: Custom slot with props to control field output.
+- total: The text for total items.
+- perPage: The texst for items per page.
 -->
 
 {#if search !== null || addNewRecord} 
@@ -265,9 +274,22 @@ Slots:
     </div>
 {/if}
 
-<!-- TODO: 1 row bulk hide if no selected, buttons instead of select + 1 row pager left, right: x records + buttons 15-30-50-X items per page -->
-{#if pages}
-    <div class="card-footer">
+<!-- PAGER -->
+<!-- *1 2 3 4 5 ... X > -->
+<!-- < 1 *2 3 4 5 ... X > -->
+<!-- < 1 2 3 *4 5 ... X > -->
+<!-- < 1 ... 3 4 *5 6 7 ... X > -->
+
+<!-- *1 2 3 4 5 6 > -->
+<!-- < 1 2 3 *4 5 6 > -->
+<!-- < 1 2 3 4 5 *6 -->
+
+<!-- *1 2 3 4 5 ... 7 > -->
+<!-- < 1 2 3 *4 5 ... 7 > -->
+<!-- < 1 ... 3 4 *5 6 7 > -->
+<!-- < 1 ... 3 4 5 6 *7 -->
+{#if total}
+    <div class="card-footer d-flex">
         <!-- {page}/{pages} {limit} {skip} -->
         <ul class="pagination m-0">
             {#if page > 0}
@@ -290,25 +312,34 @@ Slots:
                 </li>
             {/if}
         </ul>
+        <ul class="ms-auto mb-0 list-inline list-inline-dots">
+            <li class="list-inline-item">{total} <slot name="total">items</slot></li>
+            <li class="list-inline-item">
+                {#each limits as i}
+                    {#if i !== null}
+                        <button 
+                            class="per-page btn btn-sm py-1 px-2 rounded-2 me-1"
+                            class:btn-primary={
+                                limit === i || (limit === 0 && typeof i === 'string')
+                            }>
+                            {i}
+                        </button>
+                    {:else}
+                        <Text class="w-4 d-inline-block" size="small" value={limit} />
+                        <!-- TODO: no bind; implement on change event; then improve pager -->
+                    {/if}
+                {/each}
+                <slot name="perPage">per page</slot>
+            </li>
+        </ul>
     </div>
 {/if}
-
-<!-- *1 2 3 4 5 ... X > -->
-<!-- < 1 *2 3 4 5 ... X > -->
-<!-- < 1 2 3 *4 5 ... X > -->
-<!-- < 1 ... 3 4 *5 6 7 ... X > -->
-
-<!-- *1 2 3 4 5 6 > -->
-<!-- < 1 2 3 *4 5 6 > -->
-<!-- < 1 2 3 4 5 *6 -->
-
-<!-- *1 2 3 4 5 ... 7 > -->
-<!-- < 1 2 3 *4 5 ... 7 > -->
-<!-- < 1 ... 3 4 *5 6 7 > -->
-<!-- < 1 ... 3 4 5 6 *7 -->
 
 <style>
     .select-field :global(label) {
         margin: 0;
+    }
+    .per-page {
+        margin-bottom: 1px;
     }
 </style>
