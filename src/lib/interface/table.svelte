@@ -125,7 +125,7 @@ Slots:
                 class:col-sm-12={!addNewRecord}>
                 <slot name="search">Search:</slot>
                 <Text class="ms-2 mb-2 d-inline-block" size="small" bind:value={search} />
-                <!-- TODO: Here add filters Django-style; define object of filters -->
+                <!-- TODO: Here add filters two slots (buttons + pop-up) Stack Overflow-style -->
     </div>
         {/if}
         {#if addNewRecord}
@@ -240,30 +240,22 @@ Slots:
     </table>
 </div>
 
-<!-- if multiselect or pager -->
-{#if bulk}
-    <div class="card-footer d-flex align-items-center">
-        {#if bulk}
-            <div class="ms-2 py-1 text-muted">
-                {bulkLabel.replace(/\{\w+\}/g, (match) => ({
-                        '{selected}': `${selected.length}`, 
-                        '{total}': `${data.length}`,
-                    }[match] || match))}
-                <Select 
-                    class="ms-2 d-inline-block" 
-                    size="small" 
-                    options={Object.keys(bulk).map((k) => ({v: k, t: k}))} 
-                    bind:value={bulkAction} />
-                <button 
-                    class="btn btn-sm" 
-                    class:disabled={!selected.length || (selected.length && !bulkAction)} 
-                    on:click={bulk[bulkAction]}>
-                    <slot name="bulkAction">GO</slot>
-                </button>
-            </div>
-        {/if}
+{#if bulk && selected.length}
+    <div class="card-footer text-muted" transition:slide>
+        {bulkLabel.replace(/\{\w+\}/g, (match) => ({
+                '{selected}': `${selected.length}`, 
+                '{total}': `${data.length}`,
+            }[match] || match))}
+        {#each Object.keys(bulk) as action}
+            <button class="btn btn-primary ms-1" on:click={bulk[action]}>{action}</button>
+        {/each}
     </div>
 {/if}
+
+<!-- TODO: 1 row bulk hide if no selected, buttons instead of select + 1 row pager left, right: x records + buttons 15-30-50-X items per page -->
+<div class="card-footer">
+    Pager
+</div>
 
 <style>
     .select-field :global(label) {
