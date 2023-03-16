@@ -28,7 +28,7 @@
         getUsers(5, 13),
         getUsers(5, 18),
     ];
-    /** @type {string} */
+    /** @type {string?} */
     let visibleUser;
 
     /**
@@ -103,6 +103,8 @@
         return data;
     }
     let promiseCarts = getCarts(8, 0);
+    /** @type {string?} */
+    let visibleCart;
 </script>
 
 <Empty path="{base}/interface/tables" {...$config}>
@@ -114,7 +116,7 @@
             <div class="col-lg-8">
                 <Card noPadding>
                     {#await promiseUsers[0]}
-                        <Progress />
+                        <Progress class="m-4" />
                     {:then data}
                         <Table 
                             vcenter
@@ -127,7 +129,7 @@
                                 <a href={null} 
                                     class="edit" 
                                     on:click={() => 
-                                        visibleUser = visibleUser === row.id? '': row.id
+                                        visibleUser = visibleUser === row.id? null: row.id
                                     }>
                                     edit</a></span>
                             <div class="row mb-3">
@@ -158,7 +160,7 @@
                                 </Text>
                             </div>
                             <button class="btn btn-primary me-auto mb-3" 
-                                on:click={() => visibleUser = ''}>
+                                on:click={() => visibleUser = null}>
                                 Close
                             </button>
                         </Table>
@@ -173,7 +175,7 @@
                 <Card noPadding>
                     <span slot="title">Top Products</span>
                     {#await promiseProducts}
-                        <Progress />
+                        <Progress class="m-4" />
                     {:then data} 
                         <Table
                             small
@@ -199,7 +201,7 @@
             <div class="col-12">
                 <Card noPadding>
                     {#await promiseUsers[1]}
-                        <Progress />
+                        <Progress class="m-4" />
                     {:then data}
                         <Table 
                             vcenter
@@ -219,7 +221,7 @@
             <div class="col-12">
                 <Card noPadding>
                     {#await promiseUsers[2]}
-                        <Progress />
+                        <Progress class="m-4" />
                     {:then data}
                         <Table 
                             vcenter
@@ -268,7 +270,7 @@
             <div class="col-12">
                 <Card noPadding>
                     {#await promiseUsers[3]}
-                        <Progress />
+                        <Progress class="m-4" />
                     {:then data}
                         <Table 
                             vcenter
@@ -330,13 +332,14 @@
                     <span slot="header">Carts</span>
                     <!-- TODO: limit, search, sort -->
                     {#await promiseCarts}
-                        <Progress />
+                        <Progress class="m-4" />
                     {:then data}
                         <Table 
                             vcenter
                             noMargin
                             search=""
                             addNewRecord
+                            bind:visible={visibleCart}
                             fields={{
                                 selectUsers: {type: 'select'},
                                 id: {label: 'ID'},
@@ -389,8 +392,8 @@
                                             Actions
                                         </button>
                                         <Dropdown menuItem={{menu: [[
-                                            {title: 'Action'}, 
-                                            {title: 'Another action'},
+                                            {title: 'Edit', function: () => 
+                                                visibleCart = visibleCart === row.id? null: row.id}, 
                                         ]]}} />
                                     </div>
                                 {/if}
@@ -404,9 +407,8 @@
                                     ID
                                 </Text>
                                 <div class="col-lg-6 mt-4 text-end">
-                                    <button class="btn btn-primary" >
-                                        <!-- on:click={() => visibleUser = ''}> -->
-                                        <!-- TODO: instead of binding additional prop, use the same visible variable with null for off and '' for add -->
+                                    <button class="btn btn-primary"
+                                        on:click={() => visibleCart = null}>
                                         Close
                                     </button>
                                 </div>

@@ -25,10 +25,11 @@
     export let data;
 
     /**
-     * Control which edit row is visible
-     * @type {string}
+     * Control which edit row is visible.
+     * If '' then add record is shown.
+     * @type {string?}
      */
-    export let visible = '';
+    export let visible = null;
 
     /**
      * Vertically align content to rows.
@@ -83,12 +84,6 @@
      * @type {boolean}
      */
     export let addNewRecord = false;
-
-    /**
-     * Controls the visibility of add new record form.
-     * @type {boolean}
-     */
-    let visibleAdd = false;
 </script>
 
 <!-- 
@@ -116,7 +111,7 @@ Slots:
         {/if}
         {#if addNewRecord}
             <div class="ms-auto text-muted">
-                <button class="btn" on:click={() => visibleAdd = !visibleAdd}>
+                <button class="btn" on:click={() => visible = visible === ''? null: ''}>
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M12 5l0 14"></path>
@@ -127,7 +122,7 @@ Slots:
             </div>
         {/if}
     </div>
-    {#if visibleAdd}
+    {#if visible === ''}
         <div class="p-3 ms-2 border-bottom" transition:slide>
             <slot row="" />
         </div>
