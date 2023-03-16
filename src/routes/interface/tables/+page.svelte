@@ -330,7 +330,7 @@
             <div class="col-12">
                 <Card noPadding>
                     <span slot="header">Carts</span>
-                    <!-- TODO: limit, search, sort -->
+                    <!-- TODO: limit, sort -->
                     {#await promiseCarts}
                         <Progress class="m-4" />
                     {:then data}

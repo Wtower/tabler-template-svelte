@@ -1,6 +1,7 @@
 <script>
     import Checkboxes from "$lib/form/checkboxes.svelte";
     import Progress from "$lib/form/progress.svelte";
+    import Select from "$lib/form/select.svelte";
     import Text from "$lib/form/text.svelte";
     import { slide } from "svelte/transition";
 
@@ -84,6 +85,12 @@
      * @type {boolean}
      */
     export let addNewRecord = false;
+
+    /**
+     * Bulk Actions definition.
+     * type {Array<{Object<string, function>>}
+     */
+    // export let bulk;
 </script>
 
 <!-- 
@@ -103,10 +110,7 @@ Slots:
         {#if search !== null}
             <div class="ms-2 py-1 text-muted">
                 <slot name="search">Search:</slot>
-                <Text id="" 
-                    class="ms-2 d-inline-block"
-                    size="small"
-                    bind:value={search} />
+                <Text class="ms-2 d-inline-block" size="small" bind:value={search} />
             </div>
         {/if}
         {#if addNewRecord}
@@ -219,8 +223,24 @@ Slots:
     </table>
 </div>
 
+<!-- if multiselect or pager -->
+    <div class="card-footer d-flex align-items-center">
+        <!-- if multiselect -->
+            <div class="ms-2 py-1 text-muted">
+                <!-- TODO: ifs, defition, slots -->
+                <slot name="search">With selected:</slot>
+                <Select class="ms-2 d-inline-block" size="small" options={[{v:0, t:'Delete'}]} value="" />
+                <button class="btn btn-go">Go</button>
+            </div>
+        <!-- endif -->
+    </div>
+<!-- endif -->
+
 <style>
     .select-field :global(label) {
         margin: 0;
+    }
+    .btn-go {
+        margin-top: -2px;
     }
 </style>
