@@ -96,7 +96,7 @@
 
     /**
      * The values object.
-     * @type {{d: number, m: number, y: number}}
+     * @type {Object<'d'|'m'|'y', number>}
      */
     let values = {d: value.getDate(), m: value.getMonth() + 1, y: value.getFullYear()};
 
@@ -113,11 +113,7 @@
      * Construct an array [0...length] and map into object with days/months/years
      * https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n
      * https://stackoverflow.com/questions/58120940/javascript-create-array-of-objects-of-length-n
-     * @type {{
-     *  d: Array<{v: number, d: number}>, 
-     *  m: Array<{v: number, m: string}>, 
-     *  y: Array<{v: number, y: number}>
-     * }}
+     * @type {Object<'d'|'m'|'y', Array<Object<'d'|'m'|'y', number|string>>>}
      */
     $: options = {
         d: [...Array(month_length).keys()].map(i => ({v: i + 1, d: i + 1})),
