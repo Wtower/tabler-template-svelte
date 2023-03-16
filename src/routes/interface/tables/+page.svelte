@@ -105,6 +105,8 @@
     let promiseCarts = getCarts(8, 0);
     /** @type {string?} */
     let visibleCart;
+    /** @type {Array.<string>} */
+    let selectedCart;
 </script>
 
 <Empty path="{base}/interface/tables" {...$config}>
@@ -340,6 +342,7 @@
                             search=""
                             addNewRecord
                             bind:visible={visibleCart}
+                            bind:selected={selectedCart}
                             fields={{
                                 selectUsers: {type: 'select'},
                                 id: {label: 'ID'},
@@ -373,6 +376,7 @@
                                 actions: {slot: true, label: ''},
                             }}
                             data={data.carts}
+                            bulk={{'Delete': () => alert(`Attempted to delete ${selectedCart}`)}}
                             let:row>
                             <span slot="row" let:row let:fieldId>
                                 {#if fieldId === 'priority'}

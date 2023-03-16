@@ -88,9 +88,21 @@
 
     /**
      * Bulk Actions definition.
-     * type {Array<{Object<string, function>>}
+     * @type {Object<string, any>?}
      */
-    // export let bulk;
+    export let bulk = null;
+
+    /**
+     * The selected action.
+     * @type {string}
+     */
+    let bulkAction = '';
+
+    /**
+     * Bulk action label.
+     * @type {string}
+     */
+    export let bulkLabel = 'With {selected} of {total} records:';
 </script>
 
 <!-- 
@@ -102,19 +114,23 @@ Slots:
 - addNewRecord: The add new record label.
 - default: Provide an edit form for each row.
 - row: Custom slot with props to control field output.
+- bulkAction: The bulk action button label.
 -->
 
 {#if search !== null || addNewRecord} 
-    <div class="d-flex p-3 border-bottom">
-        <!-- TODO: Here add filters Django-style; define object of filters -->
+    <div class="row p-3 border-bottom text-muted">
         {#if search !== null}
-            <div class="ms-2 py-1 text-muted">
+            <div class="py-1" 
+                class:col-sm-10={addNewRecord} 
+                class:col-sm-12={!addNewRecord}>
                 <slot name="search">Search:</slot>
-                <Text class="ms-2 d-inline-block" size="small" bind:value={search} />
-            </div>
+                <Text class="ms-2 mb-2 d-inline-block" size="small" bind:value={search} />
+                <!-- TODO: Here add filters Django-style; define object of filters -->
+    </div>
         {/if}
         {#if addNewRecord}
-            <div class="ms-auto text-muted">
+            <div class="text-end col-sm-2"
+                class:offset-sm-10={search === null}>
                 <button class="btn" on:click={() => visible = visible === ''? null: ''}>
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -186,9 +202,10 @@ Slots:
                                     checkboxes={[{v: row.id, t: ''}]}
                                     on:click={() => {
                                         // Handle click manually; bind not working.
-                                        selected.includes(row.id)? 
-                                            selected = selected.filter(i => i !== row.id): 
-                                            selected.push(row.id);
+                                        selected = selected.includes(row.id)? 
+                                            selected.filter(i => i !== row.id): 
+                                            // https://svelte.dev/tutorial/updating-arrays-and-objects
+                                            [...selected, row.id];
                                         selectAll = [];
                                     }}
                                     value={selected} />
@@ -224,17 +241,29 @@ Slots:
 </div>
 
 <!-- if multiselect or pager -->
+{#if bulk}
     <div class="card-footer d-flex align-items-center">
-        <!-- if multiselect -->
+        {#if bulk}
             <div class="ms-2 py-1 text-muted">
-                <!-- TODO: ifs, defition, slots -->
-                <slot name="search">With selected:</slot>
-                <Select class="ms-2 d-inline-block" size="small" options={[{v:0, t:'Delete'}]} value="" />
-                <button class="btn btn-go">Go</button>
+                {bulkLabel.replace(/\{\w+\}/g, (match) => ({
+                        '{selected}': `${selected.length}`, 
+                        '{total}': `${data.length}`,
+                    }[match] || match))}
+                <Select 
+                    class="ms-2 d-inline-block" 
+                    size="small" 
+                    options={Object.keys(bulk).map((k) => ({v: k, t: k}))} 
+                    bind:value={bulkAction} />
+                <button 
+                    class="btn btn-go" 
+                    class:disabled={!selected.length || (selected.length && !bulkAction)} 
+                    on:click={bulk[bulkAction]}>
+                    <slot name="bulkAction">GO</slot>
+                </button>
             </div>
-        <!-- endif -->
+        {/if}
     </div>
-<!-- endif -->
+{/if}
 
 <style>
     .select-field :global(label) {
