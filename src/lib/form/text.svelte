@@ -95,7 +95,7 @@
 
     /**
      * The bound value.
-	 * @type {string}
+	 * @type {string|number}
 	 */
     export let value;
 
@@ -131,7 +131,7 @@
     export let isValid = null;
     $: isValid = !isTouched? null: [
         required && typeof value === 'string'? !!value.length: null,
-        validationRegex instanceof RegExp? validationRegex.test(value): null,
+        validationRegex instanceof RegExp? validationRegex.test(String(value)): null,
     ].reduce((previous, current) => 
         current === null? previous: previous === null? current: previous && current);
 </script>
