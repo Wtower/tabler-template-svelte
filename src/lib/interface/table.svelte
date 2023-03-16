@@ -1,7 +1,6 @@
 <script>
     import Checkboxes from "$lib/form/checkboxes.svelte";
     import Progress from "$lib/form/progress.svelte";
-    import Select from "$lib/form/select.svelte";
     import Text from "$lib/form/text.svelte";
     import { slide } from "svelte/transition";
 
@@ -93,16 +92,31 @@
     export let bulk = null;
 
     /**
-     * The selected action.
-     * @type {string}
-     */
-    let bulkAction = '';
-
-    /**
      * Bulk action label.
      * @type {string}
      */
     export let bulkLabel = 'With {selected} of {total} records:';
+
+    /**
+     * Bind the limit of items per page.
+     * @type {number}
+     */
+    export let limit = 0;
+
+    /**
+     * Bind the items to skip for next pages.
+     * @type {number}
+     */
+    export let skip = 0;
+
+    /**
+     * The total items.
+     * @type {number}
+     */
+    export let total = 0;
+
+    $: page = (skip ?? 0) / limit;
+    $: pages = Math.ceil(total / (limit || 1));
 </script>
 
 <!-- 
@@ -114,11 +128,10 @@ Slots:
 - addNewRecord: The add new record label.
 - default: Provide an edit form for each row.
 - row: Custom slot with props to control field output.
-- bulkAction: The bulk action button label.
 -->
 
 {#if search !== null || addNewRecord} 
-    <div class="row p-3 border-bottom text-muted">
+    <div class="card-header row text-muted">
         {#if search !== null}
             <div class="py-1" 
                 class:col-sm-10={addNewRecord} 
@@ -253,9 +266,46 @@ Slots:
 {/if}
 
 <!-- TODO: 1 row bulk hide if no selected, buttons instead of select + 1 row pager left, right: x records + buttons 15-30-50-X items per page -->
-<div class="card-footer">
-    Pager
-</div>
+{#if pages}
+    <div class="card-footer">
+        <!-- {page}/{pages} {limit} {skip} -->
+        <ul class="pagination m-0">
+            {#if page > 0}
+                <li class="page-item">
+                    <button class="page-link" on:click={() => skip -= limit}>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>
+                    </button>
+                </li>
+            {/if}
+            {#each [...Array(pages).keys()] as i}
+                <li class="page-item" class:active={page === i}>
+                    <button class="page-link" on:click={() => skip = i * limit}>{i + 1}</button>
+                </li>
+            {/each}
+            {#if page + 1 < pages}
+                <li class="page-item">
+                    <button class="page-link" on:click={() => skip += limit}>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    </button>
+                </li>
+            {/if}
+        </ul>
+    </div>
+{/if}
+
+<!-- *1 2 3 4 5 ... X > -->
+<!-- < 1 *2 3 4 5 ... X > -->
+<!-- < 1 2 3 *4 5 ... X > -->
+<!-- < 1 ... 3 4 *5 6 7 ... X > -->
+
+<!-- *1 2 3 4 5 6 > -->
+<!-- < 1 2 3 *4 5 6 > -->
+<!-- < 1 2 3 4 5 *6 -->
+
+<!-- *1 2 3 4 5 ... 7 > -->
+<!-- < 1 2 3 *4 5 ... 7 > -->
+<!-- < 1 ... 3 4 *5 6 7 > -->
+<!-- < 1 ... 3 4 5 6 *7 -->
 
 <style>
     .select-field :global(label) {

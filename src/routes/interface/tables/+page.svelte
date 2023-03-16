@@ -89,6 +89,9 @@
     }
     let promiseProducts = getProducts();
 
+    // Carts
+    let limit = 8;
+    let skip = 0;
     /**
 	 * https://dummyjson.com/docs/carts
 	 * @param {number} limit
@@ -102,7 +105,7 @@
         const data = await res.json();
         return data;
     }
-    let promiseCarts = getCarts(8, 0);
+    $: promiseCarts = getCarts(limit, skip);
     /** @type {string?} */
     let visibleCart;
     /** @type {Array.<string>} */
@@ -343,6 +346,9 @@
                             addNewRecord
                             bind:visible={visibleCart}
                             bind:selected={selectedCart}
+                            bind:limit
+                            bind:skip
+                            total={data.total}
                             fields={{
                                 selectUsers: {type: 'select'},
                                 id: {label: 'ID'},
