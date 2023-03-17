@@ -274,23 +274,8 @@ Slots:
     </div>
 {/if}
 
-<!-- PAGER -->
-<!-- *1 2 3 4 5 ... X > -->
-<!-- < 1 *2 3 4 5 ... X > -->
-<!-- < 1 2 3 *4 5 ... X > -->
-<!-- < 1 ... 3 4 *5 6 7 ... X > -->
-
-<!-- *1 2 3 4 5 6 > -->
-<!-- < 1 2 3 *4 5 6 > -->
-<!-- < 1 2 3 4 5 *6 -->
-
-<!-- *1 2 3 4 5 ... 7 > -->
-<!-- < 1 2 3 *4 5 ... 7 > -->
-<!-- < 1 ... 3 4 *5 6 7 > -->
-<!-- < 1 ... 3 4 5 6 *7 -->
 {#if total}
     <div class="card-footer d-flex">
-        <!-- {page}/{pages} {limit} {skip} -->
         <ul class="pagination m-0">
             {#if page > 0}
                 <li class="page-item">
@@ -300,9 +285,15 @@ Slots:
                 </li>
             {/if}
             {#each [...Array(pages).keys()] as i}
-                <li class="page-item" class:active={page === i}>
-                    <button class="page-link" on:click={() => skip = i * limit}>{i + 1}</button>
-                </li>
+                <!-- Display if first, last or +/- 2 -->
+                {#if i === 0 || i + 1 >= pages || (i < page + 3 && i > page - 3)}
+                    <li class="page-item" class:active={page === i}>
+                        <button class="page-link" on:click={() => skip = i * limit}>{i + 1}</button>
+                    </li>
+                <!-- Display ... only if previous or next are in range -->
+                {:else if i - 1 < page + 3 && i + 1 > page - 3}
+                    <li class="page-item"><button class="page-link disabled">...</button></li>
+                {/if}
             {/each}
             {#if page + 1 < pages}
                 <li class="page-item">
