@@ -32,6 +32,9 @@ export const config = readable({
             href: `${base}/interface/empty`,
             title: 'Empty page',
         }, {
+            href: `${base}/interface/blank`,
+            title: 'Blank page',
+        }, {
             href: `${base}/interface/badges`,
             title: 'Badges',
             badge: {text: 'NEW'},

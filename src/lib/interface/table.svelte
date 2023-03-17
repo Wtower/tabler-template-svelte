@@ -1,8 +1,9 @@
 <script>
+    import { slide } from "svelte/transition";
     import Checkboxes from "../form/checkboxes.svelte";
     import Progress from "../form/progress.svelte";
     import Text from "../form/text.svelte";
-    import { slide } from "svelte/transition";
+    import emptyImg from "../images/undraw_printing_invoices_5r4r.svg";
 
     /**
      * Field definition.
@@ -267,7 +268,13 @@ Slots:
                 {/if}
             {/each}
             {#if !data.length}
-                <slot name="empty" />
+                <slot name="empty">
+                    <div class="p-3 text-center">
+                        <div class="empty-img">
+                            <img src={emptyImg} height="128" alt="Empty">
+                        </div>
+                    </div>
+                </slot>
             {/if}
         </tbody>
     </table>
