@@ -83,7 +83,6 @@
 
     /**
      * Add click listener.
-     * Not in multiline.
      * https://svelte.dev/tutorial/component-events
 	 * @param {any} value
 	 */

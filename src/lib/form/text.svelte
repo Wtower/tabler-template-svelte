@@ -1,4 +1,5 @@
 <script>
+	import { createEventDispatcher } from "svelte";
     import Wrapper from "../interface/wrapper.svelte";
     import Label from "./label.svelte";
 
@@ -134,6 +135,17 @@
         validationRegex instanceof RegExp? validationRegex.test(String(value)): null,
     ].reduce((previous, current) => 
         current === null? previous: previous === null? current: previous && current);
+
+    const dispatch = createEventDispatcher();
+
+    /**
+     * Add change listener. Bound values trigger every on:input, not on final change.
+     * https://svelte.dev/tutorial/component-events
+	 * @param {any} event
+	 */
+    function handleChange(event) {
+        dispatch('change', event);
+    }
 </script>
 
 <!-- 
@@ -191,6 +203,7 @@ Slots:
             {readonly}
             {list}
             on:blur|once={() => isTouched = true}
+            on:change={handleChange}
             bind:value>
     {:else}
         <input 
@@ -216,6 +229,7 @@ Slots:
             {maxlength}
             {list}
             on:blur|once={() => isTouched = true}
+            on:change={handleChange}
             bind:value>
     {/if}
     {#if !$$slots.default && !$$slots.description && $$slots.iconAfter}
