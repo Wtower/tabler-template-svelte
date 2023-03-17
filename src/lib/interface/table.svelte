@@ -132,11 +132,13 @@ Table component.
 
 Slots:
 - search: The search label.
+- header: Show a title in top row if no search is provided.
 - addNewRecord: The add new record label.
 - default: Provide an edit form for each row.
 - row: Custom slot with props to control field output.
+- empty: What to show if no data.
 - total: The text for total items.
-- perPage: The texst for items per page.
+- perPage: The text for items per page.
 -->
 
 {#if search !== null || addNewRecord} 
@@ -148,11 +150,17 @@ Slots:
                 <slot name="search">Search:</slot>
                 <Text class="ms-2 mb-2 d-inline-block" size="small" bind:value={search} />
                 <!-- TODO: Here add filters two slots (buttons + pop-up) Stack Overflow-style -->
-    </div>
+            </div>
+        {:else if $$slots.header}
+            <div class="py-1" 
+                class:col-sm-10={addNewRecord} 
+                class:col-sm-12={!addNewRecord}>
+                <h2><slot name="header" /></h2>
+            </div>
         {/if}
         {#if addNewRecord}
             <div class="text-end col-sm-2"
-                class:offset-sm-10={search === null}>
+                class:offset-sm-10={search === null && !$$slots.header}>
                 <button class="btn" on:click={() => visible = visible === ''? null: ''}>
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -258,6 +266,9 @@ Slots:
                     </tr>
                 {/if}
             {/each}
+            {#if !data.length}
+                <slot name="empty" />
+            {/if}
         </tbody>
     </table>
 </div>
