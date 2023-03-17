@@ -321,12 +321,18 @@ Slots:
                             class="per-page btn btn-sm py-1 px-2 rounded-2 me-1"
                             class:btn-primary={
                                 limit === i || (limit === 0 && typeof i === 'string')
-                            }>
+                            }
+                            on:click={() => limit = typeof i === 'string'? 0: i ?? 0}>
                             {i}
                         </button>
                     {:else}
-                        <Text class="w-4 d-inline-block" size="small" value={limit} />
-                        <!-- TODO: no bind; implement on change event; then improve pager -->
+                        <Text 
+                            class="w-4 d-inline-block border-primary rounded-2 {
+                                limit === 0 || limits.includes(limit)? '': 'border'
+                            }"
+                            size="small" 
+                            value={limit} 
+                            on:change={(e) => limit = e.detail.target.value} />
                     {/if}
                 {/each}
                 <slot name="perPage">per page</slot>
