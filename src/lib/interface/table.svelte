@@ -1,7 +1,7 @@
 <script>
-    import Checkboxes from "$lib/form/checkboxes.svelte";
-    import Progress from "$lib/form/progress.svelte";
-    import Text from "$lib/form/text.svelte";
+    import Checkboxes from "../form/checkboxes.svelte";
+    import Progress from "../form/progress.svelte";
+    import Text from "../form/text.svelte";
     import { slide } from "svelte/transition";
 
     /**
