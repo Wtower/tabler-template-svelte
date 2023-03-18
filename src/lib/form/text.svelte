@@ -84,7 +84,7 @@
 
     /**
      * The input type.
-     * @type {'text'|'email'}
+     * @type {'text'|'email'|'number'}
      */
     export let type = 'text';
 
@@ -202,6 +202,30 @@ Slots:
             {disabled}
             {readonly}
             {list}
+            on:blur|once={() => isTouched = true}
+            on:change={handleChange}
+            bind:value>
+    {:else if type === 'number'}
+        <input 
+            {id}
+            type="number" 
+            class="form-control"
+            class:form-control-sm={size === 'small'}
+            class:form-control-lg={size === 'large'}
+            class:form-control-rounded={border === 'rounded'}
+            class:form-control-flush={border === 'none'}
+            class:ps-0={padding.includes('none')}
+            class:pe-0={padding.includes('none')}
+            class:text-end={padding.includes('text-end')}
+            class:is-valid={isValid}
+            class:is-valid-lite={isValid && validationLite}
+            class:is-invalid={isValid === false}
+            class:is-invalid-lite={isValid === false && validationLite}
+            name={id}
+            placeholder={floatingLabel? null: placeholder}
+            {autocomplete}
+            {disabled}
+            {readonly}
             on:blur|once={() => isTouched = true}
             on:change={handleChange}
             bind:value>
