@@ -136,9 +136,11 @@
                                     on:click={() => 
                                         visibleUser = visibleUser === row.id? null: row.id
                                     }>
-                                    edit</a></span>
+                                    edit</a>
+                            </span>
+                            
                             <div class="row mb-3">
-                                <!-- Here should update the record and refresh the promise -->
+                                <!-- Main slot: Here should update the record and refresh the promise -->
                                 <Text id="{row.id}.lastName" 
                                     class="col-lg-6 mb-3"
                                     disabled 
@@ -408,8 +410,9 @@
                                     </div>
                                 {/if}
                             </span>
-                            <div class="row mb-3">
-                                <!-- Here should add the record and refresh the promise -->
+
+                            <div class="row">
+                                <!-- Main slot: Here should add the record and refresh the promise -->
                                 <Text id="{row.id}.id" 
                                     class="col-lg-6 mb-3"
                                     disabled 

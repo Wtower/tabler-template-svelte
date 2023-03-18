@@ -174,7 +174,7 @@ Slots:
         {/if}
     </div>
     {#if visible === ''}
-        <div class="p-3 ms-2 border-bottom" transition:slide>
+        <div class="card-header row" transition:slide>
             <slot row="" />
         </div>
     {/if}
@@ -263,7 +263,9 @@ Slots:
                 </tr>
                 {#if visible === row.id}
                     <tr in:slide={{delay: 300, duration: 300}} out:slide={{duration: 600}}>
-                        <td colspan={Object.keys(fields).length}><slot {row} /></td>
+                        <td colspan={Object.keys(fields).length}>
+                            <slot {row} />
+                        </td>
                     </tr>
                 {/if}
             {/each}
