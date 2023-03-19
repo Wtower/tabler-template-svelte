@@ -6,12 +6,19 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Wtower/tabler-template-svelte"
-	  },
-	  "keywords": ["tabler", "sveltekit"],
-	  "author": {"name": "George Karakostas"},
-	  "bugs": {"url": "https://github.com/Wtower/tabler-template-svelte/issues"},
-	  "homepage": "https://magnum.9-dev.com/tabler/",
-	  "scripts": {
+	},
+	"keywords": [
+		"tabler",
+		"sveltekit"
+	],
+	"author": {
+		"name": "George Karakostas"
+	},
+	"bugs": {
+		"url": "https://github.com/Wtower/tabler-template-svelte/issues"
+	},
+	"homepage": "https://magnum.9-dev.com/tabler/",
+	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
 		"preview": "vite preview",
