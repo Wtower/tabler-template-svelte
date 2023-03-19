@@ -128,6 +128,7 @@
                             noMargin
                             fields={fieldUsers}
                             {data}
+                            idField="id"
                             bind:visible={visibleUser}
                             let:row>
                             <span slot="row">
@@ -198,6 +199,7 @@
                                 },
                                 stock: {align: 'right', strong: true},
                             }} 
+                            idField="id"
                             {data} />
                     {/await}
                     <div class="mb-3"></div>
@@ -215,6 +217,7 @@
                             noMargin
                             striped
                             fields={fieldUsers}
+                            idField="id"
                             {data}>
                             <span slot="row">(edit disabled)</span>
                         </Table>
@@ -239,6 +242,7 @@
                                 company: {slot: true},
                                 edit: {slot: true, label: ''},
                             }}
+                            idField="id"
                             {data}>
                             <span slot="row" let:row let:fieldId let:field>
                                 {#if fieldId === 'name'}
@@ -288,6 +292,7 @@
                                 company: {slot: true},
                                 edit: {slot: true, label: ''},
                             }}
+                            idField="id"
                             {data}>
                             <span slot="row" let:row let:fieldId>
                                 {#if fieldId === 'name'}
@@ -384,6 +389,7 @@
                                 actions: {slot: true, label: ''},
                             }}
                             data={data.carts}
+                            idField="id"
                             bulk={{'Delete': () => alert(`Attempted to delete ${selectedCart}`)}}
                             let:row>
                             <span slot="row" let:row let:fieldId>

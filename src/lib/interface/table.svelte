@@ -26,6 +26,12 @@
     export let data;
 
     /**
+     * The field name in data that contains the row id.
+     * @type {string}
+     */
+    export let idField = '_id';
+
+    /**
      * Control which edit row is visible.
      * If '' then add record is shown.
      * @type {string?}
@@ -203,7 +209,7 @@ Slots:
                                 checkboxes={[{v: true, t: ''}]} 
                                 on:click={() => selected = 
                                     selected.length === data.length? []: data.map(
-                                    /** @param {{ id: any; }} row */ row => row.id
+                                    /** @param {{ [id: string]: any; }} row */ row => row[idField]
                                 )}
                                 bind:value={selectAll} />
                         {:else if f.label}
@@ -217,9 +223,9 @@ Slots:
         </thead>
         <tbody>
             {#each data as row}
-                <tr id={row.id}>
+                <tr id={row[idField]}>
                     {#each Object.entries(fields) as [id, f]}
-                        <td id="{row.id}.{id}" 
+                        <td id="{row[idField]}.{id}" 
                             class:text-muted={!f.strong && !f.slot}
                             class:text-center={f.align === 'center'} 
                             class:text-end={f.align === 'right'}
@@ -230,13 +236,13 @@ Slots:
                                 <Checkboxes 
                                     name={id}
                                     wrapper=""
-                                    checkboxes={[{v: row.id, t: ''}]}
+                                    checkboxes={[{v: row[idField], t: ''}]}
                                     on:click={() => {
                                         // Handle click manually; bind not working.
-                                        selected = selected.includes(row.id)? 
-                                            selected.filter(i => i !== row.id): 
+                                        selected = selected.includes(row[idField])? 
+                                            selected.filter(i => i !== row[idField]): 
                                             // https://svelte.dev/tutorial/updating-arrays-and-objects
-                                            [...selected, row.id];
+                                            [...selected, row[idField]];
                                         selectAll = [];
                                     }}
                                     value={selected} />
@@ -261,7 +267,7 @@ Slots:
                         </td>
                     {/each}
                 </tr>
-                {#if visible === row.id}
+                {#if visible === row[idField]}
                     <tr in:slide={{delay: 300, duration: 300}} out:slide={{duration: 600}}>
                         <td colspan={Object.keys(fields).length}>
                             <slot {row} />
