@@ -61,7 +61,7 @@ Slots
                     checkboxes={[{
                         v: false,
                         t: '',
-                        html: `Agree with <a href="./terms-of-service.html" tabindex="-1">terms and policy</a>`
+                        html: `Agree with <a href="#terms-of-service" tabindex="-1">terms and policy</a>`
                     }]} 
                     value={[]} />
                 <div class="form-footer">
@@ -70,6 +70,6 @@ Slots
             </div>
         </form>
         <div class="text-center text-muted mt-3">
-            Already have account? <a href="./sign-in.html" tabindex="-1">Sign in</a>
+            Already have account? <a href="#sign-in" tabindex="-1">Sign in</a>
         </div>
     </div>
