@@ -19,7 +19,7 @@
     
     /**
      * Current user.
-	 * @type {{username: string, email: string}}
+	 * @type {{username: string, email: string}?}
 	 */
     export let user;
 
@@ -133,7 +133,10 @@
         }, 500);
     });
 
-    $: if (colorThemeQuery) document.body.className = $colorThemeQuery? 'theme-dark': 'theme-light';
+    $: if (colorThemeQuery) {
+        document.body.classList.remove(!$colorThemeQuery? 'theme-dark': 'theme-light');
+        document.body.classList.add($colorThemeQuery? 'theme-dark': 'theme-light');
+    }
 </script>
 
 <!-- 
@@ -260,16 +263,19 @@ Slots
                     data-bs-toggle="dropdown"
                     aria-label="Open user menu">
                     <span class="avatar avatar-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M12 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-                            </svg>
+                        <slot name="avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M12 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                </svg>
+                        </slot>
                     </span>
                     <div class="d-none d-xl-block ps-2">
-                        <div>{ user.username }</div>
-                        <div class="mt-1 small text-muted">{ user.email }</div>
-                        <slot name="user" />
+                        <slot name="user">
+                            <div>{ user?.username }</div>
+                            <div class="mt-1 small text-muted">{ user?.email }</div>
+                        </slot>
                     </div>
                 </a>
                 {#if profileMenu}
