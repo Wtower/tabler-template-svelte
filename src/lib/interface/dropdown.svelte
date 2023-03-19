@@ -34,9 +34,15 @@
 
     /**
      * Draws an arrow pointing up at `start` or `end` corner.
-     * @type {''|'start'|'end'}
+     * @type {''|'start'|'end'|boolean}
      */
     export let arrow = '';
+
+    /**
+     * Position menu to end.
+     * @type {boolean}
+     */
+    export let end = false;
 
     /**
      * Inverted colors.
@@ -51,7 +57,7 @@ Dropdown menu component.
 -->
 <div class="dropdown-menu"
     class:dropdown-menu-arrow={!!arrow}
-    class:dropdown-menu-end={arrow === 'end'}
+    class:dropdown-menu-end={arrow === 'end' || end}
     class:bg-dark={invert}
     class:text-white={invert}>
     <div class="dropdown-menu-columns">
