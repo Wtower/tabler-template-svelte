@@ -438,10 +438,9 @@
                                             <ImageCheck 
                                                 name="form-imagecheck"
                                                 images={
-                                                    [...Array(6).fill('https://via.placeholder.com/107x71').map((image, i) => ({
-                                                        v: i, 
-                                                        img: image
-                                                    }))]
+                                                    [...Array(6).keys()].map((v) => ({v,
+                                                        img: `https://robohash.org/${v}.png`,
+                                                    }))
                                                 }
                                                 value={[1, 3]}>
                                                 Image Check
@@ -450,10 +449,9 @@
                                                 name="form-imagecheck-radio"
                                                 type="radio"
                                                 images={
-                                                    [...Array(6).fill('https://via.placeholder.com/107x71').map((image, i) => ({
-                                                        v: i, 
-                                                        img: image
-                                                    }))]
+                                                    [...Array(6).keys()].map((v) => ({v,
+                                                        img: `https://robohash.org/${v + 6}.png`,
+                                                    }))
                                                 }
                                                 value={3}>
                                                 Image Check Radio
@@ -658,7 +656,7 @@
                                                             </span>
                                                         </div>
                                                         <div class="form-selectgroup-label-content d-flex align-items-center">
-                                                            <span class="avatar me-3" style="background-image: url(./static/avatars/000m.jpg)">
+                                                            <span class="avatar me-3" style="background-image: url(https://robohash.org/PawełKuna.png)">
                                                                 </span>
                                                             <div>
                                                                 <div class="font-weight-medium">
@@ -689,7 +687,7 @@
                                                                 </span>
                                                         </div>
                                                         <div class="form-selectgroup-label-content d-flex align-items-center">
-                                                            <span class="avatar me-3" style="background-image: url(./static/avatars/002m.jpg)">
+                                                            <span class="avatar me-3" style="background-image: url(https://robohash.org/MalloryHulme.png)">
                                                                 </span>
                                                             <div>
                                                                 <div class="font-weight-medium">
@@ -705,7 +703,7 @@
                                                                 </span>
                                                         </div>
                                                         <div class="form-selectgroup-label-content d-flex align-items-center">
-                                                            <span class="avatar me-3" style="background-image: url(./static/avatars/003m.jpg)">
+                                                            <span class="avatar me-3" style="background-image: url(https://robohash.org/DunnSlane.png)">
                                                                 </span>
                                                             <div>
                                                                 <div class="font-weight-medium">
@@ -721,7 +719,7 @@
                                                                 </span>
                                                         </div>
                                                         <div class="form-selectgroup-label-content d-flex align-items-center">
-                                                            <span class="avatar me-3" style="background-image: url(./static/avatars/000f.jpg)">
+                                                            <span class="avatar me-3" style="background-image: url(https://robohash.org/EmmyLevet.png)">
                                                                 </span>
                                                             <div>
                                                                 <div class="font-weight-medium">
@@ -1257,9 +1255,8 @@
                                                 options={[
                                                     'Paweł Kuna', 'Mallory Hulme', 'Jeffie Lewzey'
                                                 ].map((t, v) => ({
-                                                    v: v, 
-                                                    t: t, 
-                                                    data: '<span class="avatar avatar-xs" style="background-image: url(https://via.placeholder.com/107x71)"></span>'
+                                                    v, t,
+                                                    data: `<span class="avatar avatar-xs" style="background-image: url(https://robohash.org/${t.replace(' ', '')}.png)"></span>`
                                                 }))}
                                                 value="">
                                                 Select with avatars
@@ -1648,7 +1645,7 @@
                                         <div class="row">
                                             <div class="col-auto">
                                                 <span class="avatar avatar-md" 
-                                                    style="background-image: url(https://via.placeholder.com/107x71)">
+                                                    style="background-image: url(https://robohash.org/your-email@domain.com.png)">
                                                 </span>
                                             </div>
                                             <div class="col">

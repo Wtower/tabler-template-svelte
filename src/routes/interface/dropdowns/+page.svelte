@@ -45,13 +45,13 @@
                     }, {
                         divider: true,
                     }, {
-                        icon: `<span class="avatar avatar-xs rounded me-2" style="background-image: url(https://via.placeholder.com/107x71)"></span>`,
+                        icon: `<span class="avatar avatar-xs rounded me-2" style="background-image: url(https://robohash.org/PawełKuna.png)"></span>`,
                         title: 'Paweł Kuna',
                     }, {
                         icon: `<span class="avatar avatar-xs rounded me-2">JL</span>`,
                         title: 'Jefie Lewsey',
                     }, {
-                        icon: `<span class="avatar avatar-xs rounded me-2" style="background-image: url(https://via.placeholder.com/107x71)"></span>`,
+                        icon: `<span class="avatar avatar-xs rounded me-2" style="background-image: url(https://robohash.org/MalloryHulme.png)"></span>`,
                         title: 'Mallory Hulme',
                     }, {
                         divider: true,
@@ -222,7 +222,7 @@
                         'Paweł Kuna', 'Jeffie Lewzey', 'Mallory Hulme', 'Dunn Slane', 'Emmy Levet', 
                         'George Karakostas'
                     ].map(t => ({
-                        icon: `<span class="avatar avatar-xs rounded me-2" style="background-image: url(https://via.placeholder.com/107x71)"></span>`,
+                        icon: `<span class="avatar avatar-xs rounded me-2" style="background-image: url(https://robohash.org/${t.replace(' ', '')}.png)"></span>`,
                         title: t
                     }))
                 ]}} />

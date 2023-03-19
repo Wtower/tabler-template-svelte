@@ -170,7 +170,7 @@
             </div>
             <div class="col-lg-6">
                 <Card columns="left" header="none" img={{
-                    src: 'https://via.placeholder.com/137x152', 
+                    src: 'https://robohash.org/card-left.png', //137x152', 
                     alt: 'column'
                 }}>
                     <span slot="title">Card with left side image</span>
@@ -182,7 +182,7 @@
             </div>
             <div class="col-lg-6">
                 <Card columns="right" header="none" img={{
-                    src: 'https://via.placeholder.com/137x152', 
+                    src: 'https://robohash.org/card-right.png', //137x152', 
                     alt: 'column'
                 }}>
                     <span slot="title">Card with right side image</span>
@@ -194,7 +194,7 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <Card header="none" img={{
-                    src: 'https://via.placeholder.com/266x114', 
+                    src: 'https://robohash.org/card-top.png', //266x114', 
                     placement: 'top'
                 }}>
                     <span slot="title">Card with top image</span>
@@ -206,7 +206,7 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <Card header="none" img={{
-                    src: 'https://via.placeholder.com/266x114', 
+                    src: 'https://robohash.org/card-bottom.png', //266x114', 
                     placement: 'bottom'
                 }}>
                     <span slot="title">Card with bottom image</span>
@@ -296,9 +296,9 @@
                         <div class="row align-items-center">
                             <div class="col-auto ms-auto">
                                 <div class="avatar-list avatar-list-stacked">
-                                    {#each [...Array(5).keys()] as _}
+                                    {#each [...Array(5).keys()] as i}
                                         <span class="avatar avatar-sm rounded" 
-                                            style:background-image="url(https://via.placeholder.com/32x32)">
+                                            style:background-image="url(https://robohash.org/{i}.png)">
                                         </span>
                                     {/each}
                                     <span class="avatar avatar-sm rounded">+3</span>
@@ -423,7 +423,7 @@
                 <Card>
                     <div class="empty">
                         <div class="empty-img">
-                            <img src="https://via.placeholder.com/187x128" height="128" alt="">
+                            <img src="https://robohash.org/187x128.png" height="128" alt="">
                         </div>
                         <p class="empty-title">No results found</p>
                         <p class="empty-subtitle text-muted">
