@@ -2,6 +2,13 @@
     import Progress from "../form/progress.svelte";
 	import Wrapper from "./wrapper.svelte";
 
+    /** 
+     * Extra classes for the wrapper element.
+     * @type {string?} 
+     */
+    let extraClass = null;
+    export { extraClass as class };
+
     /**
      * Renders a header optionally with light background.
      * @type {'normal'|'light'|'none'}
@@ -123,7 +130,7 @@ Slots:
 <svelte:element 
     this={href? 'a': 'div'} 
     {href}
-    class="card" 
+    class="card {extraClass ?? ''}" 
     class:card-link={href}
     class:card-link-rotate={href && linkEffect === 'rotate'}
     class:card-link-pop={href && linkEffect === 'pop'}
@@ -140,10 +147,16 @@ Slots:
         ($$slots.header || $$slots.title || $$slots.subtitle)}
         <div class="card-header" class:card-header-light={header === 'light'}>
             <slot name="header" />
-            {#if $$slots.title || $$slots.subtitle}
+            {#if $$slots.title || $$slots.subtitle || $$slots.actions}
                 <h3 class="card-title">
-                    <slot name="title" /><span class="card-subtitle"><slot name="subtitle" /></span>
+                    <slot name="title" />
+                    {#if $$slots.subtitle}
+                        <span class="card-subtitle"><slot name="subtitle" /></span>
+                    {/if}
                 </h3>
+                {#if $$slots.actions}
+                    <div class="card-actions btn-actions"><slot name="actions" /></div>
+                {/if}
             {/if}
         </div>
     {/if}

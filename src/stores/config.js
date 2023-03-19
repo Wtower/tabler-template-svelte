@@ -37,13 +37,17 @@ export const config = readable({
         }, {
             href: `${base}/interface/badges`,
             title: 'Badges',
-            badge: {text: 'NEW'},
+            badge: {color: 'green', text: 'NEW'},
         }, {
             title: 'Cards',
             badge: {color: 'green', text: 'NEW'},
             menu: [[{
                 href: `${base}/interface/cards`,
                 title: 'Sample cards',
+            }, {
+                href: `${base}/interface/cards/actions`,
+                title: 'Card actions',
+                badge: {color: 'green', text: 'NEW'},
             }]],
         }, {
             href: `${base}/interface/dropdowns`,
