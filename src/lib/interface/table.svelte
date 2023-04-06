@@ -15,6 +15,7 @@
      *      strong?: boolean,
      *      nowrap?: boolean,
      *      type?: 'text'|'email'|'calculate'|'slot'|'progress'|'select',
+     *      f?: function,
      *      calculate?: {fields: Array.<string>, function: function},
      *      slot?: boolean,
      *      progress?: {fieldLabel: string, fieldValue: string, maxValue?: number},
@@ -246,6 +247,8 @@ Slots:
                                         selectAll = [];
                                     }}
                                     value={selected} />
+                            {:else if f.f}
+                                {f.f(row[id])}
                             {:else if f.calculate}
                                 {f.calculate.function(f.calculate.fields.reduce((a, v) => 
                                     ({...a, [v]: row[v]}), {}))}
