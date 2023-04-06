@@ -181,7 +181,7 @@ Slots:
         {/if}
     </div>
     {#if visible === ''}
-        <div class="card-header row" transition:slide>
+        <div class="card-header row" transition:slide|local>
             <slot row="" />
         </div>
     {/if}
@@ -271,7 +271,7 @@ Slots:
                     {/each}
                 </tr>
                 {#if visible === row[idField]}
-                    <tr in:slide={{delay: 300, duration: 300}} out:slide={{duration: 600}}>
+                    <tr transition:slide|local>
                         <td colspan={Object.keys(fields).length}>
                             <slot {row} />
                         </td>
@@ -292,7 +292,7 @@ Slots:
 </div>
 
 {#if bulk && selected.length}
-    <div class="card-footer text-muted" transition:slide>
+    <div class="card-footer text-muted" transition:slide|local>
         {bulkLabel.replace(/\{\w+\}/g, (match) => ({
                 '{selected}': `${selected.length}`, 
                 '{total}': `${data.length}`,
